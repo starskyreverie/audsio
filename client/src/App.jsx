@@ -1,10 +1,17 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import GlobalStyle from "./globalStyles.js";
+import { Header, SearchSection, Footer } from "./components";
 
 const App = () => {
   return (
-    <div>
-      <h1>eriv.xyz</h1>
-    </div>
+    <Router>
+      <GlobalStyle />
+      <Header />
+      <SearchSection />
+      <Footer />
+    </Router>
   );
 };
 
