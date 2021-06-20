@@ -1,10 +1,20 @@
-import React from "react";
-import { SearchSection } from "../../components";
+import React, { useState, useEffect } from "react";
+import { Posts, SearchSection } from "../../components";
+import { useDispatch } from "react-redux";
+import { getPosts } from "../../store/actions/posts.js";
 
 const Home = () => {
+  const [currentId, setCurrentId] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [currentId, dispatch]);
+
   return (
     <>
       <SearchSection />
+      <Posts setCurrentId={setCurrentId} />
     </>
   );
 };
