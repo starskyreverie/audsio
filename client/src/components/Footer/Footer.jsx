@@ -1,11 +1,19 @@
 import React from "react";
-import { HeaderIcon } from "../Header/Header.elements.js";
-import { FooterContainer } from "./Footer.elements.js";
+import {
+  FooterContainer,
+  FooterIcon,
+  VersionLabel,
+  FooterText,
+  FooterSeparator,
+} from "./Footer.elements.js";
 
 const Footer = () => {
   return (
     <FooterContainer>
-      <HeaderIcon width="2px" height="2px" />
+      <FooterIcon />
+      <FooterText>eriv</FooterText>
+      <FooterSeparator>·</FooterSeparator>
+      <VersionLabel>v1.0.0</VersionLabel>
     </FooterContainer>
   );
 };
