@@ -10,7 +10,14 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const newPost = new Post(req.body);
+  console.log(req);
+  const newPost = new Post({
+    title: req.body.title,
+    message: req.body.message,
+    creator: req.body.creator,
+    tags: req.body.tags,
+    fileUrl: "hi",
+  });
   try {
     await newPost.save();
     res.status(201).json(newPost);

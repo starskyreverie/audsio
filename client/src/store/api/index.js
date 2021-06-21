@@ -20,7 +20,23 @@ export const fetchPostsBySearch = (searchQuery) =>
       searchQuery.tags
     }`
   );
-export const createPost = (newPost) => API.post("/posts", newPost);
+export const createPost = (newPost) => {
+  const formData = new FormData();
+
+  formData.append("creator", newPost.creator);
+  formData.append("title", newPost.title);
+  formData.append("message", newPost.message);
+  formData.append("tags", newPost.tags);
+  formData.append("file", newPost.file);
+
+  console.log(formData);
+
+  return API.post("/posts", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const comment = (value, id) =>
   API.post(`/posts/${id}/commentPost`, { value });

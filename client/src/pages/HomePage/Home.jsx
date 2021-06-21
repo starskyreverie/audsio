@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Posts, SearchSection } from "../../components";
+import { SearchSection } from "../../components";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../store/actions/posts.js";
 
@@ -14,7 +14,6 @@ const Home = () => {
   return (
     <>
       <SearchSection />
-      <Posts setCurrentId={setCurrentId} />
     </>
   );
 };

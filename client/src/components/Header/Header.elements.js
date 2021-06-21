@@ -11,7 +11,7 @@ export const Header = styled.header`
   font-size: 16px;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 2000;
   padding-top: 2rem;
 `;
 
