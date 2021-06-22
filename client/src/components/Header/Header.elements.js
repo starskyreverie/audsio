@@ -9,7 +9,6 @@ export const Header = styled.header`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  position: sticky;
   top: 0;
   z-index: 2000;
   padding-top: 2rem;
