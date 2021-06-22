@@ -4,6 +4,7 @@ import ErivLogo from "../../images/eriv_logo.svg";
 export const FooterContainer = styled.footer`
   text-align: center;
   margin: 0 auto;
+  margin-bottom: 20px;
   max-width: 800%;
   width: 90%;
   padding: 0;

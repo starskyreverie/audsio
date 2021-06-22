@@ -3,8 +3,12 @@ import Post from "./Post/Post.jsx";
 import { Box, CircularProgress } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
+import { GoodUl } from "./Posts.elements.js";
+
 const Posts = () => {
   const posts = useSelector((state) => state.posts);
+
+  console.log(posts);
 
   return !posts.length ? (
     <Box mt={60}>
@@ -12,11 +16,11 @@ const Posts = () => {
     </Box>
   ) : (
     <>
-      <ul>
+      <GoodUl>
         {posts?.map((post) => (
-          <Post post={post} />
+          <Post post={post} key={post._id} />
         ))}
-      </ul>
+      </GoodUl>
     </>
   );
 };

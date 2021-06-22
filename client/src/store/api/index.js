@@ -37,7 +37,8 @@ export const createPost = (newPost) => {
     },
   });
 };
-export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+export const likePost = (id, value) =>
+  API.patch(`/posts/${id}/${value}/likePost`);
 export const comment = (value, id) =>
   API.post(`/posts/${id}/commentPost`, { value });
 export const updatePost = (id, updatedPost) =>
