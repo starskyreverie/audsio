@@ -41,8 +41,7 @@ const App = () => {
         />
         <Route path="/upload" exact component={Upload} />
         <Route path={["/user/:name", "/tags/:name"]} component={UserOrTag} />
-        <Route path="/404" exact component={NotFound} />
-        <Redirect to="/404" />
+        <Route component={NotFound} />
       </Switch>
       <Footer />
     </Router>
