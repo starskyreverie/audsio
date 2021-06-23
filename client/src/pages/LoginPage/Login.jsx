@@ -1,10 +1,13 @@
 import React from "react";
 
+import { LoginFormContainer } from "../../components/LoginForm/LoginForm.elements.js";
+import { LoginForm } from "../../components";
+
 const Login = () => {
   return (
-    <>
-      <>login page</>
-    </>
+    <LoginFormContainer>
+      <LoginForm></LoginForm>
+    </LoginFormContainer>
   );
 };
 

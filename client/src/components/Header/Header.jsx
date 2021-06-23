@@ -11,6 +11,7 @@ import {
   NavMenu,
   NavItemBtn,
   NavBtnLink,
+  CreatorLink,
 } from "./Header.elements";
 
 const HeaderBar = () => {
@@ -37,6 +38,8 @@ const HeaderBar = () => {
 
   window.addEventListener("resize", showButton);
 
+  const user = null;
+
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -49,19 +52,27 @@ const HeaderBar = () => {
               {isClicked ? <FaTimes /> : <FaBars />}
             </MobileIcon>
             <NavMenu onClick={handleClick} isClicked={isClicked}>
-              <NavItemBtn>
-                {button ? (
-                  <NavBtnLink to="/login">
-                    <Button primary>Login</Button>
-                  </NavBtnLink>
-                ) : (
-                  <NavBtnLink to="/login">
-                    <Button onClick={closeMobileMenu} fontBig primary>
-                      Login
-                    </Button>
-                  </NavBtnLink>
-                )}
-              </NavItemBtn>
+              {!user ? (
+                <>
+                  <NavItemBtn>
+                    {button ? (
+                      <NavBtnLink to="/login">
+                        <Button primary>Login</Button>
+                      </NavBtnLink>
+                    ) : (
+                      <NavBtnLink to="/login">
+                        <Button onClick={closeMobileMenu} fontBig primary>
+                          Login
+                        </Button>
+                      </NavBtnLink>
+                    )}
+                  </NavItemBtn>
+                </>
+              ) : (
+                <CreatorLink to={`/users/${user.name}`}>
+                  {user.name}
+                </CreatorLink>
+              )}
               <NavItemBtn>
                 {button ? (
                   <NavBtnLink to="/upload">

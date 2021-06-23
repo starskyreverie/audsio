@@ -132,3 +132,13 @@ export const NavItemBtn = styled.li`
     height: 120px;
   }
 `;
+
+export const CreatorLink = styled(Link)`
+  text-decoration: none;
+  color: #d1d2d2;
+  margin-right: 5px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
