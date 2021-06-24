@@ -6,13 +6,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
 
 app.use("/posts", postRoutes);
+app.use("/users", userRoutes);
 
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT || 5000;

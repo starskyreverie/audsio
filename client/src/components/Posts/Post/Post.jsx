@@ -15,12 +15,12 @@ import {
   FilledHeartIcon,
 } from "./Post.elements.js";
 
-const Post = ({ post, key }) => {
+const Post = ({ post }) => {
   const [isLiked, setLiked] = useState(false);
   const dispatch = useDispatch();
 
   return (
-    <GoodLi key={key}>
+    <GoodLi>
       <FlexContainer>
         <span>{post.title}</span>
         <BottomDiv>
@@ -37,20 +37,20 @@ const Post = ({ post, key }) => {
       </FlexContainer>
       <FlexContainer>
         <LikeCountContainer>
-          {Intl.NumberFormat("en-US").format(post.likeCount)}
+          {Intl.NumberFormat("en-US").format(post.likes.length)}
         </LikeCountContainer>
         {!isLiked ? (
           <HeartIcon
             onClick={() => {
               setLiked(!isLiked);
-              dispatch(likePost(post._id, 1));
+              dispatch(likePost(post._id));
             }}
           />
         ) : (
           <FilledHeartIcon
             onClick={() => {
               setLiked(!isLiked);
-              dispatch(likePost(post._id, 0));
+              dispatch(likePost(post._id));
             }}
           />
         )}

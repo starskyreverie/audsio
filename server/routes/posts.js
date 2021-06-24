@@ -1,7 +1,7 @@
 import express from "express";
-const router = express.Router();
 import multer from "multer";
 
+import auth from "../middleware/auth.js";
 import {
   getPosts,
   createPost,
@@ -11,11 +11,12 @@ import {
 } from "../controllers/posts.js";
 
 const upload = multer();
+const router = express.Router();
 
 router.get("/", getPosts);
-router.post("/", upload.single("file"), createPost);
+router.post("/", auth, upload.single("file"), createPost);
 router.get("/:id", getPost);
-router.delete("/:id", deletePost);
-router.patch("/:id/:value/likePost", likePost);
+router.delete("/:id", auth, deletePost);
+router.patch("/:id/likePost", auth, likePost);
 
 export default router;

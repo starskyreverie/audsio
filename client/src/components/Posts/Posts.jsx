@@ -8,8 +8,6 @@ import { GoodUl } from "./Posts.elements.js";
 const Posts = () => {
   const posts = useSelector((state) => state.posts);
 
-  console.log(posts);
-
   return !posts.length ? (
     <Box mt={60}>
       <CircularProgress isIndeterminate color="#fd4d4d" />
@@ -18,7 +16,7 @@ const Posts = () => {
     <>
       <GoodUl>
         {posts?.map((post) => (
-          <Post post={post} key={post._id} />
+          <Post post={post} key={post._id.toString()} />
         ))}
       </GoodUl>
     </>

@@ -18,6 +18,7 @@ export const HeaderContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
   height: 80px;
+  z-index: 2000;
 
   ${Container}
 `;

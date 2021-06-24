@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaTimes, FaBars } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { Button, RedButton } from "../../globalStyles.js";
+import { useLocation } from "react-router-dom";
 import {
   Header,
   HeaderContainer,
@@ -17,6 +18,9 @@ import {
 const HeaderBar = () => {
   const [isClicked, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  const location = useLocation();
 
   const handleClick = () => {
     setClick(!isClicked);
@@ -38,7 +42,9 @@ const HeaderBar = () => {
 
   window.addEventListener("resize", showButton);
 
-  const user = null;
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, [location]);
 
   return (
     <>
@@ -69,8 +75,8 @@ const HeaderBar = () => {
                   </NavItemBtn>
                 </>
               ) : (
-                <CreatorLink to={`/users/${user.name}`}>
-                  {user.name}
+                <CreatorLink to={`/users/${user.result.username}`}>
+                  {user.result.username}
                 </CreatorLink>
               )}
               <NavItemBtn>

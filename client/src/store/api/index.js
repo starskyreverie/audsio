@@ -8,9 +8,9 @@ const ApiURL =
 const API = axios.create({ baseURL: ApiURL });
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
+  if (localStorage.getItem("user")) {
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile")).token
+      JSON.parse(localStorage.getItem("user")).token
     }`;
   }
 
@@ -34,21 +34,18 @@ export const createPost = (newPost) => {
   formData.append("tags", newPost.tags);
   formData.append("file", newPost.file);
 
-  console.log(formData);
-
   return API.post("/posts", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 };
-export const likePost = (id, value) =>
-  API.patch(`/posts/${id}/${value}/likePost`);
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const comment = (value, id) =>
   API.post(`/posts/${id}/commentPost`, { value });
 export const updatePost = (id, updatedPost) =>
   API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-export const signIn = (formData) => API.post("/user/signin", formData);
-export const signUp = (formData) => API.post("/user/signup", formData);
+export const login = (formData) => API.post("/users/login", formData);
+export const signUp = (formData) => API.post("/users/signup", formData);

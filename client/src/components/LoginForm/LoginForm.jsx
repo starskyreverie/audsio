@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@chakra-ui/react";
@@ -11,9 +11,12 @@ import {
   RegisterLinkContainer,
 } from "./LoginForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
+import { login } from "../../store/actions/auth.js";
+import { useHistory } from "react-router";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <Formik
@@ -24,6 +27,7 @@ const LoginForm = () => {
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
+        dispatch(login(values, history));
         setSubmitting(false);
       }}
     >

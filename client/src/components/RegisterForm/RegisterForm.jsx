@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@chakra-ui/react";
@@ -11,8 +11,11 @@ import {
   RegisterLinkContainer,
 } from "./RegisterForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
+import { useHistory } from "react-router";
+import { signUp } from "../../store/actions/auth.js";
 
 const RegisterForm = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   return (
@@ -26,6 +29,7 @@ const RegisterForm = () => {
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
+        dispatch(signUp(values, history));
         setSubmitting(false);
       }}
     >

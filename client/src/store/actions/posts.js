@@ -32,9 +32,9 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 };
 
-export const likePost = (id, value) => async (dispatch) => {
+export const likePost = (id) => async (dispatch) => {
   try {
-    const { data } = await api.likePost(id, value);
+    const { data } = await api.likePost(id);
 
     dispatch({ type: LIKE, payload: data });
   } catch (error) {
