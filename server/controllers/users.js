@@ -59,7 +59,7 @@ export const login = async (req, res) => {
 
     res.status(200).json({ result: existingUser, token: token });
   } catch (e) {
-    res.status(500).json({ errorMessage: "Something went wrong." });
+    res.status(500).json({ errorMessage: "Something went wrong.", error: e });
   }
 };
 
