@@ -28,7 +28,7 @@ export const fetchPostsBySearch = (searchQuery) =>
 export const createPost = (newPost) => {
   const formData = new FormData();
 
-  formData.append("creator", newPost.creator);
+  formData.append("creator_username", newPost.creatorUsername);
   formData.append("title", newPost.title);
   formData.append("message", newPost.message);
   formData.append("tags", newPost.tags);

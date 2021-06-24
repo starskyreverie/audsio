@@ -33,7 +33,7 @@ const UploadForm = () => {
           dispatch(
             createPost({
               ...values,
-              creator_name: user?.result.username,
+              creatorUsername: user?.result.username,
             })
           );
           setSubmitting(false);

@@ -32,7 +32,8 @@ export const createPost = async (req, res) => {
   const newPost = new Post({
     title: req.body.title,
     message: req.body.message,
-    creator: req.userId,
+    creator_id: req.userId,
+    creator_username: req.body.creator_username,
     tags: req.body.tags.split(","),
     fileUrl: result.Location,
     createdAt: new Date().toISOString(),
@@ -64,7 +65,6 @@ export const likePost = async (req, res) => {
     res.status(401).json({ errorMessage: "Unauthorized." });
   }
   const postId = req.params.id;
-  const value = parseInt(req.params.value);
 
   if (!mongoose.Types.ObjectId.isValid(postId))
     return res.status(404).send(`No post with id: ${postId}`);
@@ -72,6 +72,7 @@ export const likePost = async (req, res) => {
   const post = await Post.findById(postId);
 
   const index = post.likes.findIndex((value) => value === String(req.userId));
+
   if (index === -1) {
     post.likes.push(req.userId);
   } else {
