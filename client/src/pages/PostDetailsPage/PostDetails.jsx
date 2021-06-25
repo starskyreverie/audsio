@@ -1,7 +1,7 @@
 import React from "react";
 
 const PostDetails = () => {
-  return <div></div>;
+  return <div>post details</div>;
 };
 
 export default PostDetails;

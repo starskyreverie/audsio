@@ -19,7 +19,7 @@ import {
 } from "./pages";
 
 const App = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Router>
@@ -27,8 +27,8 @@ const App = () => {
       <Header />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/posts/search" exact component={Home} />
-        <Route path="/posts/:id" exact component={PostDetails} />
+        <Route path="/q" exact component={Home} />
+        <Route path="/p/:id" exact component={PostDetails} />
         <Route
           path="/login"
           exact
@@ -40,7 +40,7 @@ const App = () => {
           component={() => (!user ? <Register /> : <Redirect to="/" />)}
         />
         <Route path="/upload" exact component={Upload} />
-        <Route path={["/user/:name", "/tags/:name"]} component={UserOrTag} />
+        <Route path={["/u/:username", "/t/:tag"]} component={UserOrTag} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

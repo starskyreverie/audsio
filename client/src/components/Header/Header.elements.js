@@ -137,7 +137,7 @@ export const NavItemBtn = styled.li`
 export const CreatorLink = styled(Link)`
   text-decoration: none;
   color: #d1d2d2;
-  margin-right: 5px;
+  margin-left: 5px;
 
   &:hover {
     text-decoration: underline;

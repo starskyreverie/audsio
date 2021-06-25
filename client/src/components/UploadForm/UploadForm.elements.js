@@ -12,7 +12,7 @@ export const UploadFormContainer = styled.main`
 `;
 
 export const StyledForm = styled.form`
-  width: 100%;
+  width: 80%;
   padding: 0;
   box-sizing: border-box;
   align-items: center;

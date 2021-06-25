@@ -73,25 +73,41 @@ const HeaderBar = () => {
                       </NavBtnLink>
                     )}
                   </NavItemBtn>
+                  <NavItemBtn>
+                    {" "}
+                    {button ? (
+                      <NavBtnLink to="/upload">
+                        <RedButton primary>Upload</RedButton>
+                      </NavBtnLink>
+                    ) : (
+                      <NavBtnLink to="/upload">
+                        <RedButton onClick={closeMobileMenu} fontBig primary>
+                          Upload
+                        </RedButton>
+                      </NavBtnLink>
+                    )}
+                  </NavItemBtn>
                 </>
               ) : (
-                <CreatorLink to={`/users/${user.result.username}`}>
-                  {user.result.username}
-                </CreatorLink>
+                <>
+                  <NavItemBtn>
+                    {button ? (
+                      <NavBtnLink to="/upload">
+                        <RedButton primary>Upload</RedButton>
+                      </NavBtnLink>
+                    ) : (
+                      <NavBtnLink to="/upload">
+                        <RedButton onClick={closeMobileMenu} fontBig primary>
+                          Upload
+                        </RedButton>
+                      </NavBtnLink>
+                    )}
+                  </NavItemBtn>
+                  <CreatorLink to={`/u/${user.result.username}`}>
+                    {user.result.username}
+                  </CreatorLink>
+                </>
               )}
-              <NavItemBtn>
-                {button ? (
-                  <NavBtnLink to="/upload">
-                    <RedButton primary>Upload</RedButton>
-                  </NavBtnLink>
-                ) : (
-                  <NavBtnLink to="/upload">
-                    <RedButton onClick={closeMobileMenu} fontBig primary>
-                      Upload
-                    </RedButton>
-                  </NavBtnLink>
-                )}
-              </NavItemBtn>
             </NavMenu>
           </HeaderContainer>
         </Header>

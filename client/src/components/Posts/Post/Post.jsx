@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 
@@ -19,14 +19,20 @@ const Post = ({ post }) => {
   const [isLiked, setLiked] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setLiked(
+      post.likes.includes(JSON.parse(localStorage.getItem("user")).result._id)
+    );
+  }, [setLiked, post]);
+
   return (
     <GoodLi>
       <FlexContainer>
         <span>{post.title}</span>
         <BottomDiv>
           Posted {moment(post.createdAt).fromNow()} by&nbsp;
-          <CreatorLink to={`/users/${post.creator}`}>
-            {post.creator}
+          <CreatorLink to={`/u/${post.creator}`}>
+            {post.creator_username}
           </CreatorLink>
         </BottomDiv>
       </FlexContainer>

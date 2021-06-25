@@ -14,8 +14,8 @@ export const LoginFormContainer = styled.main`
 `;
 
 export const StyledForm = styled.form`
-  margin-top: 200px;
-  width: 100%;
+  margin-top: 20vh;
+  width: 80%;
   padding: 0;
   box-sizing: border-box;
   align-items: center;
