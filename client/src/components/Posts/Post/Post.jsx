@@ -21,7 +21,7 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     setLiked(
-      post.likes.includes(JSON.parse(localStorage.getItem("user")).result._id)
+      post.likes.includes(JSON.parse(localStorage.getItem("user"))?.result._id)
     );
   }, [setLiked, post]);
 
