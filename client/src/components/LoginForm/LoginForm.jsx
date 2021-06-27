@@ -24,10 +24,10 @@ const LoginForm = () => {
         usernameOrEmail: "",
         password: "",
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
-        dispatch(login(values, history));
+        await dispatch(login(values, history));
         setSubmitting(false);
       }}
     >
@@ -50,7 +50,7 @@ const LoginForm = () => {
           {!isSubmitting ? (
             <RedSmallButton type="submit">Login</RedSmallButton>
           ) : (
-            <Box mt={60}>
+            <Box mt={30}>
               <CircularProgress isIndeterminate color="#fd4d4d" />
             </Box>
           )}

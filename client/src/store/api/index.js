@@ -19,11 +19,9 @@ API.interceptors.request.use((req) => {
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts`);
-export const fetchPostsBySearch = (searchQuery) =>
+export const queryPosts = (query) =>
   API.get(
-    `/posts/search?searchQuery=${searchQuery.search || "none"}&tags=${
-      searchQuery.tags
-    }`
+    `/posts/search?q=${query.keywordQuery || "none"}&tags=${query.tagQuery}`
   );
 export const createPost = (newPost) => {
   const formData = new FormData();

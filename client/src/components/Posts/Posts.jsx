@@ -4,8 +4,8 @@ import { Box, CircularProgress } from "@chakra-ui/react";
 
 import { GoodUl } from "./Posts.elements.js";
 
-const Posts = ({ posts }) => {
-  return !posts.length ? (
+const Posts = ({ posts, loading }) => {
+  return loading ? (
     <Box mt={60}>
       <CircularProgress isIndeterminate color="#fd4d4d" />
     </Box>

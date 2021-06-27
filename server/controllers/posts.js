@@ -83,3 +83,23 @@ export const likePost = async (req, res) => {
 
   res.status(200).json(updatedPost);
 };
+
+export const queryPosts = async (req, res) => {
+  const { q, tags } = req.query;
+
+  try {
+    const keyword = new RegExp(q, "i");
+
+    const posts = await Post.find({
+      $or: [
+        { title: keyword },
+        { tags: { $in: tags.split(",") } },
+        { message: keyword },
+      ],
+    });
+
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ errorMessage: error.message });
+  }
+};

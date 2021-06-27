@@ -19,11 +19,11 @@ const Post = ({ post }) => {
   const [isLiked, setLiked] = useState(false);
   const dispatch = useDispatch();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
-    setLiked(
-      post.likes.includes(JSON.parse(localStorage.getItem("user"))?.result._id)
-    );
-  }, [setLiked, post]);
+    setLiked(post.likes.includes(user?.result._id));
+  }, [post.likes, user?.result._id]);
 
   return (
     <GoodLi>
@@ -48,15 +48,23 @@ const Post = ({ post }) => {
         {!isLiked ? (
           <HeartIcon
             onClick={() => {
-              setLiked(!isLiked);
-              dispatch(likePost(post._id));
+              if (user) {
+                setLiked(!isLiked);
+                dispatch(likePost(post._id));
+              } else {
+                window.alert("u need to be logged in to do that");
+              }
             }}
           />
         ) : (
           <FilledHeartIcon
             onClick={() => {
-              setLiked(!isLiked);
-              dispatch(likePost(post._id));
+              if (user) {
+                setLiked(!isLiked);
+                dispatch(likePost(post._id));
+              } else {
+                window.alert("u need to be logged in to do that");
+              }
             }}
           />
         )}

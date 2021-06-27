@@ -27,7 +27,7 @@ const App = () => {
       <Header />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/q" exact component={Home} />
+        <Route path="/search" exact component={Home} />
         <Route path="/p/:id" exact component={PostDetails} />
         <Route
           path="/login"

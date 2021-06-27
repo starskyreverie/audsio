@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BiChevronRight, BiChevronLeft } from "react-icons/bi";
 
 export const PaginationContainer = styled.div`
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 export const PaginationUl = styled.ul`
   display: flex;

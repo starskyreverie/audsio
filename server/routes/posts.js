@@ -8,12 +8,14 @@ import {
   getPost,
   deletePost,
   likePost,
+  queryPosts,
 } from "../controllers/posts.js";
 
 const upload = multer();
 const router = express.Router();
 
 router.get("/", getPosts);
+router.get("/search", queryPosts);
 router.post("/", auth, upload.single("file"), createPost);
 router.get("/:id", getPost);
 router.delete("/:id", auth, deletePost);

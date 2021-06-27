@@ -26,10 +26,10 @@ const RegisterForm = () => {
         password: "",
         confirmPassword: "",
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
-        dispatch(signUp(values, history));
+        await dispatch(signUp(values, history));
         setSubmitting(false);
       }}
     >
@@ -66,7 +66,7 @@ const RegisterForm = () => {
           {!isSubmitting ? (
             <RedSmallButton type="submit">Sign Up</RedSmallButton>
           ) : (
-            <Box mt={60}>
+            <Box mt={30}>
               <CircularProgress isIndeterminate color="#fd4d4d" />
             </Box>
           )}

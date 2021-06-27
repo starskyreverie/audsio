@@ -28,9 +28,9 @@ const UploadForm = () => {
           tags: "",
           file: "",
         }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(true);
-          dispatch(
+          await dispatch(
             createPost({
               ...values,
               creatorUsername: user?.result.username,
@@ -89,7 +89,7 @@ const UploadForm = () => {
             {!isSubmitting ? (
               <RedSmallButton type="submit">Upload</RedSmallButton>
             ) : (
-              <Box mt={60}>
+              <Box mt={30}>
                 <CircularProgress isIndeterminate color="#fd4d4d" />
               </Box>
             )}
