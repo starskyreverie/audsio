@@ -37,8 +37,8 @@ const Post = ({ post }) => {
         </BottomDiv>
       </FlexContainer>
       <FlexContainer>
-        {post.tags.map((tag) => {
-          return <TagLabel>#{tag}</TagLabel>;
+        {post.tags.map((tag, index) => {
+          return <TagLabel key={index}>#{tag}</TagLabel>;
         })}
       </FlexContainer>
       <FlexContainer>

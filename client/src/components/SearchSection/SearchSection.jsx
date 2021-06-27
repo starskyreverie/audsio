@@ -14,30 +14,47 @@ const useQuery = () => {
 const SearchSection = () => {
   const history = useHistory();
   const query = useQuery();
+  const location = useLocation();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  const [currentPage, setCurrentPage] = useState(query.get("pg") || 1);
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(query.get("pg")) || 1
+  );
   const [postsPerPage] = useState(3);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [tagSearch, setTagSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
   const searchQuery = query.get("q");
+  const tagQuery = query.get("tags");
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
-      await dispatch(getPosts());
-      setLoading(false);
+      if (searchQuery || tagQuery) {
+        console.log(searchQuery);
+        await dispatch(
+          queryPosts({
+            keywordQuery: query.get("q"),
+            tagQuery: query.get("tags"),
+          })
+        );
+        setLoading(false);
+      } else {
+        await dispatch(getPosts());
+        setLoading(false);
+      }
     };
     fetchData();
-  }, [dispatch]);
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const searchPosts = async () => {
     if (keywordSearch.trim() || tagSearch) {
@@ -49,7 +66,7 @@ const SearchSection = () => {
         })
       );
       history.push(
-        `/search?q=${keywordSearch || "none"}&tags=${tagSearch
+        `/search?q=${keywordSearch}&tags=${tagSearch
           .trim()
           .split(" ")
           .join(",")}`
@@ -88,6 +105,9 @@ const SearchSection = () => {
           totalPosts={posts.length}
           paginate={paginate}
           currentPage={currentPage}
+          loading={loading}
+          keywordSearch={searchQuery}
+          tagSearch={tagQuery}
         />
       </SearchContainer>
     </>
