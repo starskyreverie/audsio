@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
-
+import { useMediaQuery } from "react-responsive";
 import { likePost } from "../../../store/actions/posts.js";
+import { AudioPlayer } from "../../index.js";
 
 import {
   GoodLi,
@@ -13,10 +15,14 @@ import {
   HeartIcon,
   TagLabel,
   FilledHeartIcon,
+  AudioContainer,
 } from "./Post.elements.js";
 
 const Post = ({ post }) => {
+  const history = useHistory();
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 960px)" });
   const [isLiked, setLiked] = useState(false);
+  const [numLikes, setLikes] = useState(post.likes.length);
   const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -41,15 +47,25 @@ const Post = ({ post }) => {
           return <TagLabel key={index}>#{tag}</TagLabel>;
         })}
       </FlexContainer>
+      {!isTabletOrMobile ? (
+        <FlexContainer>
+          <AudioContainer>
+            <AudioPlayer fileUrl={post.fileUrl} />
+          </AudioContainer>
+        </FlexContainer>
+      ) : (
+        <></>
+      )}
       <FlexContainer>
         <LikeCountContainer>
-          {Intl.NumberFormat("en-US").format(post.likes.length)}
+          {Intl.NumberFormat("en-US").format(numLikes)}
         </LikeCountContainer>
         {!isLiked ? (
           <HeartIcon
             onClick={() => {
               if (user) {
                 setLiked(!isLiked);
+                setLikes(post.likes.length + 1);
                 dispatch(likePost(post._id));
               } else {
                 window.alert("u need to be logged in to do that");
@@ -61,6 +77,7 @@ const Post = ({ post }) => {
             onClick={() => {
               if (user) {
                 setLiked(!isLiked);
+                setLikes(post.likes.length - 1);
                 dispatch(likePost(post._id));
               } else {
                 window.alert("u need to be logged in to do that");

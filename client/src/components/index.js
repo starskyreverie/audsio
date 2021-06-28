@@ -6,3 +6,4 @@ export { default as UploadForm } from "./UploadForm/UploadForm.jsx";
 export { default as LoginForm } from "./LoginForm/LoginForm.jsx";
 export { default as RegisterForm } from "./RegisterForm/RegisterForm.jsx";
 export { default as Pagination } from "./Pagination/Pagination.jsx";
+export { default as AudioPlayer } from "./AudioPlayer/AudioPlayer.jsx";

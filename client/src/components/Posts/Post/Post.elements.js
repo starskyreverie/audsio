@@ -10,12 +10,12 @@ export const GoodLi = styled.li`
   align-items: stretch;
   padding: 1em;
   width: 100%;
+  justify-content: space-between;
 `;
 
 export const BottomDiv = styled.div`
   color: hsla(0, 0%, 100%, 0.48);
   font-size: 12px;
-  display: flex;
   flex-basis: 100%;
 `;
 
@@ -30,6 +30,11 @@ export const CreatorLink = styled(Link)`
 
 export const LikeCountContainer = styled.span`
   margin-left: auto;
+`;
+
+export const AudioContainer = styled.span`
+  margin-left: auto;
+  color: #d1d2d2;
 `;
 
 export const HeartIcon = styled(AiOutlineHeart)`
@@ -56,6 +61,8 @@ export const FlexContainer = styled.div`
 
 export const TagLabel = styled.label`
   margin-right: 0.5em;
+  margin-top: 2px;
+  margin-bottom: 2px;
   padding: 0.25em 0.5em;
   color: hsla(0, 0%, 100%, 0.48);
   display: block;
