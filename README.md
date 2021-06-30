@@ -1,5 +1,5 @@
 # eriv
-a place to upload and share audio clips
+a place to upload and share audio clips; [frontend](https://eriv.netlify.app/) hosted on netlify and backend on heroku
 
 ## client
 
