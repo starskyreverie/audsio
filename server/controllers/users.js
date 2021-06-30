@@ -1,21 +1,23 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+dotenv.config();
 
 import User from "../models/User.js";
 
-dotenv.config();
-
 export const login = async (req, res) => {
+  // login the user
   const usernameOrEmail = req.body.usernameOrEmail;
   const password = req.body.password;
 
+  // check if a username or email was provided
   const isUsername = !(
     usernameOrEmail.includes("@") && usernameOrEmail.includes(".")
   );
   const isEmail = !isUsername;
 
   try {
+    // find the user based on the username/email
     let existingUser = null;
 
     if (isUsername) {
@@ -36,6 +38,7 @@ export const login = async (req, res) => {
         field: "usernameOrEmail",
       });
     }
+    // verify the hashed password
     const isCorrectPassword = await bcrypt.compare(
       password,
       existingUser.password
@@ -48,6 +51,7 @@ export const login = async (req, res) => {
       });
     }
 
+    // send back a signed JWT on successful login
     const token = jwt.sign(
       {
         username: existingUser.username,
@@ -64,8 +68,10 @@ export const login = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
+  // register the user
   const { username, email, password, confirmPassword } = req.body;
   try {
+    // check for errors in the form
     const existingUserEmail = await User.findOne({ email: email });
     if (existingUserEmail) {
       return res.status(400).json({
@@ -87,6 +93,7 @@ export const signup = async (req, res) => {
       });
     }
 
+    // hash the password and store it
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const result = await User.create({
@@ -95,6 +102,7 @@ export const signup = async (req, res) => {
       password: hashedPassword,
     });
 
+    // return the user along with a signed jwt
     const token = jwt.sign(
       {
         username: result.username,
