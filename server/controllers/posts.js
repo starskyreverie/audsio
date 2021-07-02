@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 import Post from "../models/Post.js";
 import { uploadAudioToS3 } from "./s3.js";
+import { validateCreatePostForm } from "./validation.js";
 
 export const getPosts = async (req, res) => {
   // get all posts from the database and return them
@@ -27,10 +28,40 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   // store a post in the database; must be authorized
   if (!req.userId) {
-    res.status(401).json({ errorMessage: "Unauthorized." });
+    return res.status(401).json({ errorMessage: "Unauthorized." });
   }
+
+  if (!req.file) {
+    return res
+      .status(400)
+      .json({ errorMessage: "Your post must contain a file" });
+  }
+
+  if (
+    req.file.originalname.split(".").pop() != "ogg" &&
+    req.file.originalname.split(".").pop() != "mp3" &&
+    req.file.originalname.split(".").pop() != "wav"
+  ) {
+    return res.status(400).json({
+      errorMessage:
+        "The provided file isn't an accepted filetype. The only allowed file extensions are .mp3, .wav, and .ogg",
+    });
+  }
+
+  if (!req.body.title) {
+    return res
+      .status(400)
+      .json({ errorMessage: "Your post must have a title" });
+  }
+
+  if (req.body.title.length < 2 || req.body.title.length > 40) {
+    return res.status(400).json({
+      errorMessage: "The post title must be between 2 and 40 characters long",
+    });
+  }
+
   // upload to S3 and store the URL from result.Location
-  const result = await uploadAudioToS3(req.file);
+  const result = await uploadAudioToS3(req.file, res);
   const newPost = new Post({
     title: req.body.title,
     message: req.body.message,

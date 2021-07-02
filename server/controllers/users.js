@@ -6,6 +6,16 @@ dotenv.config();
 import User from "../models/User.js";
 
 export const login = async (req, res) => {
+  if (!req.body.usernameOrEmail) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must provide a username or email" });
+  }
+  if (!req.body.password) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must provide a password" });
+  }
   // login the user
   const usernameOrEmail = req.body.usernameOrEmail;
   const password = req.body.password;
@@ -28,13 +38,13 @@ export const login = async (req, res) => {
 
     if (!existingUser && isUsername) {
       return res.status(403).json({
-        errorMessage: "The provided username does not exist.",
+        errorMessage: "The provided username doesn't exist",
         field: "usernameOrEmail",
       });
     }
     if (!existingUser && isEmail) {
       return res.status(403).json({
-        errorMessage: "The provided email does not exist.",
+        errorMessage: "The provided email doesn't exist",
         field: "usernameOrEmail",
       });
     }
@@ -46,7 +56,7 @@ export const login = async (req, res) => {
 
     if (!isCorrectPassword) {
       return res.status(401).json({
-        errorMessage: "The provided password is incorrect.",
+        errorMessage: "The provided password is incorrect",
         field: "password",
       });
     }
@@ -68,6 +78,67 @@ export const login = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
+  if (!req.body.username) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must provide a username" });
+  }
+
+  if (!req.body.email) {
+    return res.status(400).json({ errorMessage: "You must provide a email" });
+  }
+
+  if (!req.body.password) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must provide a password" });
+  }
+
+  if (!req.body.confirmPassword) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must fill in the confirm password field" });
+  }
+
+  if (req.body.username.length < 2 || req.body.username.length > 12) {
+    return res.status(400).json({
+      errorMessage: "Your username must be between 2 and 12 characters",
+    });
+  }
+
+  if (req.body.username.includes("@")) {
+    return res
+      .status(400)
+      .json({ errorMessage: "Your username may not contain the '@' symbol" });
+  }
+
+  if (
+    !req.body.email.includes("@") ||
+    !req.body.includes(".") ||
+    req.body.email.length < 6
+  ) {
+    return res
+      .status(400)
+      .json({ errorMessage: "Please provide a valid email" });
+  }
+
+  if (req.body.password.length < 2 || req.body.password.length > 40) {
+    return res
+      .status(400)
+      .json({
+        errorMessage: "Your password must be between 2 and 40 characters",
+      });
+  }
+
+  if (req.body.confirmPassword.length > 40) {
+    return res
+      .status(400)
+      .json({
+        errorMessage:
+          "The confirm password field must have less than 40 characters",
+      });
+  }
+
   // register the user
   const { username, email, password, confirmPassword } = req.body;
   try {
@@ -86,6 +157,7 @@ export const signup = async (req, res) => {
         field: "username",
       });
     }
+
     if (password !== confirmPassword) {
       return res.status(400).json({
         errorMessage: "The providied passwords don't match.",
