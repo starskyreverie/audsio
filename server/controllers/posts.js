@@ -60,7 +60,7 @@ export const createPost = async (req, res) => {
   }
 
   // upload to S3 and store the URL from result.Location
-  const result = await uploadAudioToS3(req.file, res);
+  const result = await uploadAudioToS3(req.file);
   const newPost = new Post({
     title: req.body.title,
     message: req.body.message,

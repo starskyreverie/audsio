@@ -7,6 +7,16 @@ import User from "../models/User.js";
 
 export const login = async (req, res) => {
   // login the user
+  if (!req.body.usernameOrEmail) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must provide a username or email" });
+  }
+  if (!req.body.password) {
+    return res
+      .status(400)
+      .json({ errorMessage: "You must provide a password" });
+  }
   const usernameOrEmail = req.body.usernameOrEmail;
   const password = req.body.password;
 
