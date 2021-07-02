@@ -14,7 +14,8 @@ import {
   PostDetails,
   Register,
   Upload,
-  UserOrTag,
+  Profile,
+  TagSearch,
   NotFound,
 } from "./pages";
 
@@ -40,7 +41,8 @@ const App = () => {
           component={() => (!user ? <Register /> : <Redirect to="/" />)}
         />
         <Route path="/upload" exact component={Upload} />
-        <Route path={["/u/:username", "/t/:tag"]} component={UserOrTag} />
+        <Route path="/u/:username" component={Profile} />
+        <Route path="/t/:tag" component={TagSearch} />
         <Route component={NotFound} />
       </Switch>
       <Footer />

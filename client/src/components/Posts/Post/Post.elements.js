@@ -71,3 +71,10 @@ export const TagLabel = styled.label`
   font-size: 12px;
   z-index: 1000;
 `;
+
+export const TitleLink = styled.span`
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`;

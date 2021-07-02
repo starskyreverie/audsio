@@ -25,6 +25,10 @@ export const signUp = (formData, router) => async (dispatch) => {
   }
 };
 
-export const logout = (dispatch) => {
-  dispatch({ type: LOGOUT });
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOGOUT });
+  } catch (error) {
+    console.log(error);
+  }
 };

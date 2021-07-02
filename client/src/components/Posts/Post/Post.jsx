@@ -16,6 +16,7 @@ import {
   TagLabel,
   FilledHeartIcon,
   AudioContainer,
+  TitleLink,
 } from "./Post.elements.js";
 
 const Post = ({ post }) => {
@@ -34,7 +35,13 @@ const Post = ({ post }) => {
   return (
     <GoodLi>
       <FlexContainer>
-        <span>{post.title}</span>
+        <TitleLink
+          onClick={() => {
+            history.push(`/p/${post._id}`);
+          }}
+        >
+          {post.title}
+        </TitleLink>
         <BottomDiv>
           Posted {moment(post.createdAt).fromNow()} by&nbsp;
           <CreatorLink to={`/u/${post.creator_username}`}>
