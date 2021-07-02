@@ -121,3 +121,8 @@ export const RegisterLink = styled(Link)`
     text-decoration: underline;
   }
 `;
+
+export const ErrorText = styled.div`
+  color: #fd4d4d;
+  margin-top: 15px;
+`;

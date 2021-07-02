@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
 
 import {
   TextFieldInput,
@@ -10,12 +11,15 @@ import {
   TextFieldArea,
   FileInput,
   FileInputLabel,
+  ErrorText,
 } from "./UploadForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
 import { createPost } from "../../store/actions/posts.js";
 
 const UploadForm = () => {
   const [filename, setFilename] = useState();
+  const [error, setError] = useState();
+  const history = useHistory();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -30,12 +34,17 @@ const UploadForm = () => {
         }}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(true);
-          await dispatch(
+          const data = await dispatch(
             createPost({
               ...values,
               creatorUsername: user?.result.username,
             })
           );
+          if (data.errorMessage) {
+            setError(data.errorMessage);
+          } else if (data) {
+            history.push(`/p/${data._id}`);
+          }
           setSubmitting(false);
         }}
       >
@@ -85,9 +94,11 @@ const UploadForm = () => {
               </FileInputLabel>
               {filename}
             </span>
-            <br></br>
+            {error && <ErrorText>{error}</ErrorText>}
             {!isSubmitting ? (
-              <RedSmallButton type="submit">Upload</RedSmallButton>
+              <div>
+                <RedSmallButton type="submit">Upload</RedSmallButton>
+              </div>
             ) : (
               <Box mt={30}>
                 <CircularProgress isIndeterminate color="#fd4d4d" />

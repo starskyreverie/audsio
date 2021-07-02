@@ -97,3 +97,8 @@ export const containerWithCenteredText = styled.div`
   width: 100%;
   text-align: center;
 `;
+
+export const ErrorText = styled.div`
+  color: #fd4d4d;
+  margin-top: 15px;
+`;

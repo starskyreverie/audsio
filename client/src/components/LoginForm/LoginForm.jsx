@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@chakra-ui/react";
@@ -9,6 +9,7 @@ import {
   CoolText,
   RegisterLink,
   RegisterLinkContainer,
+  ErrorText,
 } from "./LoginForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
 import { login } from "../../store/actions/auth.js";
@@ -17,6 +18,8 @@ import { useHistory } from "react-router";
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const [error, setError] = useState();
 
   return (
     <Formik
@@ -27,7 +30,10 @@ const LoginForm = () => {
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
-        await dispatch(login(values, history));
+        const errors = await dispatch(login(values, history));
+        if (errors) {
+          setError(errors);
+        }
         setSubmitting(false);
       }}
     >
@@ -47,6 +53,7 @@ const LoginForm = () => {
             onChange={handleChange}
             type="password"
           />
+          {error && <ErrorText>{error}</ErrorText>}
           {!isSubmitting ? (
             <RedSmallButton type="submit">Login</RedSmallButton>
           ) : (

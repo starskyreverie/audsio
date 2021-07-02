@@ -9,7 +9,7 @@ export const login = (formData, router) => async (dispatch) => {
 
     router.push("/");
   } catch (error) {
-    console.log(error);
+    return error.response.data.errorMessage;
   }
 };
 
@@ -21,7 +21,7 @@ export const signUp = (formData, router) => async (dispatch) => {
 
     router.push("/");
   } catch (error) {
-    console.log(error);
+    return error.response.data.errorMessage;
   }
 };
 

@@ -17,7 +17,6 @@ const s3 = new S3({
 
 export const uploadAudioToS3 = (file) => {
   // upload to s3 and return the promise
-
   const fileStream = Readable.from(file.buffer);
 
   const uploadParams = {

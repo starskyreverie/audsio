@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@chakra-ui/react";
@@ -9,6 +9,7 @@ import {
   CoolText,
   RegisterLink,
   RegisterLinkContainer,
+  ErrorText,
 } from "./RegisterForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
 import { useHistory } from "react-router";
@@ -17,6 +18,8 @@ import { signUp } from "../../store/actions/auth.js";
 const RegisterForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const [error, setError] = useState();
 
   return (
     <Formik
@@ -29,7 +32,10 @@ const RegisterForm = () => {
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
-        await dispatch(signUp(values, history));
+        const errors = await dispatch(signUp(values, history));
+        if (errors) {
+          setError(errors);
+        }
         setSubmitting(false);
       }}
     >
@@ -62,7 +68,7 @@ const RegisterForm = () => {
             onChange={handleChange}
             type="password"
           />
-
+          {error && <ErrorText>{error}</ErrorText>}
           {!isSubmitting ? (
             <RedSmallButton type="submit">Sign Up</RedSmallButton>
           ) : (
@@ -70,7 +76,6 @@ const RegisterForm = () => {
               <CircularProgress isIndeterminate color="#fd4d4d" />
             </Box>
           )}
-
           <RegisterLinkContainer>
             <RegisterLink to="/login">Login to your eriv account</RegisterLink>
           </RegisterLinkContainer>

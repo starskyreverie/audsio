@@ -44,7 +44,7 @@ const Post = ({ post }) => {
       </FlexContainer>
       <FlexContainer>
         {post.tags.map((tag, index) => {
-          return <TagLabel key={index}>#{tag}</TagLabel>;
+          return tag.length > 0 && <TagLabel key={index}>#{tag}</TagLabel>;
         })}
       </FlexContainer>
       {!isTabletOrMobile ? (

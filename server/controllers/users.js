@@ -6,16 +6,6 @@ dotenv.config();
 import User from "../models/User.js";
 
 export const login = async (req, res) => {
-  if (!req.body.usernameOrEmail) {
-    return res
-      .status(400)
-      .json({ errorMessage: "You must provide a username or email" });
-  }
-  if (!req.body.password) {
-    return res
-      .status(400)
-      .json({ errorMessage: "You must provide a password" });
-  }
   // login the user
   const usernameOrEmail = req.body.usernameOrEmail;
   const password = req.body.password;
@@ -38,13 +28,13 @@ export const login = async (req, res) => {
 
     if (!existingUser && isUsername) {
       return res.status(403).json({
-        errorMessage: "The provided username doesn't exist",
+        errorMessage: "The provided username does not exist.",
         field: "usernameOrEmail",
       });
     }
     if (!existingUser && isEmail) {
       return res.status(403).json({
-        errorMessage: "The provided email doesn't exist",
+        errorMessage: "The provided email does not exist.",
         field: "usernameOrEmail",
       });
     }
@@ -56,7 +46,7 @@ export const login = async (req, res) => {
 
     if (!isCorrectPassword) {
       return res.status(401).json({
-        errorMessage: "The provided password is incorrect",
+        errorMessage: "The provided password is incorrect.",
         field: "password",
       });
     }
@@ -159,7 +149,6 @@ export const signup = async (req, res) => {
         field: "username",
       });
     }
-
     if (password !== confirmPassword) {
       return res.status(400).json({
         errorMessage: "The providied passwords don't match.",
