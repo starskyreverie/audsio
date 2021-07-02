@@ -112,9 +112,15 @@ export const signup = async (req, res) => {
       .json({ errorMessage: "Your username may not contain the '@' symbol" });
   }
 
+  if (req.body.username.includes(" ")) {
+    return res
+      .status(400)
+      .json({ errorMessage: "Your username may not contain any spaces" });
+  }
+
   if (
     !req.body.email.includes("@") ||
-    !req.body.includes(".") ||
+    !req.body.email.includes(".") ||
     req.body.email.length < 6
   ) {
     return res
@@ -123,20 +129,16 @@ export const signup = async (req, res) => {
   }
 
   if (req.body.password.length < 2 || req.body.password.length > 40) {
-    return res
-      .status(400)
-      .json({
-        errorMessage: "Your password must be between 2 and 40 characters",
-      });
+    return res.status(400).json({
+      errorMessage: "Your password must be between 2 and 40 characters",
+    });
   }
 
   if (req.body.confirmPassword.length > 40) {
-    return res
-      .status(400)
-      .json({
-        errorMessage:
-          "The confirm password field must have less than 40 characters",
-      });
+    return res.status(400).json({
+      errorMessage:
+        "The confirm password field must have less than 40 characters",
+    });
   }
 
   // register the user
