@@ -33,7 +33,7 @@ export const createPost = async (req, res) => {
   if (!req.file) {
     return res
       .status(400)
-      .json({ errorMessage: "Your post must contain a file" });
+      .json({ errorMessage: "Your post must contain a file." });
   }
 
   if (
