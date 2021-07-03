@@ -23,7 +23,7 @@ export const HeaderContainer = styled(Container)`
   ${Container}
 `;
 
-export const HeaderLogo = styled(Link)`
+export const HeaderLogo = styled.div`
   color: hsla(0, 0%, 100%, 0.8);
   justify-self: flex-start;
   cursor: pointer;
@@ -113,6 +113,18 @@ export const NavLinks = styled(Link)`
 `;
 
 export const NavBtnLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  padding: 8px 6px;
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+`;
+
+export const NavBtnDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

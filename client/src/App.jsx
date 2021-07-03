@@ -20,8 +20,6 @@ import {
 } from "./pages";
 
 const App = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-
   return (
     <Router>
       <GlobalStyle />
@@ -33,12 +31,16 @@ const App = () => {
         <Route
           path="/login"
           exact
-          component={() => (!user ? <Login /> : <Redirect to="/" />)}
+          component={() =>
+            !localStorage.getItem("user") ? <Login /> : <Redirect to="/" />
+          }
         />
         <Route
           path="/register"
           exact
-          component={() => (!user ? <Register /> : <Redirect to="/" />)}
+          component={() =>
+            !localStorage.getItem("user") ? <Register /> : <Redirect to="/" />
+          }
         />
         <Route path="/upload" exact component={Upload} />
         <Route path="/u/:username" component={Profile} />

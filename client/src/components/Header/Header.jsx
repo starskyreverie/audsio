@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaTimes, FaBars } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { Button, RedButton } from "../../globalStyles.js";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
+
+import { Modal } from "../index.js";
+
 import {
   Header,
   HeaderContainer,
@@ -12,6 +15,7 @@ import {
   NavMenu,
   NavItemBtn,
   NavBtnLink,
+  NavBtnDiv,
   CreatorLink,
 } from "./Header.elements";
 
@@ -19,8 +23,10 @@ const HeaderBar = () => {
   const [isClicked, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isModalVisible, setModalVisibility] = useState(false);
 
   const location = useLocation();
+  const history = useHistory();
 
   const handleClick = () => {
     setClick(!isClicked);
@@ -51,7 +57,11 @@ const HeaderBar = () => {
       <IconContext.Provider value={{ color: "#fff" }}>
         <Header>
           <HeaderContainer>
-            <HeaderLogo to="/">
+            <HeaderLogo
+              onClick={() => {
+                history.push("/");
+              }}
+            >
               <HeaderIcon />
             </HeaderLogo>
             <MobileIcon onClick={handleClick}>
@@ -76,15 +86,28 @@ const HeaderBar = () => {
                   <NavItemBtn>
                     {" "}
                     {button ? (
-                      <NavBtnLink to="/upload">
-                        <RedButton primary>Upload</RedButton>
-                      </NavBtnLink>
-                    ) : (
-                      <NavBtnLink to="/upload">
-                        <RedButton onClick={closeMobileMenu} fontBig primary>
+                      <NavBtnDiv>
+                        <RedButton
+                          primary
+                          onClick={() => {
+                            setModalVisibility(true);
+                          }}
+                        >
                           Upload
                         </RedButton>
-                      </NavBtnLink>
+                      </NavBtnDiv>
+                    ) : (
+                      <NavBtnDiv>
+                        <RedButton
+                          onClick={() => {
+                            setModalVisibility(true);
+                          }}
+                          fontBig
+                          primary
+                        >
+                          Upload
+                        </RedButton>
+                      </NavBtnDiv>
                     )}
                   </NavItemBtn>
                 </>
@@ -112,6 +135,13 @@ const HeaderBar = () => {
           </HeaderContainer>
         </Header>
       </IconContext.Provider>
+
+      {isModalVisible && (
+        <Modal
+          onClose={() => setModalVisibility(false)}
+          title="You must be logged in to upload"
+        />
+      )}
     </>
   );
 };

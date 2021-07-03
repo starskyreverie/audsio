@@ -25,7 +25,7 @@ const Pagination = ({
   }
 
   useEffect(() => {
-    if (currentPage > 1 && currentPage <= pageNumbers.length) {
+    if (currentPage > 0 && currentPage <= pageNumbers.length) {
       paginate(currentPage);
     } else if (!loading) {
       paginate(1);
