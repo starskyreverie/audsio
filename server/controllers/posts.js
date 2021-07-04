@@ -63,9 +63,9 @@ export const createPost = async (req, res) => {
       .json({ errorMessage: "Your post must have a title" });
   }
 
-  if (req.body.title.length < 2 || req.body.title.length > 20) {
+  if (req.body.title.length < 2 || req.body.title.length > 30) {
     return res.status(400).json({
-      errorMessage: "The post title must be between 2 and 20 characters long",
+      errorMessage: "The post title must be between 2 and 30 characters long",
     });
   }
 

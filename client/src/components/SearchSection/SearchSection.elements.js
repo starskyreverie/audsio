@@ -12,7 +12,7 @@ export const SearchContainer = styled.main`
 `;
 
 export const SearchBar = styled.input`
-  max-width: 800px;
+  max-width: 1200px;
   width: 90%;
   margin: 0 auto;
   flex: none;

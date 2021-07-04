@@ -87,6 +87,7 @@ export const TagLabel = styled.label`
 `;
 
 export const TitleLink = styled.span`
+  font-size: ${({ smallFont }) => (smallFont ? "12px" : "16px")};
   &:hover {
     text-decoration: underline;
     cursor: pointer;

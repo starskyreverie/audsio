@@ -23,7 +23,9 @@ import {
 
 const Post = ({ post }) => {
   const history = useHistory();
+  const shouldTagsShow = useMediaQuery({ query: "(max-width: 1200px)" });
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 960px)" });
+  const isSmallPhone = useMediaQuery({ query: "(max-width: 500px)" });
   const [isLiked, setLiked] = useState(false);
   const [numLikes, setLikes] = useState(post.likes.length);
   const [isModalVisible, setModalVisibility] = useState(false);
@@ -41,8 +43,8 @@ const Post = ({ post }) => {
         <ImageFlexContainer>
           <StyledImage
             src={post.imageFileUrl}
-            height="50px"
-            width="50px"
+            height={isTabletOrMobile ? "30px" : "50px"}
+            width={isTabletOrMobile ? "30px" : "50px"}
             onClick={() => {
               history.push(`/p/${post._id}`);
             }}
@@ -54,6 +56,7 @@ const Post = ({ post }) => {
             onClick={() => {
               history.push(`/p/${post._id}`);
             }}
+            smallFont={post.title.length > 23}
           >
             {post.title}
           </TitleLink>
@@ -64,12 +67,19 @@ const Post = ({ post }) => {
             </CreatorLink>
           </BottomDiv>
         </FlexContainer>
-        <FlexContainer>
-          {post.tags[0].length > 0 && <TagLabel>{`#${post.tags[0]}`}</TagLabel>}
-          {post.tags.length > 1 && (
-            <TagLabel>{`+${post.tags.length - 1}`}</TagLabel>
-          )}
-        </FlexContainer>
+        {!shouldTagsShow && (
+          <FlexContainer>
+            {post.tags[0].length > 0 && (
+              <>
+                <TagLabel>{`#${post.tags[0]}`}</TagLabel>
+                {post.tags[1] && <TagLabel>{`#${post.tags[1]}`}</TagLabel>}
+              </>
+            )}
+            {post.tags.length > 2 && (
+              <TagLabel>{`+${post.tags.length - 2}`}</TagLabel>
+            )}
+          </FlexContainer>
+        )}
         {!isTabletOrMobile ? (
           <FlexContainer>
             <AudioContainer>

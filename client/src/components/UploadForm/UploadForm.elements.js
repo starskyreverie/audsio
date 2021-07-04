@@ -103,7 +103,7 @@ export const ImageFileInputLabel = styled.label`
   border-radius: 0.25em;
   cursor: pointer;
   display: inline-block;
-  width: 200px;
+  width: 196px;
   margin-top: 15px;
   margin-right: 10px;
 `;

@@ -36,7 +36,7 @@ const Pagination = ({
     }
   }, [pageNumbers, window.location.href]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
+  return totalPosts !== 0 ? (
     <PaginationContainer>
       <PaginationUl>
         <PaginationLi
@@ -114,6 +114,8 @@ const Pagination = ({
         </PaginationLi>
       </PaginationUl>
     </PaginationContainer>
+  ) : (
+    <div>no posts found</div>
   );
 };
 
