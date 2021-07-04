@@ -24,7 +24,7 @@ router.get("/search", queryPosts);
 router.post(
   "/",
   auth /* imported middleware to check if authorized */,
-  upload.single("file") /* multer middleware to parse file */,
+  upload.array("files") /* multer middleware to parse file */,
   createPost
 );
 router.get("/:id", getPost);

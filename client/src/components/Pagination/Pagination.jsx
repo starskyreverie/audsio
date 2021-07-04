@@ -25,12 +25,16 @@ const Pagination = ({
   }
 
   useEffect(() => {
+    console.log(window.location.href);
     if (currentPage > 0 && currentPage <= pageNumbers.length) {
       paginate(currentPage);
     } else if (!loading) {
       paginate(1);
     }
-  }, [pageNumbers, location]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (window.location.href.endsWith("/")) {
+      paginate(1);
+    }
+  }, [pageNumbers, window.location.href]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PaginationContainer>

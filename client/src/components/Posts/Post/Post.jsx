@@ -17,6 +17,8 @@ import {
   FilledHeartIcon,
   AudioContainer,
   TitleLink,
+  ImageFlexContainer,
+  StyledImage,
 } from "./Post.elements.js";
 
 const Post = ({ post }) => {
@@ -36,6 +38,17 @@ const Post = ({ post }) => {
   return (
     <>
       <GoodLi>
+        <ImageFlexContainer>
+          <StyledImage
+            src={post.imageFileUrl}
+            height="50px"
+            width="50px"
+            onClick={() => {
+              history.push(`/p/${post._id}`);
+            }}
+            alt="file cover"
+          />
+        </ImageFlexContainer>
         <FlexContainer>
           <TitleLink
             onClick={() => {
@@ -52,9 +65,10 @@ const Post = ({ post }) => {
           </BottomDiv>
         </FlexContainer>
         <FlexContainer>
-          {post.tags.map((tag, index) => {
-            return tag.length > 0 && <TagLabel key={index}>#{tag}</TagLabel>;
-          })}
+          {post.tags[0].length > 0 && <TagLabel>{`#${post.tags[0]}`}</TagLabel>}
+          {post.tags.length > 1 && (
+            <TagLabel>{`+${post.tags.length - 1}`}</TagLabel>
+          )}
         </FlexContainer>
         {!isTabletOrMobile ? (
           <FlexContainer>

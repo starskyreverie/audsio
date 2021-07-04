@@ -20,7 +20,7 @@ const SearchSection = () => {
   const [currentPage, setCurrentPage] = useState(
     parseInt(query.get("pg")) || 1
   );
-  const [postsPerPage] = useState(3);
+  const [postsPerPage] = useState(5);
   const [keywordSearch, setKeywordSearch] = useState("");
   const [tagSearch, setTagSearch] = useState("");
   const [loading, setLoading] = useState(true);

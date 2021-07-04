@@ -93,6 +93,20 @@ export const FileInputLabel = styled.label`
   margin-right: 10px;
 `;
 
+export const ImageFileInputLabel = styled.label`
+  color: hsla(0, 0%, 100%, 0.8);
+  background: hsla(0, 0%, 100%, 0.05);
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: inline-block;
+  width: 200px;
+  margin-top: 15px;
+  margin-right: 10px;
+`;
 export const containerWithCenteredText = styled.div`
   width: 100%;
   text-align: center;

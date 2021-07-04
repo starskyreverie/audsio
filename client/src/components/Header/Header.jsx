@@ -17,7 +17,7 @@ import {
   NavBtnLink,
   NavBtnDiv,
   CreatorLink,
-} from "./Header.elements";
+} from "./Header.elements.js";
 
 const HeaderBar = () => {
   const [isClicked, setClick] = useState(false);

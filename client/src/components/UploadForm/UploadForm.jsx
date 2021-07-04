@@ -12,12 +12,14 @@ import {
   FileInput,
   FileInputLabel,
   ErrorText,
+  ImageFileInputLabel,
 } from "./UploadForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
 import { createPost } from "../../store/actions/posts.js";
 
 const UploadForm = () => {
   const [filename, setFilename] = useState();
+  const [imageFilename, setImageFilename] = useState();
   const [error, setError] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const UploadForm = () => {
           message: "",
           tags: "",
           file: "",
+          imageFile: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
           setSubmitting(true);
@@ -93,6 +96,24 @@ const UploadForm = () => {
                 Choose an Audio File
               </FileInputLabel>
               {filename}
+            </span>
+            <br />
+            <FileInput
+              name="imageFile"
+              type="file"
+              id="imageFile"
+              accept="image/*"
+              onChange={(e) => {
+                setFieldValue("imageFile", e.target.files[0]);
+                console.log(e.target.files[0]);
+                setImageFilename(e.target.files[0].name);
+              }}
+            />
+            <span>
+              <ImageFileInputLabel htmlFor="imageFile">
+                Choose a Cover Image
+              </ImageFileInputLabel>
+              {imageFilename}
             </span>
             {error && <ErrorText>{error}</ErrorText>}
             {!isSubmitting ? (

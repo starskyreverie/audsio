@@ -30,7 +30,8 @@ export const createPost = (newPost) => {
   formData.append("title", newPost.title);
   formData.append("message", newPost.message);
   formData.append("tags", newPost.tags);
-  formData.append("file", newPost.file);
+  formData.append("files", newPost.file);
+  formData.append("files", newPost.imageFile);
 
   return API.post("/posts", formData, {
     headers: {

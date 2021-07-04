@@ -57,8 +57,22 @@ export const FlexContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   vertical-align: center;
+  margin-right: 10px;
 `;
 
+export const StyledImage = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ImageFlexContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  vertical-align: center;
+  margin-right: 10px;
+`;
 export const TagLabel = styled.label`
   margin-right: 0.5em;
   margin-top: 2px;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import Post from "../models/Post.js";
-import { uploadAudioToS3 } from "./s3.js";
+import { uploadAudioToS3, uploadImageToS3 } from "./s3.js";
 
 export const getPosts = async (req, res) => {
   // get all posts from the database and return them
@@ -30,16 +30,26 @@ export const createPost = async (req, res) => {
     return res.status(401).json({ errorMessage: "Unauthorized." });
   }
 
-  if (!req.file) {
+  if (!req.files[0]) {
     return res
       .status(400)
-      .json({ errorMessage: "Your post must contain a file." });
+      .json({ errorMessage: "Your post must contain an audio file." });
   }
 
+  const audioFile = req.files[0];
+
+  if (!req.files[1]) {
+    return res.status(400).json({
+      errorMessage: "Your post must contain an image file.",
+    });
+  }
+
+  const imageFile = req.files[1];
+
   if (
-    req.file.originalname.split(".").pop() != "ogg" &&
-    req.file.originalname.split(".").pop() != "mp3" &&
-    req.file.originalname.split(".").pop() != "wav"
+    audioFile.originalname.split(".").pop() != "ogg" &&
+    audioFile.originalname.split(".").pop() != "mp3" &&
+    audioFile.originalname.split(".").pop() != "wav"
   ) {
     return res.status(400).json({
       errorMessage:
@@ -53,21 +63,47 @@ export const createPost = async (req, res) => {
       .json({ errorMessage: "Your post must have a title" });
   }
 
-  if (req.body.title.length < 2 || req.body.title.length > 40) {
+  if (req.body.title.length < 2 || req.body.title.length > 20) {
     return res.status(400).json({
-      errorMessage: "The post title must be between 2 and 40 characters long",
+      errorMessage: "The post title must be between 2 and 20 characters long",
+    });
+  }
+
+  const hasTagWithMoreThanXChars = (x) => {
+    console.log(req.body.tags);
+    console.log(req.body.tags.split(","));
+    for (const tag of req.body.tags.split(",")) {
+      console.log(tag);
+      if (tag.length > x) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  if (req.body.tags && req.body.tags.split(",").length > 15) {
+    return res.status(400).json({
+      errorMessage: "You may only have up to 15 tags",
+    });
+  }
+
+  if (req.body.tags && hasTagWithMoreThanXChars(12)) {
+    return res.status(400).json({
+      errorMessage: "all tags must be 12 characters or shorter",
     });
   }
 
   // upload to S3 and store the URL from result.Location
-  const result = await uploadAudioToS3(req.file);
+  const audioFileResult = await uploadAudioToS3(audioFile);
+  const imageFileResult = await uploadImageToS3(imageFile);
   const newPost = new Post({
     title: req.body.title,
     message: req.body.message,
     creator_id: req.userId,
     creator_username: req.body.creator_username,
     tags: req.body.tags.split(","),
-    fileUrl: result.Location,
+    fileUrl: audioFileResult.Location,
+    imageFileUrl: imageFileResult.Location,
     createdAt: new Date().toISOString(),
   });
 
@@ -126,17 +162,28 @@ export const queryPosts = async (req, res) => {
   // get the keyword and tag search
   const { q, tags } = req.query;
 
+  const escapeRegex = (text) => {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+  };
+
   try {
     // ignore case w/ regexp
-    const keyword = new RegExp(q, "i");
+    const keyword = new RegExp(escapeRegex(q), "gi");
     // filter posts based on whether the title/message contain the keyword or if any of the tags are present
-    const posts = await Post.find({
-      $or: [
-        { title: keyword },
-        { tags: { $in: tags.split(",") } },
-        { message: keyword },
-      ],
-    });
+    var posts;
+    if (tags) {
+      posts = await Post.find({
+        $or: [
+          { title: keyword },
+          { tags: { $in: tags.split(",") } },
+          { message: keyword },
+        ],
+      });
+    } else {
+      posts = await Post.find({
+        $or: [{ title: keyword }, { message: keyword }],
+      });
+    }
 
     res.status(200).json(posts);
   } catch (error) {
