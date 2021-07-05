@@ -16,14 +16,16 @@ import {
   TagLabel,
   FilledHeartIcon,
   AudioContainer,
+  LikeFlexContainer,
   TitleLink,
   ImageFlexContainer,
   StyledImage,
 } from "./Post.elements.js";
+import Posts from "../Posts.jsx";
 
 const Post = ({ post }) => {
   const history = useHistory();
-  const shouldTagsShow = useMediaQuery({ query: "(max-width: 1200px)" });
+  const shouldTagsShow = useMediaQuery({ query: "(max-width: 1300px)" });
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 960px)" });
   const isSmallPhone = useMediaQuery({ query: "(max-width: 500px)" });
   const [isLiked, setLiked] = useState(false);
@@ -56,7 +58,7 @@ const Post = ({ post }) => {
             onClick={() => {
               history.push(`/p/${post._id}`);
             }}
-            smallFont={post.title.length > 23}
+            smallFont={post.title.length > 32}
             verySmallFont={isSmallPhone && post.title.length > 23}
           >
             {post.title}
@@ -70,15 +72,18 @@ const Post = ({ post }) => {
         </FlexContainer>
         {!shouldTagsShow && (
           <FlexContainer>
-            {post.tags[0].length > 0 && (
-              <>
-                <TagLabel>{`#${post.tags[0]}`}</TagLabel>
-                {post.tags[1] && <TagLabel>{`#${post.tags[1]}`}</TagLabel>}
-              </>
-            )}
-            {post.tags.length > 2 && (
-              <TagLabel>{`+${post.tags.length - 2}`}</TagLabel>
-            )}
+            {post.tags.map((tag, index) => {
+              return (
+                tag.length > 0 && (
+                  <TagLabel
+                    key={index}
+                    onClick={() => history.push(`/t/${tag}`)}
+                  >
+                    #{tag}
+                  </TagLabel>
+                )
+              );
+            })}
           </FlexContainer>
         )}
         {!isTabletOrMobile ? (
@@ -88,7 +93,7 @@ const Post = ({ post }) => {
         ) : (
           <></>
         )}
-        <FlexContainer>
+        <LikeFlexContainer>
           <LikeCountContainer smallFont={isTabletOrMobile}>
             {Intl.NumberFormat("en-US").format(numLikes)}
           </LikeCountContainer>
@@ -119,7 +124,7 @@ const Post = ({ post }) => {
               small={isTabletOrMobile}
             />
           )}
-        </FlexContainer>
+        </LikeFlexContainer>
       </GoodLi>
       {isModalVisible && (
         <Modal

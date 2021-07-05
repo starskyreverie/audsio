@@ -75,10 +75,19 @@ export const ImageFlexContainer = styled.div`
   vertical-align: center;
   margin-right: 10px;
 `;
+
+export const LikeFlexContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  vertical-align: center;
+  width: 20%;
+`;
+
 export const TagLabel = styled.label`
   margin-right: 0.5em;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   padding: 0.25em 0.5em;
   color: hsla(0, 0%, 100%, 0.48);
   display: block;
@@ -86,6 +95,11 @@ export const TagLabel = styled.label`
   background: hsla(0, 0%, 100%, 0.05);
   font-size: 12px;
   z-index: 1000;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 export const TitleLink = styled.span`

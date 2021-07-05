@@ -44,10 +44,37 @@ const TestAudioPlayer = ({ fileUrl }) => {
     setCurrentTime(time.toFixed(2));
   };
 
+  const forwardByFive = () => {
+    audioRef.current.currentTime += 5;
+    const percent = ((audioRef.current.currentTime / duration) * 100).toFixed(
+      2
+    );
+    const time = audioRef.current.currentTime;
+
+    setPercentage(+percent);
+    setCurrentTime(time.toFixed(2));
+  };
+
+  const backwardByFive = () => {
+    audioRef.current.currentTime -= 5;
+    const percent = ((audioRef.current.currentTime / duration) * 100).toFixed(
+      2
+    );
+    const time = audioRef.current.currentTime;
+
+    setPercentage(+percent);
+    setCurrentTime(time.toFixed(2));
+  };
+
   return (
     <>
       <AudioContainer>
-        <Button play={play} isPlaying={isPlaying} />
+        <Button
+          play={play}
+          isPlaying={isPlaying}
+          forwardByFive={forwardByFive}
+          backwardByFive={backwardByFive}
+        />
         <Slider percentage={percentage} onChange={onChange} />
         <audio
           ref={audioRef}

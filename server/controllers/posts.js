@@ -28,20 +28,22 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   // store a post in the database; must be authorized
   if (!req.userId) {
-    return res.status(401).json({ errorMessage: "Unauthorized." });
+    return res
+      .status(401)
+      .json({ errorMessage: "You must login to create a post." });
   }
 
   if (!req.files[0]) {
     return res
       .status(400)
-      .json({ errorMessage: "Your post must contain an audio file." });
+      .json({ errorMessage: "The post must contain an audio file." });
   }
 
   const audioFile = req.files[0];
 
   if (!req.files[1]) {
     return res.status(400).json({
-      errorMessage: "Your post must contain an image file.",
+      errorMessage: "The post must contain an image file.",
     });
   }
 
@@ -54,19 +56,19 @@ export const createPost = async (req, res) => {
   ) {
     return res.status(400).json({
       errorMessage:
-        "The provided file isn't an accepted filetype. The only allowed file extensions are .mp3, .wav, and .ogg",
+        "The provided file isn't an accepted filetype. The only allowed file extensions are .mp3, .wav, and .ogg.",
     });
   }
 
   if (!req.body.title) {
     return res
       .status(400)
-      .json({ errorMessage: "Your post must have a title" });
+      .json({ errorMessage: "Your post must have a title." });
   }
 
-  if (req.body.title.length < 2 || req.body.title.length > 30) {
+  if (req.body.title.length < 2 || req.body.title.length > 36) {
     return res.status(400).json({
-      errorMessage: "The post title must be between 2 and 30 characters long",
+      errorMessage: `The post title must be between 2 and 36 characters long. It currently has ${req.body.title.length} characters.`,
     });
   }
 
@@ -82,15 +84,17 @@ export const createPost = async (req, res) => {
     return false;
   };
 
-  if (req.body.tags && req.body.tags.split(",").length > 15) {
+  if (req.body.tags && req.body.tags.split(",").length > 4) {
     return res.status(400).json({
-      errorMessage: "You may only have up to 15 tags",
+      errorMessage: `The post must only have up to 4 tags. It currently has ${
+        req.body.tags.split(",").length
+      } tags.`,
     });
   }
 
-  if (req.body.tags && hasTagWithMoreThanXChars(12)) {
+  if (req.body.tags && hasTagWithMoreThanXChars(18)) {
     return res.status(400).json({
-      errorMessage: "all tags must be 12 characters or shorter",
+      errorMessage: "All tags must be 18 characters or shorter.",
     });
   }
 

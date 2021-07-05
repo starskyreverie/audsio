@@ -77,7 +77,7 @@ const UploadForm = () => {
               name="tags"
               value={values.tags}
               onChange={(e) => {
-                setFieldValue("tags", e.target.value.toLowerCase());
+                setFieldValue("tags", e.target.value);
               }}
             />
             <FileInput

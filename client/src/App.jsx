@@ -42,7 +42,13 @@ const App = () => {
             !localStorage.getItem("user") ? <Register /> : <Redirect to="/" />
           }
         />
-        <Route path="/upload" exact component={Upload} />
+        <Route
+          path="/upload"
+          exact
+          component={() =>
+            localStorage.getItem("user") ? <Upload /> : <Redirect to="/" />
+          }
+        />
         <Route path="/u/:username" component={Profile} />
         <Route path="/t/:tag" component={TagSearch} />
         <Route component={NotFound} />

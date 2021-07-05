@@ -1,9 +1,18 @@
 import React from "react";
-import "./button.css";
+import {
+  StepBackwardIcon,
+  StepForwardIcon,
+  PlayIcon,
+  PauseIcon,
+} from "./Button.elements.js";
 
-function Button({ play, isPlaying }) {
+const Button = ({ play, isPlaying, forwardByFive, backwardByFive }) => {
   return (
-    <div onClick={play} className={isPlaying ? "btn-stop" : "btn-play"}></div>
+    <>
+      <StepBackwardIcon onClick={backwardByFive} />
+      {!isPlaying ? <PlayIcon onClick={play} /> : <PauseIcon onClick={play} />}
+      <StepForwardIcon onClick={forwardByFive} />
+    </>
   );
-}
+};
 export default Button;
