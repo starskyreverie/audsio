@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { useMediaQuery } from "react-responsive";
 import { likePost } from "../../../store/actions/posts.js";
-import { AudioPlayer, Modal } from "../../index.js";
+import { TestAudioPlayer, Modal } from "../../index.js";
 
 import {
   GoodLi,
@@ -83,9 +83,7 @@ const Post = ({ post }) => {
         )}
         {!isTabletOrMobile ? (
           <FlexContainer>
-            <AudioContainer>
-              <AudioPlayer fileUrl={post.fileUrl} />
-            </AudioContainer>
+            <TestAudioPlayer fileUrl={post.fileUrl} />
           </FlexContainer>
         ) : (
           <></>

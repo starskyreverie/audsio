@@ -35,6 +35,7 @@ export const LikeCountContainer = styled.span`
 
 export const AudioContainer = styled.span`
   margin-left: auto;
+  display: flex;
   color: #d1d2d2;
 `;
 
