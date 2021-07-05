@@ -31,91 +31,95 @@ const Pagination = ({
     } else if (!loading) {
       paginate(1);
     }
-    if (window.location.href.endsWith("/")) {
+    if (!window.location.href.includes("pg")) {
       paginate(1);
     }
   }, [pageNumbers, window.location.href]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return totalPosts !== 0 ? (
-    <PaginationContainer>
-      <PaginationUl>
-        <PaginationLi
-          onClick={() => {
-            if (currentPage !== 1) {
-              paginate(currentPage - 1);
-              if (keywordSearch || tagSearch) {
-                window.history.replaceState(
-                  null,
-                  "eriv.xyz",
-                  `/search?q=${keywordSearch}&tags=${tagSearch
-                    .trim()
-                    .split(" ")
-                    .join(",")}&pg=${currentPage - 1}`
-                );
-              } else {
-                window.history.replaceState(
-                  null,
-                  "eriv.xyz",
-                  `/?pg=${currentPage - 1}`
-                );
-              }
-            }
-          }}
-        >
-          <StyledLeftChevron />
-        </PaginationLi>
-        {pageNumbers.map((number) => (
+  return (
+    totalPosts !== 0 && (
+      <PaginationContainer>
+        <PaginationUl>
           <PaginationLi
-            key={number}
             onClick={() => {
-              paginate(number);
-              if (keywordSearch || tagSearch) {
-                window.history.replaceState(
-                  null,
-                  "bob",
-                  `/search?q=${keywordSearch}&tags=${tagSearch
-                    .trim()
-                    .split(" ")
-                    .join(",")}&pg=${number}`
-                );
-              } else {
-                window.history.replaceState(null, "eriv.xyz", `/?pg=${number}`);
+              if (currentPage !== 1) {
+                paginate(currentPage - 1);
+                if (keywordSearch || tagSearch) {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/search?q=${keywordSearch}&tags=${tagSearch
+                      .trim()
+                      .split(" ")
+                      .join(",")}&pg=${currentPage - 1}`
+                  );
+                } else {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/?pg=${currentPage - 1}`
+                  );
+                }
               }
             }}
-            active={currentPage === number ? "true" : "false"}
           >
-            {number}
+            <StyledLeftChevron />
           </PaginationLi>
-        ))}
-        <PaginationLi
-          onClick={() => {
-            if (currentPage !== pageNumbers[pageNumbers.length - 1]) {
-              paginate(currentPage + 1);
-              if (keywordSearch || tagSearch) {
-                window.history.replaceState(
-                  null,
-                  "eriv.xyz",
-                  `/search?q=${keywordSearch}&tags=${tagSearch
-                    .trim()
-                    .split(" ")
-                    .join(",")}&pg=${currentPage + 1}`
-                );
-              } else {
-                window.history.replaceState(
-                  null,
-                  "eriv.xyz",
-                  `/?pg=${currentPage + 1}`
-                );
+          {pageNumbers.map((number) => (
+            <PaginationLi
+              key={number}
+              onClick={() => {
+                paginate(number);
+                if (keywordSearch || tagSearch) {
+                  window.history.replaceState(
+                    null,
+                    "bob",
+                    `/search?q=${keywordSearch}&tags=${tagSearch
+                      .trim()
+                      .split(" ")
+                      .join(",")}&pg=${number}`
+                  );
+                } else {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/?pg=${number}`
+                  );
+                }
+              }}
+              active={currentPage === number ? "true" : "false"}
+            >
+              {number}
+            </PaginationLi>
+          ))}
+          <PaginationLi
+            onClick={() => {
+              if (currentPage !== pageNumbers[pageNumbers.length - 1]) {
+                paginate(currentPage + 1);
+                if (keywordSearch || tagSearch) {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/search?q=${keywordSearch}&tags=${tagSearch
+                      .trim()
+                      .split(" ")
+                      .join(",")}&pg=${currentPage + 1}`
+                  );
+                } else {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/?pg=${currentPage + 1}`
+                  );
+                }
               }
-            }
-          }}
-        >
-          <StyledRightChevron />
-        </PaginationLi>
-      </PaginationUl>
-    </PaginationContainer>
-  ) : (
-    <div>no posts found</div>
+            }}
+          >
+            <StyledRightChevron />
+          </PaginationLi>
+        </PaginationUl>
+      </PaginationContainer>
+    )
   );
 };
 

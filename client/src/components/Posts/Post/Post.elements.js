@@ -30,6 +30,7 @@ export const CreatorLink = styled(Link)`
 
 export const LikeCountContainer = styled.span`
   margin-left: auto;
+  font-size: ${({ smallFont }) => (smallFont ? "14px" : "16px")};
 `;
 
 export const AudioContainer = styled.span`
@@ -88,6 +89,7 @@ export const TagLabel = styled.label`
 
 export const TitleLink = styled.span`
   font-size: ${({ smallFont }) => (smallFont ? "12px" : "16px")};
+  font-size: ${({ verySmallFont }) => verySmallFont && "10px"};
   &:hover {
     text-decoration: underline;
     cursor: pointer;

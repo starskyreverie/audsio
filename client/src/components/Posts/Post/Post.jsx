@@ -57,6 +57,7 @@ const Post = ({ post }) => {
               history.push(`/p/${post._id}`);
             }}
             smallFont={post.title.length > 23}
+            verySmallFont={isSmallPhone && post.title.length > 23}
           >
             {post.title}
           </TitleLink>
@@ -90,7 +91,7 @@ const Post = ({ post }) => {
           <></>
         )}
         <FlexContainer>
-          <LikeCountContainer>
+          <LikeCountContainer smallFont={isTabletOrMobile}>
             {Intl.NumberFormat("en-US").format(numLikes)}
           </LikeCountContainer>
           {!isLiked ? (
@@ -104,6 +105,7 @@ const Post = ({ post }) => {
                   setModalVisibility(true);
                 }
               }}
+              small={isTabletOrMobile}
             />
           ) : (
             <FilledHeartIcon
@@ -116,6 +118,7 @@ const Post = ({ post }) => {
                   setModalVisibility(true);
                 }
               }}
+              small={isTabletOrMobile}
             />
           )}
         </FlexContainer>

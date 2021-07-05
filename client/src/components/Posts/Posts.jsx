@@ -11,11 +11,17 @@ const Posts = ({ posts, loading }) => {
     </Box>
   ) : (
     <>
-      <GoodUl>
-        {posts?.map((post) => (
-          <Post post={post} key={post._id.toString()} />
-        ))}
-      </GoodUl>
+      {posts.length > 1 ? (
+        <GoodUl>
+          {posts?.map((post) => (
+            <>
+              <Post post={post} key={post._id.toString()} />
+            </>
+          ))}
+        </GoodUl>
+      ) : (
+        <div>no posts found</div>
+      )}
     </>
   );
 };
