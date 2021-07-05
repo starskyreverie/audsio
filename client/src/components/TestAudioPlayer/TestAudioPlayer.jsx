@@ -9,6 +9,8 @@ const TestAudioPlayer = ({ fileUrl }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(0.5);
+  const [isRepeating, setIsRepeating] = useState(false);
 
   const audioRef = useRef();
 
@@ -20,7 +22,7 @@ const TestAudioPlayer = ({ fileUrl }) => {
 
   const play = () => {
     const audio = audioRef.current;
-    audio.volume = 0.1;
+    audio.volume = volume;
 
     if (!isPlaying) {
       setIsPlaying(true);
@@ -31,6 +33,12 @@ const TestAudioPlayer = ({ fileUrl }) => {
       setIsPlaying(false);
       audio.pause();
     }
+  };
+
+  const adjustVolume = (vol) => {
+    const audio = audioRef.current;
+    audio.volume = vol;
+    setVolume(vol);
   };
 
   const getCurrDuration = (e) => {
@@ -66,6 +74,10 @@ const TestAudioPlayer = ({ fileUrl }) => {
     setCurrentTime(time.toFixed(2));
   };
 
+  const handleKeyPress = (e) => {
+    console.log("e");
+  };
+
   return (
     <>
       <AudioContainer>
@@ -74,8 +86,13 @@ const TestAudioPlayer = ({ fileUrl }) => {
           isPlaying={isPlaying}
           forwardByFive={forwardByFive}
           backwardByFive={backwardByFive}
+          onKeyPress={handleKeyPress}
         />
-        <Slider percentage={percentage} onChange={onChange} />
+        <Slider
+          percentage={percentage}
+          onChange={onChange}
+          onKeyPress={handleKeyPress}
+        />
         <audio
           ref={audioRef}
           onTimeUpdate={getCurrDuration}
@@ -86,6 +103,8 @@ const TestAudioPlayer = ({ fileUrl }) => {
           onEnded={() => {
             setIsPlaying(false);
           }}
+          loop={isRepeating}
+          onKeyPress={handleKeyPress}
         ></audio>
       </AudioContainer>
       <ControlPanel
@@ -93,6 +112,9 @@ const TestAudioPlayer = ({ fileUrl }) => {
         isPlaying={isPlaying}
         duration={duration}
         currentTime={currentTime}
+        isRepeating={isRepeating}
+        setIsRepeating={setIsRepeating}
+        onKeyPress={handleKeyPress}
       />
     </>
   );

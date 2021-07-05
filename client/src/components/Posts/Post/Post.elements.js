@@ -30,6 +30,7 @@ export const CreatorLink = styled(Link)`
 
 export const LikeCountContainer = styled.span`
   margin-left: auto;
+  margin-bottom: 1px;
   font-size: ${({ smallFont }) => (smallFont ? "14px" : "16px")};
 `;
 
@@ -41,14 +42,12 @@ export const AudioContainer = styled.span`
 
 export const HeartIcon = styled(AiOutlineHeart)`
   margin-left: 4px;
-  margin-top: 1px;
   color: #d1d2d2;
   cursor: pointer;
 `;
 
 export const FilledHeartIcon = styled(AiFillHeart)`
   margin-left: 4px;
-  margin-top: 1px;
   color: #fd4d4d;
   cursor: pointer;
 `;
@@ -76,12 +75,20 @@ export const ImageFlexContainer = styled.div`
   margin-right: 10px;
 `;
 
+export const TagFlexContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  vertical-align: center;
+`;
+
 export const LikeFlexContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   vertical-align: center;
-  width: 20%;
+  width: 10%;
 `;
 
 export const TagLabel = styled.label`

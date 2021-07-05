@@ -14,13 +14,11 @@ const Posts = ({ posts, loading }) => {
       {posts.length > 1 ? (
         <GoodUl>
           {posts?.map((post) => (
-            <>
-              <Post post={post} key={post._id.toString()} />
-            </>
+            <Post post={post} key={post._id.toString()} />
           ))}
         </GoodUl>
       ) : (
-        <div>no posts found</div>
+        <div key="hi">No posts were found</div>
       )}
     </>
   );

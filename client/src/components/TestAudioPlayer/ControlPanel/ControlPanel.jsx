@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { RepeatIcon } from "./ControlPanel.elements.js";
 import "./control-panel.css";
 
-function ControlPanel({ duration, currentTime }) {
-  function secondsToHms(seconds) {
+const ControlPanel = ({
+  duration,
+  currentTime,
+  isRepeating,
+  setIsRepeating,
+}) => {
+  const secondsToHms = (seconds) => {
     if (!seconds) return "00:00";
 
     let duration = seconds;
@@ -23,17 +29,25 @@ function ControlPanel({ duration, currentTime }) {
 
     if (parseInt(hours, 10) > 0) {
       return `${parseInt(hours, 10)}h ${min}m ${sec}s`;
-    } else if (min == 0) {
+    } else if (min === 0) {
       return `00:${sec}`;
     } else {
       return `${min}:${sec}`;
     }
-  }
+  };
 
   return (
-    <div className="timer">{`${secondsToHms(currentTime)}/${secondsToHms(
-      duration
-    )}`}</div>
+    <>
+      <div className="timer">{`${secondsToHms(currentTime)}/${secondsToHms(
+        duration
+      )}`}</div>
+      <RepeatIcon
+        color={isRepeating ? "#fd4d4d" : "#d1d2d2"}
+        onClick={() => {
+          setIsRepeating(!isRepeating);
+        }}
+      />
+    </>
   );
-}
+};
 export default ControlPanel;

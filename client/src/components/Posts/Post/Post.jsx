@@ -19,6 +19,7 @@ import {
   LikeFlexContainer,
   TitleLink,
   ImageFlexContainer,
+  TagFlexContainer,
   StyledImage,
 } from "./Post.elements.js";
 import Posts from "../Posts.jsx";
@@ -71,7 +72,7 @@ const Post = ({ post }) => {
           </BottomDiv>
         </FlexContainer>
         {!shouldTagsShow && (
-          <FlexContainer>
+          <TagFlexContainer>
             {post.tags.map((tag, index) => {
               return (
                 tag.length > 0 && (
@@ -84,7 +85,7 @@ const Post = ({ post }) => {
                 )
               );
             })}
-          </FlexContainer>
+          </TagFlexContainer>
         )}
         {!isTabletOrMobile ? (
           <FlexContainer>
@@ -108,7 +109,6 @@ const Post = ({ post }) => {
                   setModalVisibility(true);
                 }
               }}
-              small={isTabletOrMobile}
             />
           ) : (
             <FilledHeartIcon
@@ -121,7 +121,6 @@ const Post = ({ post }) => {
                   setModalVisibility(true);
                 }
               }}
-              small={isTabletOrMobile}
             />
           )}
         </LikeFlexContainer>
