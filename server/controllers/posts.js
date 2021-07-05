@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Fuse from "fuse.js";
 
 import Post from "../models/Post.js";
 import { uploadAudioToS3, uploadImageToS3 } from "./s3.js";
@@ -162,16 +163,42 @@ export const queryPosts = async (req, res) => {
   // get the keyword and tag search
   const { q, tags } = req.query;
 
-  const escapeRegex = (text) => {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-  };
-
   try {
-    // ignore case w/ regexp
-    const keyword = new RegExp(escapeRegex(q), "gi");
     // filter posts based on whether the title/message contain the keyword or if any of the tags are present
-    var posts;
-    if (tags) {
+    const posts = await Post.find();
+
+    const options = {
+      isCaseSensitive: false,
+      shouldSort: true,
+      // findAllMatches: false,
+      // minMatchCharLength: 1,
+      // location: 0,
+      // threshold: 0.6,
+      // distance: 100,
+      // useExtendedSearch: false,
+      // ignoreLocation: false,
+      // ignoreFieldNorm: false,
+      keys: [
+        { name: "title", weight: 8 },
+        { name: "message", weight: 1 },
+        { name: "creator_username", weight: 2 },
+        { name: "tags", weight: 64 },
+      ],
+    };
+
+    const fuse = new Fuse(posts, options);
+    const filteredPosts = fuse
+      .search({
+        $or: [
+          { title: q },
+          { message: q },
+          { creator_username: q },
+          { tags: tags },
+        ],
+      })
+      .map((filteredPosts) => filteredPosts.item);
+
+    /*if (tags) {
       posts = await Post.find({
         $or: [
           { title: keyword },
@@ -183,9 +210,9 @@ export const queryPosts = async (req, res) => {
       posts = await Post.find({
         $or: [{ title: keyword }, { message: keyword }],
       });
-    }
+    } */
 
-    res.status(200).json(posts);
+    res.status(200).json(filteredPosts);
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }
