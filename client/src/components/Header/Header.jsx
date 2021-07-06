@@ -84,6 +84,19 @@ const HeaderBar = () => {
                     )}
                   </NavItemBtn>
                   <NavItemBtn>
+                    {button ? (
+                      <NavBtnLink to="/liked">
+                        <Button primary>Saved</Button>
+                      </NavBtnLink>
+                    ) : (
+                      <NavBtnLink to="/liked">
+                        <Button onClick={closeMobileMenu} fontBig primary>
+                          Saved
+                        </Button>
+                      </NavBtnLink>
+                    )}
+                  </NavItemBtn>
+                  <NavItemBtn>
                     {" "}
                     {button ? (
                       <NavBtnDiv>
@@ -113,6 +126,19 @@ const HeaderBar = () => {
                 </>
               ) : (
                 <>
+                  <NavItemBtn>
+                    {button ? (
+                      <NavBtnLink to="/liked">
+                        <Button primary>Saved</Button>
+                      </NavBtnLink>
+                    ) : (
+                      <NavBtnLink to="/liked">
+                        <Button onClick={closeMobileMenu} fontBig primary>
+                          Saved
+                        </Button>
+                      </NavBtnLink>
+                    )}
+                  </NavItemBtn>
                   <NavItemBtn>
                     {button ? (
                       <NavBtnLink to="/upload">

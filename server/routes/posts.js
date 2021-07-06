@@ -12,6 +12,7 @@ import {
   deletePost,
   likePost,
   queryPosts,
+  getLikedPosts,
 } from "../controllers/posts.js";
 
 // run controllers on HTTP requests to routes
@@ -27,6 +28,7 @@ router.post(
   upload.array("files") /* multer middleware to parse file */,
   createPost
 );
+router.get("/liked", auth, getLikedPosts);
 router.get("/:id", getPost);
 router.delete("/:id", auth, deletePost);
 router.patch("/:id/likePost", auth, likePost);

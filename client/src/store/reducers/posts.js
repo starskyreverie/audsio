@@ -5,6 +5,7 @@ import {
   DELETE,
   LIKE,
   QUERY_POSTS,
+  FETCH_LIKED_POSTS,
 } from "../actions/actionTypes.js";
 
 const posts = (posts = [], action) => {
@@ -24,6 +25,8 @@ const posts = (posts = [], action) => {
     case DELETE:
       return posts.filter((post) => post._id !== action.payload);
     case QUERY_POSTS:
+      return action.payload;
+    case FETCH_LIKED_POSTS:
       return action.payload;
     default:
       return posts;

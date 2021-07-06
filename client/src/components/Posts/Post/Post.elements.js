@@ -77,7 +77,7 @@ export const ImageFlexContainer = styled.div`
 
 export const TagFlexContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 95%;
   flex-wrap: wrap;
   align-items: center;
   vertical-align: center;
@@ -88,7 +88,7 @@ export const LikeFlexContainer = styled.div`
   flex-wrap: wrap;
   align-items: center;
   vertical-align: center;
-  width: 10%;
+  width: 20%;
 `;
 
 export const TagLabel = styled.label`

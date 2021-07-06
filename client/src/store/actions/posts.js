@@ -5,6 +5,7 @@ import {
   DELETE,
   LIKE,
   QUERY_POSTS,
+  FETCH_LIKED_POSTS,
 } from "./actionTypes.js";
 
 import * as api from "../api/index.js";
@@ -65,6 +66,15 @@ export const queryPosts = (query) => async (dispatch) => {
   try {
     const { data } = await api.queryPosts(query);
     dispatch({ type: QUERY_POSTS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLikedPosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchLikedPosts();
+    dispatch({ type: FETCH_LIKED_POSTS, payload: data });
   } catch (error) {
     console.log(error);
   }

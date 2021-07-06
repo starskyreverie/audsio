@@ -3,6 +3,7 @@ import Fuse from "fuse.js";
 
 import Post from "../models/Post.js";
 import { uploadAudioToS3, uploadImageToS3 } from "./s3.js";
+import User from "../models/User.js";
 
 export const getPosts = async (req, res) => {
   // get all posts from the database and return them
@@ -149,17 +150,20 @@ export const likePost = async (req, res) => {
 
   // find the post, then see if the user has liked it
   const post = await Post.findById(postId);
+  const user = await User.findById(req.userId);
   const index = post.likes.findIndex((value) => value === String(req.userId));
 
   if (index === -1) {
     // user hasn't liked it yet, so this is a liking action
     post.likes.push(req.userId);
+    user.likedPosts.push(postId);
   } else {
     // user has already liked it, so this is an unliking action
     post.likes = post.likes.filter((value) => value !== String(req.userId));
   }
   // update and return the updated post
   const updatedPost = await Post.findByIdAndUpdate(postId, post, { new: true });
+  await User.findByIdAndUpdate(req.userId, user, { new: true });
   res.status(200).json(updatedPost);
 };
 
@@ -219,5 +223,21 @@ export const queryPosts = async (req, res) => {
     res.status(200).json(filteredPosts);
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
+  }
+};
+
+export const getLikedPosts = async (req, res) => {
+  if (!req.userId) {
+    return res.status(403).json({
+      errorMessage: "unauthorized",
+    });
+  }
+  const user = await User.findById(req.userId);
+  try {
+    const likedPosts = user.likedPosts;
+    const posts = await Post.find({ _id: { $in: likedPosts } });
+    res.status(200).json(posts);
+  } catch {
+    res.status(404).json(e);
   }
 };

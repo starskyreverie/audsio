@@ -17,6 +17,7 @@ import {
   Profile,
   TagSearch,
   NotFound,
+  LikedPosts,
 } from "./pages";
 
 const App = () => {
@@ -47,6 +48,13 @@ const App = () => {
           exact
           component={() =>
             localStorage.getItem("user") ? <Upload /> : <Redirect to="/" />
+          }
+        />
+        <Route
+          path="/liked"
+          exact
+          component={() =>
+            localStorage.getItem("user") ? <LikedPosts /> : <Redirect to="/" />
           }
         />
         <Route path="/u/:username" component={Profile} />

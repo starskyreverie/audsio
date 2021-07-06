@@ -53,6 +53,18 @@ const Pagination = ({
                       .split(" ")
                       .join(",")}&pg=${currentPage - 1}`
                   );
+                } else if (
+                  window.location.href.startsWith(
+                    process.env.NODE_ENV === "development"
+                      ? "http://localhost:3000/liked"
+                      : "https://eriv.netlify.app/liked"
+                  )
+                ) {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/liked?pg=${currentPage - 1}`
+                  );
                 } else {
                   window.history.replaceState(
                     null,
@@ -79,6 +91,18 @@ const Pagination = ({
                       .split(" ")
                       .join(",")}&pg=${number}`
                   );
+                } else if (
+                  window.location.href.startsWith(
+                    process.env.NODE_ENV === "development"
+                      ? "http://localhost:3000/liked"
+                      : "https://eriv.netlify.app/liked"
+                  )
+                ) {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/liked?pg=${number}`
+                  );
                 } else {
                   window.history.replaceState(
                     null,
@@ -104,6 +128,18 @@ const Pagination = ({
                       .trim()
                       .split(" ")
                       .join(",")}&pg=${currentPage + 1}`
+                  );
+                } else if (
+                  window.location.href.startsWith(
+                    process.env.NODE_ENV === "development"
+                      ? "http://localhost:3000/liked"
+                      : "https://eriv.netlify.app/liked"
+                  )
+                ) {
+                  window.history.replaceState(
+                    null,
+                    "eriv.xyz",
+                    `/liked?pg=${currentPage + 1}`
                   );
                 } else {
                   window.history.replaceState(

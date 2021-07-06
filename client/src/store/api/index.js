@@ -19,6 +19,7 @@ API.interceptors.request.use((req) => {
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts`);
+export const fetchLikedPosts = () => API.get(`/posts/liked`);
 export const queryPosts = (query) =>
   API.get(
     `/posts/search?q=${query.keywordQuery || '""'}&tags=${query.tagQuery}`

@@ -11,7 +11,7 @@ const Posts = ({ posts, loading }) => {
     </Box>
   ) : (
     <>
-      {posts.length > 1 ? (
+      {posts.length > 0 ? (
         <GoodUl>
           {posts?.map((post) => (
             <Post post={post} key={post._id.toString()} />
