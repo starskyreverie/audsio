@@ -123,6 +123,7 @@ export const NavBtnLink = styled(Link)`
   width: 100%;
   border: none;
   outline: none;
+  margin-right: 20px;
 `;
 
 export const NavBtnDiv = styled.div`
@@ -135,6 +136,7 @@ export const NavBtnDiv = styled.div`
   width: 100%;
   border: none;
   outline: none;
+  margin-right: 20px;
 `;
 
 export const NavItemBtn = styled.li`
