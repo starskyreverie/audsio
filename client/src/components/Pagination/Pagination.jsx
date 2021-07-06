@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   PaginationContainer,
@@ -18,6 +18,7 @@ const Pagination = ({
   tagSearch,
 }) => {
   const location = useLocation();
+  const [timesRight, setTimesRight] = useState(Math.floor(currentPage / 5));
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -33,6 +34,7 @@ const Pagination = ({
     }
     if (!window.location.href.includes("pg")) {
       paginate(1);
+      setTimesRight(0);
     }
   }, [pageNumbers, window.location.href]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -43,6 +45,7 @@ const Pagination = ({
           <PaginationLi
             onClick={() => {
               if (currentPage !== 1) {
+                setTimesRight(Math.floor((currentPage - 2) / 5));
                 paginate(currentPage - 1);
                 if (keywordSearch || tagSearch) {
                   window.history.replaceState(
@@ -77,48 +80,56 @@ const Pagination = ({
           >
             <StyledLeftChevron />
           </PaginationLi>
-          {pageNumbers.map((number) => (
-            <PaginationLi
-              key={number}
-              onClick={() => {
-                paginate(number);
-                if (keywordSearch || tagSearch) {
-                  window.history.replaceState(
-                    null,
-                    "bob",
-                    `/search?q=${keywordSearch}&tags=${tagSearch
-                      .trim()
-                      .split(" ")
-                      .join(",")}&pg=${number}`
-                  );
-                } else if (
-                  window.location.href.startsWith(
-                    process.env.NODE_ENV === "development"
-                      ? "http://localhost:3000/liked"
-                      : "https://eriv.netlify.app/liked"
-                  )
-                ) {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/liked?pg=${number}`
-                  );
-                } else {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/?pg=${number}`
-                  );
-                }
-              }}
-              active={currentPage === number ? "true" : "false"}
-            >
-              {number}
-            </PaginationLi>
-          ))}
+          {pageNumbers.map(
+            (number, index) =>
+              index < 5 &&
+              number + 5 * timesRight < pageNumbers.length + 1 && (
+                <PaginationLi
+                  key={number + 5 * timesRight}
+                  onClick={() => {
+                    setTimesRight(Math.floor(currentPage / 5));
+                    paginate(number + 5 * timesRight);
+                    if (keywordSearch || tagSearch) {
+                      window.history.replaceState(
+                        null,
+                        "bob",
+                        `/search?q=${keywordSearch}&tags=${tagSearch
+                          .trim()
+                          .split(" ")
+                          .join(",")}&pg=${number + 5 * timesRight}`
+                      );
+                    } else if (
+                      window.location.href.startsWith(
+                        process.env.NODE_ENV === "development"
+                          ? "http://localhost:3000/liked"
+                          : "https://eriv.netlify.app/liked"
+                      )
+                    ) {
+                      window.history.replaceState(
+                        null,
+                        "eriv.xyz",
+                        `/liked?pg=${number + 5 * timesRight}`
+                      );
+                    } else {
+                      window.history.replaceState(
+                        null,
+                        "eriv.xyz",
+                        `/?pg=${number + 5 * timesRight}`
+                      );
+                    }
+                  }}
+                  active={
+                    currentPage === number + 5 * timesRight ? "true" : "false"
+                  }
+                >
+                  {number + 5 * timesRight}
+                </PaginationLi>
+              )
+          )}
           <PaginationLi
             onClick={() => {
               if (currentPage !== pageNumbers[pageNumbers.length - 1]) {
+                setTimesRight(Math.floor(currentPage / 5));
                 paginate(currentPage + 1);
                 if (keywordSearch || tagSearch) {
                   window.history.replaceState(

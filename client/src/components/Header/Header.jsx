@@ -85,15 +85,24 @@ const HeaderBar = () => {
                   </NavItemBtn>
                   <NavItemBtn>
                     {button ? (
-                      <NavBtnLink to="/liked">
-                        <Button primary>Saved</Button>
-                      </NavBtnLink>
+                      <Button
+                        primary
+                        onClick={() => {
+                          setModalVisibility(true);
+                        }}
+                      >
+                        Saved
+                      </Button>
                     ) : (
-                      <NavBtnLink to="/liked">
-                        <Button onClick={closeMobileMenu} fontBig primary>
-                          Saved
-                        </Button>
-                      </NavBtnLink>
+                      <Button
+                        onClick={() => {
+                          setModalVisibility(true);
+                        }}
+                        fontBig
+                        primary
+                      >
+                        Saved
+                      </Button>
                     )}
                   </NavItemBtn>
                   <NavItemBtn>
@@ -165,7 +174,7 @@ const HeaderBar = () => {
       {isModalVisible && (
         <Modal
           onClose={() => setModalVisibility(false)}
-          title="You must be logged in to upload"
+          title="You must be logged in to do that"
         />
       )}
     </>
