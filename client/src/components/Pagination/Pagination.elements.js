@@ -34,6 +34,21 @@ export const PaginationLi = styled.li`
     background-color: hsla(0, 98%, 65%, 0.5);
   }
 `;
+export const PaginationLiWithoutHover = styled.li`
+  background-color: ${(props) =>
+    props.active === "true" ? "hsla(0,98%,65%,0.5)" : "transparent"};
+  border-radius: 50%;
+  margin-left: 2px;
+  margin-right: 2px;
+  list-style: none;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+`;
 
 export const StyledRightChevron = styled(BiChevronRight)`
   background: transparent;

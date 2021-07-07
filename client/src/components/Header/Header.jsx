@@ -85,24 +85,28 @@ const HeaderBar = () => {
                   </NavItemBtn>
                   <NavItemBtn>
                     {button ? (
-                      <Button
-                        primary
-                        onClick={() => {
-                          setModalVisibility(true);
-                        }}
-                      >
-                        Saved
-                      </Button>
+                      <NavBtnDiv>
+                        <Button
+                          primary
+                          onClick={() => {
+                            setModalVisibility(true);
+                          }}
+                        >
+                          Saved
+                        </Button>
+                      </NavBtnDiv>
                     ) : (
-                      <Button
-                        onClick={() => {
-                          setModalVisibility(true);
-                        }}
-                        fontBig
-                        primary
-                      >
-                        Saved
-                      </Button>
+                      <NavBtnDiv>
+                        <Button
+                          onClick={() => {
+                            setModalVisibility(true);
+                          }}
+                          fontBig
+                          primary
+                        >
+                          Saved
+                        </Button>
+                      </NavBtnDiv>
                     )}
                   </NavItemBtn>
                   <NavItemBtn>

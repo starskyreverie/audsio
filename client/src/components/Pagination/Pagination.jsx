@@ -4,6 +4,7 @@ import {
   PaginationContainer,
   PaginationUl,
   PaginationLi,
+  PaginationLiWithoutHover,
   StyledLeftChevron,
   StyledRightChevron,
 } from "./Pagination.elements.js";
@@ -18,19 +19,44 @@ const Pagination = ({
   tagSearch,
 }) => {
   const location = useLocation();
-  const [timesRight, setTimesRight] = useState(Math.floor(currentPage / 5));
+  const [timesRight, setTimesRight] = useState(0);
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
 
+  const replacePageUrl = (page) => {
+    if (keywordSearch || tagSearch) {
+      window.history.replaceState(
+        null,
+        "eriv.xyz",
+        `/search?q=${keywordSearch}&tags=${tagSearch
+          .trim()
+          .split(" ")
+          .join(",")}&pg=${page}`
+      );
+    } else if (
+      window.location.href.startsWith(
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/liked"
+          : "https://eriv.netlify.app/liked"
+      )
+    ) {
+      window.history.replaceState(null, "eriv.xyz", `/liked?pg=${page}`);
+    } else {
+      window.history.replaceState(null, "eriv.xyz", `/?pg=${page}`);
+    }
+  };
+
   useEffect(() => {
     console.log(window.location.href);
     if (currentPage > 0 && currentPage <= pageNumbers.length) {
+      setTimesRight(Math.floor((currentPage - 1) / 5));
       paginate(currentPage);
     } else if (!loading) {
       paginate(1);
+      replacePageUrl(1);
     }
     if (!window.location.href.includes("pg")) {
       paginate(1);
@@ -47,39 +73,15 @@ const Pagination = ({
               if (currentPage !== 1) {
                 setTimesRight(Math.floor((currentPage - 2) / 5));
                 paginate(currentPage - 1);
-                if (keywordSearch || tagSearch) {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/search?q=${keywordSearch}&tags=${tagSearch
-                      .trim()
-                      .split(" ")
-                      .join(",")}&pg=${currentPage - 1}`
-                  );
-                } else if (
-                  window.location.href.startsWith(
-                    process.env.NODE_ENV === "development"
-                      ? "http://localhost:3000/liked"
-                      : "https://eriv.netlify.app/liked"
-                  )
-                ) {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/liked?pg=${currentPage - 1}`
-                  );
-                } else {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/?pg=${currentPage - 1}`
-                  );
-                }
+                replacePageUrl(currentPage - 1);
               }
             }}
           >
             <StyledLeftChevron />
           </PaginationLi>
+          {timesRight > 0 && (
+            <PaginationLiWithoutHover>...</PaginationLiWithoutHover>
+          )}
           {pageNumbers.map(
             (number, index) =>
               index < 5 &&
@@ -89,34 +91,7 @@ const Pagination = ({
                   onClick={() => {
                     setTimesRight(Math.floor(currentPage / 5));
                     paginate(number + 5 * timesRight);
-                    if (keywordSearch || tagSearch) {
-                      window.history.replaceState(
-                        null,
-                        "bob",
-                        `/search?q=${keywordSearch}&tags=${tagSearch
-                          .trim()
-                          .split(" ")
-                          .join(",")}&pg=${number + 5 * timesRight}`
-                      );
-                    } else if (
-                      window.location.href.startsWith(
-                        process.env.NODE_ENV === "development"
-                          ? "http://localhost:3000/liked"
-                          : "https://eriv.netlify.app/liked"
-                      )
-                    ) {
-                      window.history.replaceState(
-                        null,
-                        "eriv.xyz",
-                        `/liked?pg=${number + 5 * timesRight}`
-                      );
-                    } else {
-                      window.history.replaceState(
-                        null,
-                        "eriv.xyz",
-                        `/?pg=${number + 5 * timesRight}`
-                      );
-                    }
+                    replacePageUrl(number + 5 * timesRight);
                   }}
                   active={
                     currentPage === number + 5 * timesRight ? "true" : "false"
@@ -126,39 +101,15 @@ const Pagination = ({
                 </PaginationLi>
               )
           )}
+          {5 * (timesRight + 1) < pageNumbers[pageNumbers.length - 1] && (
+            <PaginationLiWithoutHover>...</PaginationLiWithoutHover>
+          )}
           <PaginationLi
             onClick={() => {
               if (currentPage !== pageNumbers[pageNumbers.length - 1]) {
                 setTimesRight(Math.floor(currentPage / 5));
                 paginate(currentPage + 1);
-                if (keywordSearch || tagSearch) {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/search?q=${keywordSearch}&tags=${tagSearch
-                      .trim()
-                      .split(" ")
-                      .join(",")}&pg=${currentPage + 1}`
-                  );
-                } else if (
-                  window.location.href.startsWith(
-                    process.env.NODE_ENV === "development"
-                      ? "http://localhost:3000/liked"
-                      : "https://eriv.netlify.app/liked"
-                  )
-                ) {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/liked?pg=${currentPage + 1}`
-                  );
-                } else {
-                  window.history.replaceState(
-                    null,
-                    "eriv.xyz",
-                    `/?pg=${currentPage + 1}`
-                  );
-                }
+                replacePageUrl(currentPage + 1);
               }
             }}
           >
