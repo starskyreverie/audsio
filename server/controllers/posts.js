@@ -241,3 +241,25 @@ export const getLikedPosts = async (req, res) => {
     res.status(404).json(e);
   }
 };
+
+export const getTaggedPosts = async (req, res) => {
+  const { tag } = req.params;
+  const regex = new RegExp(tag, "i");
+  try {
+    const posts = await Post.find({ tags: regex });
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ errorMessage: error.message });
+  }
+};
+
+export const getPostsByCreator = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    const posts = await Post.find({ _id: { $in: user.posts } });
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ errorMessage: error.message });
+  }
+};

@@ -1,7 +1,12 @@
 import React from "react";
+import { TagSearchSection } from "../../components";
 
 const TagSearch = () => {
-  return <div>tag search page lol</div>;
+  return (
+    <>
+      <TagSearchSection />
+    </>
+  );
 };
 
 export default TagSearch;

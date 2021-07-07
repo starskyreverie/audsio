@@ -17,6 +17,7 @@ const Pagination = ({
   loading,
   keywordSearch,
   tagSearch,
+  tag,
 }) => {
   const location = useLocation();
   const [timesRight, setTimesRight] = useState(0);
@@ -44,19 +45,28 @@ const Pagination = ({
       )
     ) {
       window.history.replaceState(null, "eriv.xyz", `/liked?pg=${page}`);
+    } else if (
+      window.location.href.startsWith(
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/t"
+          : "https://eriv.netlify.app/t"
+      )
+    ) {
+      window.history.replaceState(null, "eriv.xyz", `/t/${tag}/?pg=${page}`);
     } else {
       window.history.replaceState(null, "eriv.xyz", `/?pg=${page}`);
     }
   };
 
   useEffect(() => {
-    console.log(window.location.href);
     if (currentPage > 0 && currentPage <= pageNumbers.length) {
       setTimesRight(Math.floor((currentPage - 1) / 5));
       paginate(currentPage);
     } else if (!loading) {
       paginate(1);
-      replacePageUrl(1);
+      if (!tag) {
+        replacePageUrl(1);
+      }
     }
     if (!window.location.href.includes("pg")) {
       paginate(1);

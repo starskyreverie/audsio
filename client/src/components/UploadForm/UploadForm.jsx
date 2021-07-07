@@ -73,7 +73,7 @@ const UploadForm = () => {
               onChange={handleChange}
             />
             <TextFieldInput
-              placeholder="Tags separated by comma"
+              placeholder="Tags separated by space"
               name="tags"
               value={values.tags}
               onChange={(e) => {

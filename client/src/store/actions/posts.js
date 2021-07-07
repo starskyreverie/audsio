@@ -6,6 +6,7 @@ import {
   LIKE,
   QUERY_POSTS,
   FETCH_LIKED_POSTS,
+  FETCH_TAGGED_POSTS,
 } from "./actionTypes.js";
 
 import * as api from "../api/index.js";
@@ -75,6 +76,15 @@ export const getLikedPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchLikedPosts();
     dispatch({ type: FETCH_LIKED_POSTS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getTaggedPosts = (tag) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchTaggedPosts(tag);
+    dispatch({ type: FETCH_TAGGED_POSTS, payload: data });
   } catch (error) {
     console.log(error);
   }

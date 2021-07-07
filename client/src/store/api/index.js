@@ -20,6 +20,7 @@ API.interceptors.request.use((req) => {
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts`);
 export const fetchLikedPosts = () => API.get(`/posts/liked`);
+export const fetchTaggedPosts = (tag) => API.get(`/posts/t/${tag}`);
 export const queryPosts = (query) =>
   API.get(
     `/posts/search?q=${query.keywordQuery || '""'}&tags=${query.tagQuery}`
@@ -30,7 +31,7 @@ export const createPost = (newPost) => {
   formData.append("creator_username", newPost.creatorUsername);
   formData.append("title", newPost.title);
   formData.append("message", newPost.message);
-  formData.append("tags", newPost.tags);
+  formData.append("tags", newPost.tags.split(" ").join(","));
   formData.append("files", newPost.file);
   formData.append("files", newPost.imageFile);
 

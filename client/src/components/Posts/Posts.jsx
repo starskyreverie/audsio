@@ -2,7 +2,7 @@ import React from "react";
 import Post from "./Post/Post.jsx";
 import { Box, CircularProgress } from "@chakra-ui/react";
 
-import { GoodUl } from "./Posts.elements.js";
+import { GoodUl, NoPostsFoundText } from "./Posts.elements.js";
 
 const Posts = ({ posts, loading }) => {
   return loading ? (
@@ -18,7 +18,7 @@ const Posts = ({ posts, loading }) => {
           ))}
         </GoodUl>
       ) : (
-        <div key="hi">No posts were found</div>
+        <NoPostsFoundText>No posts were found</NoPostsFoundText>
       )}
     </>
   );
