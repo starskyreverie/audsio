@@ -115,7 +115,10 @@ export const createPost = async (req, res) => {
 
   try {
     // save the created post to mongodb and send it back
-    await newPost.save();
+    const post = await newPost.save();
+    const user = await User.findById(req.userId);
+    user.posts.push(post._id);
+    await User.findByIdAndUpdate(req.userId, user, { new: true });
     res.status(201).json(newPost);
   } catch (e) {
     console.log(e);
@@ -254,9 +257,9 @@ export const getTaggedPosts = async (req, res) => {
 };
 
 export const getPostsByCreator = async (req, res) => {
-  const { id } = req.params;
+  const { username } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findOne({ username: username });
     const posts = await Post.find({ _id: { $in: user.posts } });
     res.status(200).json(posts);
   } catch (error) {

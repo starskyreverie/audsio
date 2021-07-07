@@ -11,3 +11,4 @@ export { default as Modal } from "./Modal/Modal.jsx";
 export { default as TestAudioPlayer } from "./TestAudioPlayer/TestAudioPlayer.jsx";
 export { default as LikedPostsSection } from "./LikedPostsSection/LikedPostsSection.jsx";
 export { default as TagSearchSection } from "./TagSearchSection/TagSearchSection.jsx";
+export { default as PostsByCreatorSection } from "./PostsByCreatorSection/PostsByCreatorSection.jsx";

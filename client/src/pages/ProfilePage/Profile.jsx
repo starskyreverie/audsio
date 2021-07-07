@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { RedSmallButton } from "../../globalStyles.js";
 import { ProfileContainer } from "./Profile.elements.js";
 import { logout } from "../../store/actions/auth.js";
+import { PostsByCreatorSection } from "../../components";
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -22,16 +23,21 @@ const Profile = () => {
   };
 
   return (
-    <ProfileContainer>
-      user profile page
-      {user &&
-        user.result.username === username &&
-        (!loading ? (
-          <RedSmallButton onClick={() => handleLogout()}>Logout</RedSmallButton>
-        ) : (
-          <div>logging u out...</div>
-        ))}
-    </ProfileContainer>
+    <>
+      <ProfileContainer>
+        user profile page
+        {user &&
+          user.result.username === username &&
+          (!loading ? (
+            <RedSmallButton onClick={() => handleLogout()}>
+              Logout
+            </RedSmallButton>
+          ) : (
+            <div>logging u out...</div>
+          ))}
+      </ProfileContainer>
+      <PostsByCreatorSection />
+    </>
   );
 };
 

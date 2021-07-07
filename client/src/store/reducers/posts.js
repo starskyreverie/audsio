@@ -7,6 +7,7 @@ import {
   QUERY_POSTS,
   FETCH_LIKED_POSTS,
   FETCH_TAGGED_POSTS,
+  FETCH_POSTS_BY_CREATOR,
 } from "../actions/actionTypes.js";
 
 const posts = (posts = [], action) => {
@@ -30,6 +31,8 @@ const posts = (posts = [], action) => {
     case FETCH_LIKED_POSTS:
       return action.payload;
     case FETCH_TAGGED_POSTS:
+      return action.payload;
+    case FETCH_POSTS_BY_CREATOR:
       return action.payload;
     default:
       return posts;

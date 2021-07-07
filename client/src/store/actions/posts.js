@@ -7,6 +7,7 @@ import {
   QUERY_POSTS,
   FETCH_LIKED_POSTS,
   FETCH_TAGGED_POSTS,
+  FETCH_POSTS_BY_CREATOR,
 } from "./actionTypes.js";
 
 import * as api from "../api/index.js";
@@ -85,6 +86,15 @@ export const getTaggedPosts = (tag) => async (dispatch) => {
   try {
     const { data } = await api.fetchTaggedPosts(tag);
     dispatch({ type: FETCH_TAGGED_POSTS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostsByCreator = (creatorUsername) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPostsByCreator(creatorUsername);
+    dispatch({ type: FETCH_POSTS_BY_CREATOR, payload: data });
   } catch (error) {
     console.log(error);
   }

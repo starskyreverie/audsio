@@ -31,7 +31,7 @@ router.post(
   createPost
 );
 router.get("/liked", auth, getLikedPosts);
-router.get("/byCreator/:id", getPostsByCreator);
+router.get("/byCreator/:username", getPostsByCreator);
 router.get("/t/:tag", getTaggedPosts);
 router.get("/:id", getPost);
 router.delete("/:id", auth, deletePost);
