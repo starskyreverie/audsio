@@ -130,21 +130,21 @@ const UploadForm = () => {
               </ImageFileInputLabel>
               {imageFilename}
             </span>
-
-            <ReactCropContainer>
-              <ReactCrop
-                src={upImg}
-                crop={crop}
-                onChange={(c) => setCrop(c)}
-                onComplete={async (c) => {
-                  const blob = await cropImage(upImg, values.imageFile, c);
-                  const file = new File([blob], imageFilename);
-                  setFieldValue("imageFile", file);
-                  console.log(file);
-                }}
-              />
-            </ReactCropContainer>
-
+            {imageFilename && (
+              <ReactCropContainer>
+                <ReactCrop
+                  src={upImg}
+                  crop={crop}
+                  onChange={(c) => setCrop(c)}
+                  onComplete={async (c) => {
+                    const blob = await cropImage(upImg, values.imageFile, c);
+                    const file = new File([blob], imageFilename);
+                    setFieldValue("imageFile", file);
+                    console.log(file);
+                  }}
+                />
+              </ReactCropContainer>
+            )}
             {error && <ErrorText>{error}</ErrorText>}
             {!isSubmitting ? (
               <div>

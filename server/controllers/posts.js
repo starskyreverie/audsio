@@ -34,20 +34,13 @@ export const createPost = async (req, res) => {
       .json({ errorMessage: "You must login to create a post." });
   }
 
-  if (!req.files[0]) {
-    return res
-      .status(400)
-      .json({ errorMessage: "The post must contain an audio file." });
-  }
-
-  const audioFile = req.files[0];
-
-  if (!req.files[1]) {
+  if (req.files.length < 2) {
     return res.status(400).json({
-      errorMessage: "The post must contain an image file.",
+      errorMessage: "The post must contain both an audio and image file.",
     });
   }
 
+  const audioFile = req.files[0];
   const imageFile = req.files[1];
 
   if (
@@ -58,6 +51,21 @@ export const createPost = async (req, res) => {
     return res.status(400).json({
       errorMessage:
         "The provided file isn't an accepted filetype. The only allowed file extensions are .mp3, .wav, and .ogg.",
+    });
+  }
+
+  if (
+    imageFile.originalname.split(".").pop() != "jpg" &&
+    imageFile.originalname.split(".").pop() != "jpeg" &&
+    imageFile.originalname.split(".").pop() != "png" &&
+    imageFile.originalname.split(".").pop() != "svg" &&
+    imageFile.originalname.split(".").pop() != "jfif" &&
+    imageFile.originalname.split(".").pop() != "pjpeg" &&
+    imageFile.originalname.split(".").pop() != "pjp"
+  ) {
+    return res.status(400).json({
+      errorMessage:
+        "The provided file isn't an accepted filetype. The only allowed file extensions are .jpg, .jpeg, .png, .svg, .jfif, .pjpeg, and .pjp.",
     });
   }
 
