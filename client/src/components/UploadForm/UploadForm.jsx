@@ -3,6 +3,10 @@ import { Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
+import ReactCrop from "react-image-crop";
+import cropImage from "./cropImage";
+import "react-image-crop/dist/ReactCrop.css";
+import "./UploadForm.css";
 
 import {
   TextFieldInput,
@@ -13,11 +17,19 @@ import {
   FileInputLabel,
   ErrorText,
   ImageFileInputLabel,
+  ReactCropContainer,
 } from "./UploadForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
 import { createPost } from "../../store/actions/posts.js";
 
 const UploadForm = () => {
+  const [upImg, setUpImg] = useState();
+  const [crop, setCrop] = useState({
+    circularCrop: true,
+    unit: "%",
+    width: 30,
+    aspect: 1,
+  });
   const [filename, setFilename] = useState();
   const [imageFilename, setImageFilename] = useState();
   const [error, setError] = useState();
@@ -107,6 +119,9 @@ const UploadForm = () => {
                 setFieldValue("imageFile", e.target.files[0]);
                 console.log(e.target.files[0]);
                 setImageFilename(e.target.files[0].name);
+                const reader = new FileReader();
+                reader.addEventListener("load", () => setUpImg(reader.result));
+                reader.readAsDataURL(e.target.files[0]);
               }}
             />
             <span>
@@ -115,6 +130,21 @@ const UploadForm = () => {
               </ImageFileInputLabel>
               {imageFilename}
             </span>
+
+            <ReactCropContainer>
+              <ReactCrop
+                src={upImg}
+                crop={crop}
+                onChange={(c) => setCrop(c)}
+                onComplete={async (c) => {
+                  const blob = await cropImage(upImg, values.imageFile, c);
+                  const file = new File([blob], imageFilename);
+                  setFieldValue("imageFile", file);
+                  console.log(file);
+                }}
+              />
+            </ReactCropContainer>
+
             {error && <ErrorText>{error}</ErrorText>}
             {!isSubmitting ? (
               <div>

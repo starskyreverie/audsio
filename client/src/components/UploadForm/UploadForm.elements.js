@@ -116,3 +116,7 @@ export const ErrorText = styled.div`
   color: #fd4d4d;
   margin-top: 15px;
 `;
+
+export const ReactCropContainer = styled.div`
+  margin-top: 20px;
+`;

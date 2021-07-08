@@ -62,6 +62,7 @@ export const FlexContainer = styled.div`
 `;
 
 export const StyledImage = styled.img`
+  border-radius: 50%;
   &:hover {
     cursor: pointer;
   }
