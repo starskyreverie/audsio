@@ -10,3 +10,4 @@ export const FETCH_POSTS_BY_CREATOR = "FETCH_POSTS_BY_CREATOR";
 
 export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
+export const GET_USER = "GET_USER";

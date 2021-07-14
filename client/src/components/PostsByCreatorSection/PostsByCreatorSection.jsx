@@ -5,11 +5,7 @@ import { SearchContainer, SearchBar } from "./PostsByCreatorSection.elements";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  getLikedPosts,
-  getPostsByCreator,
-  queryPosts,
-} from "../../store/actions/posts.js";
+import { getPostsByCreator } from "../../store/actions/posts.js";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -17,7 +13,6 @@ const useQuery = () => {
 
 const PostsByCreatorSection = () => {
   const { username } = useParams();
-  const history = useHistory();
   const query = useQuery();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -26,8 +21,6 @@ const PostsByCreatorSection = () => {
     parseInt(query.get("pg")) || 1
   );
   const [postsPerPage] = useState(5);
-  const [keywordSearch, setKeywordSearch] = useState("");
-  const [tagSearch, setTagSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
   const searchQuery = query.get("q");
@@ -53,16 +46,6 @@ const PostsByCreatorSection = () => {
   return (
     <>
       <SearchContainer>
-        <SearchBar
-          placeholder="Filter by title, keywords, or user"
-          value={keywordSearch}
-          onChange={(e) => setKeywordSearch(e.target.value)}
-        />
-        <SearchBar
-          placeholder="Filter by tags"
-          value={tagSearch}
-          onChange={(e) => setTagSearch(e.target.value)}
-        />
         <Posts posts={currentPosts} loading={loading} />
         <Pagination
           postsPerPage={postsPerPage}
@@ -70,8 +53,7 @@ const PostsByCreatorSection = () => {
           paginate={paginate}
           currentPage={currentPage}
           loading={loading}
-          keywordSearch={searchQuery}
-          tagSearch={tagQuery}
+          username={username}
         />
       </SearchContainer>
     </>

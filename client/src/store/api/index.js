@@ -52,3 +52,4 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 export const login = (formData) => API.post("/users/login", formData);
 export const signUp = (formData) => API.post("/users/signup", formData);
+export const getUser = (username) => API.get(`/users/${username}`);

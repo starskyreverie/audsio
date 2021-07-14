@@ -18,6 +18,7 @@ const Pagination = ({
   keywordSearch,
   tagSearch,
   tag,
+  username,
 }) => {
   const location = useLocation();
   const [timesRight, setTimesRight] = useState(0);
@@ -52,7 +53,19 @@ const Pagination = ({
           : "https://eriv.netlify.app/t"
       )
     ) {
-      window.history.replaceState(null, "eriv.xyz", `/t/${tag}/?pg=${page}`);
+      window.history.replaceState(null, "eriv.xyz", `/t/${tag}?pg=${page}`);
+    } else if (
+      window.location.href.startsWith(
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3000/u"
+          : "https://eriv.netlify.app/u"
+      )
+    ) {
+      window.history.replaceState(
+        null,
+        "eriv.xyz",
+        `/u/${username}?pg=${page}`
+      );
     } else {
       window.history.replaceState(null, "eriv.xyz", `/?pg=${page}`);
     }

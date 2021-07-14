@@ -55,13 +55,14 @@ export const createPost = async (req, res) => {
   }
 
   if (
-    imageFile.originalname.split(".").pop() != "jpg" &&
-    imageFile.originalname.split(".").pop() != "jpeg" &&
-    imageFile.originalname.split(".").pop() != "png" &&
-    imageFile.originalname.split(".").pop() != "svg" &&
-    imageFile.originalname.split(".").pop() != "jfif" &&
-    imageFile.originalname.split(".").pop() != "pjpeg" &&
-    imageFile.originalname.split(".").pop() != "pjp"
+    imageFile.originalname.split(".").pop().toLowerCase() != "jpg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "jpeg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "png" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "svg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "jfif" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "pjpeg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "pjp" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "gif"
   ) {
     return res.status(400).json({
       errorMessage:
@@ -109,6 +110,7 @@ export const createPost = async (req, res) => {
 
   // upload to S3 and store the URL from result.Location
   const audioFileResult = await uploadAudioToS3(audioFile);
+  console.log(audioFileResult);
   const imageFileResult = await uploadImageToS3(imageFile);
   const newPost = new Post({
     title: req.body.title,
@@ -116,8 +118,8 @@ export const createPost = async (req, res) => {
     creator_id: req.userId,
     creator_username: req.body.creator_username,
     tags: req.body.tags.split(","),
-    fileUrl: audioFileResult.Location,
-    imageFileUrl: imageFileResult.Location,
+    fileUrl: `${audioFileResult.Location}?versionId=${audioFileResult.VersionId}`,
+    imageFileUrl: `${imageFileResult.Location}?versionId=${imageFileResult.VersionId}`,
     createdAt: new Date().toISOString(),
   });
 
@@ -171,6 +173,9 @@ export const likePost = async (req, res) => {
   } else {
     // user has already liked it, so this is an unliking action
     post.likes = post.likes.filter((value) => value !== String(req.userId));
+    user.likedPosts = user.likedPosts.filter(
+      (value) => value !== String(postId)
+    );
   }
   // update and return the updated post
   const updatedPost = await Post.findByIdAndUpdate(postId, post, { new: true });
