@@ -59,7 +59,7 @@ const HeaderBar = () => {
           <HeaderContainer>
             <HeaderLogo
               onClick={() => {
-                history.push("/");
+                history.push("/home");
               }}
             >
               <HeaderIcon />

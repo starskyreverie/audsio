@@ -7,6 +7,7 @@ export const GoodUl = styled.ul`
 `;
 
 export const NoPostsFoundText = styled.div`
-  margin-top: 2rem;
-  font-size: 24px;
+  margin-top: 10vh;
+  margin-bottom: 5vh;
+  font-size: 36px;
 `;

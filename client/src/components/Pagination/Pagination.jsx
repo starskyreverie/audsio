@@ -67,7 +67,7 @@ const Pagination = ({
         `/u/${username}?pg=${page}`
       );
     } else {
-      window.history.replaceState(null, "eriv.xyz", `/?pg=${page}`);
+      window.history.replaceState(null, "eriv.xyz", `/home?pg=${page}`);
     }
   };
 
