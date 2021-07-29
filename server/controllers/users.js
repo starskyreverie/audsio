@@ -10,12 +10,12 @@ export const login = async (req, res) => {
   if (!req.body.usernameOrEmail) {
     return res
       .status(400)
-      .json({ errorMessage: "You must provide a username or email" });
+      .json({ errorMessage: "You must provide a username or email." });
   }
   if (!req.body.password) {
     return res
       .status(400)
-      .json({ errorMessage: "You must provide a password" });
+      .json({ errorMessage: "You must provide a password." });
   }
   const usernameOrEmail = req.body.usernameOrEmail;
   const password = req.body.password;
@@ -81,41 +81,41 @@ export const signup = async (req, res) => {
   if (!req.body.username) {
     return res
       .status(400)
-      .json({ errorMessage: "You must provide a username" });
+      .json({ errorMessage: "You must provide a username." });
   }
 
   if (!req.body.email) {
-    return res.status(400).json({ errorMessage: "You must provide a email" });
+    return res.status(400).json({ errorMessage: "You must provide a email." });
   }
 
   if (!req.body.password) {
     return res
       .status(400)
-      .json({ errorMessage: "You must provide a password" });
+      .json({ errorMessage: "You must provide a password." });
   }
 
   if (!req.body.confirmPassword) {
     return res
       .status(400)
-      .json({ errorMessage: "You must fill in the confirm password field" });
+      .json({ errorMessage: "You must fill in the confirm password field." });
   }
 
   if (req.body.username.length < 2 || req.body.username.length > 12) {
     return res.status(400).json({
-      errorMessage: "Your username must be between 2 and 12 characters",
+      errorMessage: "Your username must be between 2 and 12 characters.",
     });
   }
 
   if (req.body.username.includes("@")) {
     return res
       .status(400)
-      .json({ errorMessage: "Your username may not contain the '@' symbol" });
+      .json({ errorMessage: "Your username may not contain the '@' symbol." });
   }
 
   if (req.body.username.includes(" ")) {
     return res
       .status(400)
-      .json({ errorMessage: "Your username may not contain any spaces" });
+      .json({ errorMessage: "Your username may not contain any spaces." });
   }
 
   if (
@@ -125,19 +125,19 @@ export const signup = async (req, res) => {
   ) {
     return res
       .status(400)
-      .json({ errorMessage: "Please provide a valid email" });
+      .json({ errorMessage: "Please provide a valid email." });
   }
 
   if (req.body.password.length < 2 || req.body.password.length > 40) {
     return res.status(400).json({
-      errorMessage: "Your password must be between 2 and 40 characters",
+      errorMessage: "Your password must be between 2 and 40 characters.",
     });
   }
 
   if (req.body.confirmPassword.length > 40) {
     return res.status(400).json({
       errorMessage:
-        "The confirm password field must have less than 40 characters",
+        "The confirm password field must have less than 40 characters.",
     });
   }
 
@@ -198,9 +198,9 @@ export const getUser = async (req, res) => {
     if (user) {
       res.status(200).json(user);
     } else {
-      res.status(400).json({ errorMessage: "That user doesn't exist" });
+      res.status(400).json({ errorMessage: "That user doesn't exist." });
     }
   } catch (error) {
-    res.status(500).json({ errorMessage: "Something went wrong" });
+    res.status(500).json({ errorMessage: "Something went wrong." });
   }
 };

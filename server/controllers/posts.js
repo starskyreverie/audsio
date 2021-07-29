@@ -66,7 +66,7 @@ export const createPost = async (req, res) => {
   ) {
     return res.status(400).json({
       errorMessage:
-        "The provided file isn't an accepted filetype. The only allowed file extensions are .jpg, .jpeg, .png, .svg, .jfif, .pjpeg, and .pjp.",
+        "The provided file isn't an accepted filetype. The only allowed file extensions are .jpg, .jpeg, .png, .svg, .gif, .jfif, .pjpeg, and .pjp.",
     });
   }
 
@@ -140,7 +140,9 @@ export const deletePost = async (req, res) => {
   const { id } = req.params;
   //make sure the id exists
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No post with id: ${id}`);
+    return res
+      .status(404)
+      .json({ errorMessage: `There's no post with that id ({id: ${id}})` });
 
   //remove it and send success msg
   await Post.findByIdAndRemove(id);
@@ -153,13 +155,15 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
   //must be authorized
   if (!req.userId) {
-    res.status(401).json({ errorMessage: "Unauthorized." });
+    res.status(401).json({ errorMessage: "You must login to like a post.." });
   }
 
   const postId = req.params.id;
   // check if the post id exists
   if (!mongoose.Types.ObjectId.isValid(postId))
-    return res.status(404).send(`No post with id: ${postId}`);
+    return res
+      .status(404)
+      .json({ errorMessage: `There's no post with that id ({id: ${id}})` });
 
   // find the post, then see if the user has liked it
   const post = await Post.findById(postId);
@@ -245,7 +249,7 @@ export const queryPosts = async (req, res) => {
 export const getLikedPosts = async (req, res) => {
   if (!req.userId) {
     return res.status(403).json({
-      errorMessage: "unauthorized",
+      errorMessage: "You must login to view this page.",
     });
   }
   const user = await User.findById(req.userId);

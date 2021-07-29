@@ -32,7 +32,7 @@ const Pagination = ({
     if (keywordSearch || tagSearch) {
       window.history.replaceState(
         null,
-        "eriv.xyz",
+        "eriv",
         `/search?q=${keywordSearch}&tags=${tagSearch
           .trim()
           .split(" ")
@@ -42,7 +42,7 @@ const Pagination = ({
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/liked"
-          : "https://eriv.netlify.app/liked"
+          : "https://www.eriv.xyz/liked"
       )
     ) {
       window.history.replaceState(null, "eriv.xyz", `/liked?pg=${page}`);
@@ -50,7 +50,7 @@ const Pagination = ({
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/t"
-          : "https://eriv.netlify.app/t"
+          : "https://www.eriv.xyz/t"
       )
     ) {
       window.history.replaceState(null, "eriv.xyz", `/t/${tag}?pg=${page}`);
@@ -58,7 +58,7 @@ const Pagination = ({
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/u"
-          : "https://eriv.netlify.app/u"
+          : "https://www.eriv.xyz/u"
       )
     ) {
       window.history.replaceState(

@@ -4,7 +4,6 @@ import { SearchSection } from "../../components";
 
 const Home = () => {
   useEffect(() => {
-    console.log(ReactGa);
     ReactGa.initialize("UA-201429534-1");
     ReactGa.pageview("/");
   }, []);
