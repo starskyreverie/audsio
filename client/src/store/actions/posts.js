@@ -8,6 +8,7 @@ import {
   FETCH_LIKED_POSTS,
   FETCH_TAGGED_POSTS,
   FETCH_POSTS_BY_CREATOR,
+  FETCH_BY_ID,
 } from "./actionTypes.js";
 
 import * as api from "../api/index.js";
@@ -19,6 +20,16 @@ export const getPosts = () => async (dispatch) => {
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const fetchPost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPost(id);
+    dispatch({ type: FETCH_BY_ID, payload: data });
+    return data;
+  } catch (error) {
+    return error.response.data;
   }
 };
 

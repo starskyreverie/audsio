@@ -8,6 +8,7 @@ import {
   FETCH_LIKED_POSTS,
   FETCH_TAGGED_POSTS,
   FETCH_POSTS_BY_CREATOR,
+  FETCH_BY_ID,
 } from "../actions/actionTypes.js";
 
 const posts = (posts = [], action) => {
