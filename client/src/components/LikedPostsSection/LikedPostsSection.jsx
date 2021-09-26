@@ -6,6 +6,11 @@ import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getLikedPosts, queryPosts } from "../../store/actions/posts.js";
+import {
+  HeaderText,
+  HeaderTextContainer,
+  ProfileContainer,
+} from "../../pages/ProfilePage/Profile.elements.js";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -47,17 +52,10 @@ const LikedPostSection = () => {
 
   return (
     <>
-      <SearchContainer>
-        <SearchBar
-          placeholder="Filter by title, keywords, or user"
-          value={keywordSearch}
-          onChange={(e) => setKeywordSearch(e.target.value)}
-        />
-        <SearchBar
-          placeholder="Filter by tags"
-          value={tagSearch}
-          onChange={(e) => setTagSearch(e.target.value)}
-        />
+      <ProfileContainer>
+        <HeaderTextContainer>
+          <HeaderText>your liked posts</HeaderText>
+        </HeaderTextContainer>
         <Posts posts={currentPosts} loading={loading} />
         <Pagination
           postsPerPage={postsPerPage}
@@ -68,7 +66,7 @@ const LikedPostSection = () => {
           keywordSearch={searchQuery}
           tagSearch={tagQuery}
         />
-      </SearchContainer>
+      </ProfileContainer>
     </>
   );
 };

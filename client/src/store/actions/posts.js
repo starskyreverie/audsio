@@ -27,7 +27,6 @@ export const fetchPost = (id) => async (dispatch) => {
   try {
     const { data } = await api.fetchPost(id);
     dispatch({ type: FETCH_BY_ID, payload: data });
-    return data;
   } catch (error) {
     return error.response.data;
   }

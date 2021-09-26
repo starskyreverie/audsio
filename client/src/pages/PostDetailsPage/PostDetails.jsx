@@ -14,7 +14,11 @@ import {
 import { RedSmallButton } from "../../globalStyles.js";
 import { ProfileContainer } from "../ProfilePage/Profile.elements.js";
 import { Box, CircularProgress } from "@chakra-ui/react";
-import { AudioPlayer, PostsByCreatorSection } from "../../components/index.js";
+import {
+  TestAudioPlayer,
+  PostsByCreatorSection,
+} from "../../components/index.js";
+import { StyledImage } from "../../components/Posts/Post/Post.elements.js";
 
 const getMatchingPostId = (state, id) => {
   let bob;
@@ -38,6 +42,9 @@ const PostDetails = () => {
     setUserDataLoading(true);
     const fetchData = async () => {
       const data = await dispatch(getPosts(id));
+      if (data) {
+        setError(true);
+      }
       setUserDataLoading(false);
     };
     fetchData();
@@ -57,10 +64,30 @@ const PostDetails = () => {
                 <CircularProgress isIndeterminate color="#fd4d4d" />
               </Box>
             ) : (
-              <HeaderTextContainer>
-                <HeaderText>{getMatchingPostId(post, id)?.title}</HeaderText>
-                <AudioPlayer fileUrl={getMatchingPostId(post, id)?.fileUrl} />
-              </HeaderTextContainer>
+              <>
+                {getMatchingPostId(post, id) ? (
+                  <>
+                    <HeaderTextContainer>
+                      <StyledImage
+                        src={getMatchingPostId(post, id).imageFileUrl}
+                        height="50px"
+                        width="50px"
+                      />
+                      <HeaderText>
+                        {getMatchingPostId(post, id)?.title}
+                      </HeaderText>
+                      <TestAudioPlayer
+                        fileUrl={getMatchingPostId(post, id)?.fileUrl}
+                      />
+                    </HeaderTextContainer>
+                    {getMatchingPostId(post, id).message}
+                  </>
+                ) : (
+                  <CoolTextContainer>
+                    <CoolText>Sorry, no post with that ID exists.</CoolText>
+                  </CoolTextContainer>
+                )}
+              </>
             )}
           </ProfileContainer>
         </>

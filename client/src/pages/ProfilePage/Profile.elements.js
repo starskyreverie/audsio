@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ProfileContainer = styled.main`
   margin: 2rem 0;
+  margin-top: 100px;
   flex: none;
   display: flex;
   flex-direction: column;
@@ -26,4 +27,5 @@ export const HeaderText = styled.div`
   font-size: 30px;
   display: flex;
   margin-right: auto;
+  margin-left: 10px;
 `;
