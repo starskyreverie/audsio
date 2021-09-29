@@ -20,12 +20,22 @@ export const HeaderTextContainer = styled.div`
   width: 90%;
   max-width: 1175px;
   margin-top: 20px;
+  justify-content: center;
 `;
 
 export const HeaderText = styled.div`
   color: #d1d2d2;
   font-size: 30px;
   display: flex;
-  margin-right: auto;
   margin-left: 10px;
+  justify-content: center;
+`;
+
+export const AudioContainer = styled.div`
+  padding: 0;
+  display: flex;
+  margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: center;
 `;

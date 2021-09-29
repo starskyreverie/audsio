@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../store/actions/posts.js";
+import { useMediaQuery } from "react-responsive";
 import {
   CoolText,
   CoolTextContainer,
@@ -9,6 +10,7 @@ import {
 import {
   HeaderText,
   HeaderTextContainer,
+  AudioContainer,
 } from "../ProfilePage/Profile.elements.js";
 
 import { RedSmallButton } from "../../globalStyles.js";
@@ -32,6 +34,7 @@ const getMatchingPostId = (state, id) => {
 };
 
 const PostDetails = () => {
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 580px)" });
   const { id } = useParams();
   const dispatch = useDispatch();
   const [userDataLoading, setUserDataLoading] = useState(false);
@@ -67,20 +70,43 @@ const PostDetails = () => {
               <>
                 {getMatchingPostId(post, id) ? (
                   <>
-                    <HeaderTextContainer>
-                      <StyledImage
-                        src={getMatchingPostId(post, id).imageFileUrl}
-                        height="50px"
-                        width="50px"
-                      />
-                      <HeaderText>
-                        {getMatchingPostId(post, id)?.title}
-                      </HeaderText>
-                      <TestAudioPlayer
-                        fileUrl={getMatchingPostId(post, id)?.fileUrl}
-                      />
-                    </HeaderTextContainer>
-                    {getMatchingPostId(post, id).message}
+                    {isTabletOrMobile ? (
+                      <>
+                        <HeaderTextContainer>
+                          <StyledImage
+                            src={getMatchingPostId(post, id).imageFileUrl}
+                            height="50px"
+                            width="50px"
+                          />
+                          <HeaderText>
+                            {getMatchingPostId(post, id)?.title}
+                          </HeaderText>
+                        </HeaderTextContainer>
+                        <AudioContainer>
+                          <TestAudioPlayer
+                            fileUrl={getMatchingPostId(post, id)?.fileUrl}
+                          />
+                        </AudioContainer>
+                      </>
+                    ) : (
+                      <>
+                        <HeaderTextContainer>
+                          <StyledImage
+                            src={getMatchingPostId(post, id).imageFileUrl}
+                            height="50px"
+                            width="50px"
+                          />
+                          <HeaderText>
+                            {getMatchingPostId(post, id)?.title}
+                          </HeaderText>
+
+                          <TestAudioPlayer
+                            fileUrl={getMatchingPostId(post, id)?.fileUrl}
+                          />
+                        </HeaderTextContainer>
+                        {getMatchingPostId(post, id).message}{" "}
+                      </>
+                    )}
                   </>
                 ) : (
                   <CoolTextContainer>

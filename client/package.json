@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
+  "homepage": ".",
   "dependencies": {
     "@chakra-ui/react": "^1.6.4",
     "@emotion/react": "^11.4.0",
