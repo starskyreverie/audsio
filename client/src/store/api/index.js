@@ -3,7 +3,7 @@ import axios from "axios";
 const ApiURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000"
-    : "https://api.eriv.xyz/";
+    : "https://eriv.herokuapp.com/";
 
 const API = axios.create({ baseURL: ApiURL });
 

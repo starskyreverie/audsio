@@ -69,7 +69,7 @@ const App = () => {
         />
         <Route path="/u/:username" component={Profile} />
         <Route path="/t/:tag" component={TagSearch} />
-        <Route component={NotFound} />
+        <Route component={Home} />
       </Switch>
       <Footer />
     </Router>
