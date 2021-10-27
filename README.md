@@ -5,7 +5,7 @@ A place to share and find audio clips, written in JavaScript.
 
 ## Contributing
 
-DM me froggirl#8117 on discord :3
+DM me 
 
 ## Building
 
