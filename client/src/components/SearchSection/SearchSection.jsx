@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RedSmallButton } from "../../globalStyles.js";
 import { Pagination, Posts } from "../index.js";
-import { SearchContainer, SearchBar } from "./SearchSection.elements";
+import { SearchContainer, SearchBar, NiceText } from "./SearchSection.elements";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -99,6 +99,7 @@ const SearchSection = () => {
           onKeyPress={handleKeyPress}
         />
         <RedSmallButton onClick={searchPosts}>Search</RedSmallButton>
+        <NiceText>Featured posts from past two months</NiceText>
         <Posts posts={currentPosts} loading={loading} />
         <Pagination
           postsPerPage={postsPerPage}

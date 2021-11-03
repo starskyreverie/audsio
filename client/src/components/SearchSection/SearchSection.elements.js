@@ -25,3 +25,8 @@ export const SearchBar = styled.input`
   border: none;
   display: block;
 `;
+
+export const NiceText = styled.div`
+  margin-top: 20px;
+  font-size: 30px;
+`;
