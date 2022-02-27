@@ -99,7 +99,6 @@ const SearchSection = () => {
           onKeyPress={handleKeyPress}
         />
         <RedSmallButton onClick={searchPosts}>Search</RedSmallButton>
-        <NiceText>Featured posts from past two months</NiceText>
         <Posts posts={currentPosts} loading={loading} />
         <Pagination
           postsPerPage={postsPerPage}
