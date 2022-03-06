@@ -30,6 +30,7 @@ router.post(
   upload.array("files") /* multer middleware to parse file */,
   createPost
 );
+
 router.get("/liked", auth, getLikedPosts);
 router.get("/byCreator/:username", getPostsByCreator);
 router.get("/t/:tag", getTaggedPosts);

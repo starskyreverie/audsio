@@ -49,10 +49,12 @@ export const login = async (req, res) => {
       });
     }
     // verify the hashed password
-    const isCorrectPassword = await bcrypt.compare(
+    /*const isCorrectPassword = await bcrypt.compare(
       password,
       existingUser.password
-    );
+    );*/
+
+    const isCorrectPassword = password == existingUser.password;
 
     if (!isCorrectPassword) {
       return res.status(401).json({
@@ -100,11 +102,11 @@ export const signup = async (req, res) => {
       .json({ errorMessage: "You must fill in the confirm password field." });
   }
 
-  if (req.body.username.length < 2 || req.body.username.length > 12) {
+  /*if (req.body.username.length < 2 || req.body.username.length > 12) {
     return res.status(400).json({
       errorMessage: "Your username must be between 2 and 12 characters.",
     });
-  }
+  }*/
 
   if (req.body.username.includes("@")) {
     return res
@@ -112,13 +114,13 @@ export const signup = async (req, res) => {
       .json({ errorMessage: "Your username may not contain the '@' symbol." });
   }
 
-  if (req.body.username.includes(" ")) {
+  /*if (req.body.username.includes(" ")) {
     return res
       .status(400)
       .json({ errorMessage: "Your username may not contain any spaces." });
-  }
+  }*/
 
-  if (
+  /*if (
     !req.body.email.includes("@") ||
     !req.body.email.includes(".") ||
     req.body.email.length < 6
@@ -126,7 +128,7 @@ export const signup = async (req, res) => {
     return res
       .status(400)
       .json({ errorMessage: "Please provide a valid email." });
-  }
+  }*/
 
   if (req.body.password.length < 2 || req.body.password.length > 40) {
     return res.status(400).json({
@@ -167,8 +169,9 @@ export const signup = async (req, res) => {
     }
 
     // hash the password and store it
-    const hashedPassword = await bcrypt.hash(password, 12);
+    //const hashedPassword = await bcrypt.hash(password, 12);
 
+    const hashedPassword = password;
     const result = await User.create({
       username,
       email,

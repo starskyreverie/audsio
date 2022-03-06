@@ -22,6 +22,7 @@ import {
 } from "./UploadForm.elements.js";
 import { RedSmallButton } from "../../globalStyles";
 import { createPost } from "../../store/actions/posts.js";
+import { useRef } from "react";
 
 const UploadForm = () => {
   const [upImg, setUpImg] = useState();
@@ -37,6 +38,7 @@ const UploadForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
+  const inputRef = useRef();
 
   if (user) {
     return (
@@ -71,7 +73,7 @@ const UploadForm = () => {
           handleSubmit,
           isSubmitting,
         }) => (
-          <StyledForm onSubmit={handleSubmit}>
+          <StyledForm onSubmit={handleSubmit} ref={inputRef}>
             <CoolText>Upload a Clip</CoolText>
             <TextFieldInput
               placeholder="Title of the clip"
@@ -141,11 +143,15 @@ const UploadForm = () => {
                     setCrop(c);
                   }}
                   onComplete={async (c) => {
-                    console.log("upimg" + upImg);
-                    const blob = await cropImage(upImg, values.imageFile, c);
+                    console.log(inputRef.current.clientWidth);
+                    const blob = await cropImage(
+                      upImg,
+                      values.imageFile,
+                      c,
+                      inputRef.current.clientWidth
+                    );
                     const file = new File([blob], imageFilename);
                     setFieldValue("imageFile", file);
-                    console.log(c);
                   }}
                 />
               </ReactCropContainer>

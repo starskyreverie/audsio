@@ -19,14 +19,16 @@ const getBlobFromCanvas = (canvas, file) =>
     }, file.type); //"image/jpeg");
   });
 
-const cropImage = async (imageUrl, file, crop) => {
+const cropImage = async (imageUrl, file, crop, w) => {
   const image = await getImageFromUrl(imageUrl),
     canvas = document.createElement("canvas"),
     scaleX = image.naturalWidth / image.width,
     scaleY = image.naturalHeight / image.height,
     ctx = canvas.getContext("2d");
 
-  const scalingFactor = image.width / 800;
+  console.log(w);
+
+  const scalingFactor = image.width / w;
 
   canvas.width = crop.width * scalingFactor;
   canvas.height = crop.height * scalingFactor;
