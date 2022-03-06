@@ -13,7 +13,7 @@ const Footer = () => {
       <FooterIcon />
       <FooterText>eriv</FooterText>
       <FooterSeparator>·</FooterSeparator>
-      <VersionLabel>v1.0.0</VersionLabel>
+      <VersionLabel>v3.2.4</VersionLabel>
     </FooterContainer>
   );
 };

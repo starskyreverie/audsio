@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import ReactCrop from "react-image-crop";
 import cropImage from "./cropImage";
 import "react-image-crop/dist/ReactCrop.css";
+import { centerCrop, makeAspectCrop } from "react-image-crop";
 import "./UploadForm.css";
 
 import {
@@ -135,12 +136,16 @@ const UploadForm = () => {
                 <ReactCrop
                   src={upImg}
                   crop={crop}
-                  onChange={(c) => setCrop(c)}
+                  onChange={(c) => {
+                    console.log(c);
+                    setCrop(c);
+                  }}
                   onComplete={async (c) => {
+                    console.log("upimg" + upImg);
                     const blob = await cropImage(upImg, values.imageFile, c);
                     const file = new File([blob], imageFilename);
                     setFieldValue("imageFile", file);
-                    console.log(file);
+                    console.log(c);
                   }}
                 />
               </ReactCropContainer>
