@@ -15,6 +15,7 @@ import {
   getLikedPosts,
   getTaggedPosts,
   getPostsByCreator,
+  botCreate,
 } from "../controllers/posts.js";
 
 // run controllers on HTTP requests to routes
@@ -30,6 +31,7 @@ router.post(
   upload.array("files") /* multer middleware to parse file */,
   createPost
 );
+router.post("/botCreate", upload.array("files"), botCreate);
 
 router.get("/liked", auth, getLikedPosts);
 router.get("/byCreator/:username", getPostsByCreator);

@@ -26,6 +26,105 @@ export const getPost = async (req, res) => {
   }
 };
 
+export const botCreate = async (req, res) => {
+  // store a post in the database; must be authorized
+
+  if (req.files.length < 2) {
+    return res.status(400).json({
+      errorMessage: "The post must contain both an audio and image file.",
+    });
+  }
+
+  const audioFile = req.files[0];
+  const imageFile = req.files[1];
+
+  if (
+    audioFile.originalname.split(".").pop() != "ogg" &&
+    audioFile.originalname.split(".").pop() != "mp3" &&
+    audioFile.originalname.split(".").pop() != "wav"
+  ) {
+    return res.status(400).json({
+      errorMessage:
+        "The provided file isn't an accepted filetype. The only allowed file extensions are .mp3, .wav, and .ogg.",
+    });
+  }
+
+  if (
+    imageFile.originalname.split(".").pop().toLowerCase() != "jpg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "jpeg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "png" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "svg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "jfif" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "pjpeg" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "pjp" &&
+    imageFile.originalname.split(".").pop().toLowerCase() != "gif"
+  ) {
+    return res.status(400).json({
+      errorMessage:
+        "The provided file isn't an accepted filetype. The only allowed file extensions are .jpg, .jpeg, .png, .svg, .gif, .jfif, .pjpeg, and .pjp.",
+    });
+  }
+
+  if (!req.body.title) {
+    return res
+      .status(400)
+      .json({ errorMessage: "Your post must have a title." });
+  }
+
+  const hasTagWithMoreThanXChars = (x) => {
+    console.log(req.body.tags);
+    console.log(req.body.tags.split(","));
+    for (const tag of req.body.tags.split(",")) {
+      console.log(tag);
+      if (tag.length > x) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  if (req.body.tags && req.body.tags.split(",").length > 4) {
+    return res.status(400).json({
+      errorMessage: `The post must only have up to 4 tags. It currently has ${
+        req.body.tags.split(",").length
+      } tags.`,
+    });
+  }
+
+  if (req.body.tags && hasTagWithMoreThanXChars(18)) {
+    return res.status(400).json({
+      errorMessage: "All tags must be 18 characters or shorter.",
+    });
+  }
+
+  // upload to S3 and store the URL from result.Location
+  const audioFileResult = await uploadAudioToS3(audioFile);
+  console.log(audioFileResult);
+  const imageFileResult = await uploadImageToS3(imageFile);
+  const newPost = new Post({
+    title: req.body.title,
+    message: req.body.message,
+    creator_id: req.body.userId,
+    creator_username: req.body.creator_username,
+    tags: req.body.tags.split(","),
+    fileUrl: `${audioFileResult.Location}?versionId=${audioFileResult.VersionId}`,
+    imageFileUrl: `${imageFileResult.Location}?versionId=${imageFileResult.VersionId}`,
+    createdAt: new Date().toISOString(),
+  });
+
+  try {
+    // save the created post to mongodb and send it back
+    const post = await newPost.save();
+    const user = await User.findById(req.body.userId);
+    user.posts.push(post._id);
+    await User.findByIdAndUpdate(req.body.userId, user, { new: true });
+    res.status(201).json(newPost);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json(e);
+  }
+};
+
 export const createPost = async (req, res) => {
   // store a post in the database; must be authorized
   if (!req.userId) {
