@@ -113,7 +113,7 @@ export const botCreate = async (req, res) => {
     tags: req.body.tags.split(","),
     fileUrl: `${audioFileResult.Location}?versionId=${audioFileResult.VersionId}`,
     imageFileUrl: `${imageFileResult.Location}?versionId=${imageFileResult.VersionId}`,
-    createdAt: randomDate(new Date(2021, 11, 15), new Date()).toISOString(),
+    createdAt: randomDate(new Date(2021, 10, 15), new Date()).toISOString(),
   });
 
   try {
