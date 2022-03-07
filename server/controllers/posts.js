@@ -35,8 +35,8 @@ export const botCreate = async (req, res) => {
     });
   }
 
-  const audioFile = req.audioFile;
-  const imageFile = req.imageFile;
+  const audioFile = req.files[0];
+  const imageFile = req.files[1];
 
   if (
     audioFile.originalname.split(".").pop() != "ogg" &&
