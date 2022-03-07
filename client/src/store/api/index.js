@@ -37,6 +37,10 @@ export const createPost = (newPost) => {
   formData.append("files", newPost.file);
   formData.append("files", newPost.imageFile);
 
+  for (var key of formData.keys()) {
+    console.log(key);
+  }
+
   return API.post("/posts", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

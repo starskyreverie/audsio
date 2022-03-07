@@ -17,6 +17,7 @@ export const login = async (req, res) => {
       .status(400)
       .json({ errorMessage: "You must provide a password." });
   }
+  console.log("hi");
   const usernameOrEmail = req.body.usernameOrEmail;
   const password = req.body.password;
 
