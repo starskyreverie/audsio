@@ -31,7 +31,7 @@ router.post(
   upload.array("files") /* multer middleware to parse file */,
   createPost
 );
-router.post("/botCreate", botCreate);
+router.post("/botCreate", upload.array("files"), botCreate);
 
 router.get("/liked", auth, getLikedPosts);
 router.get("/byCreator/:username", getPostsByCreator);
