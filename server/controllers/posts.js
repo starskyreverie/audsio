@@ -70,7 +70,11 @@ export const botCreate = async (req, res) => {
       .status(400)
       .json({ errorMessage: "Your post must have a title." });
   }
-
+  function randomDate(start, end) {
+    return new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    );
+  }
   const hasTagWithMoreThanXChars = (x) => {
     console.log(req.body.tags);
     console.log(req.body.tags.split(","));
@@ -109,7 +113,7 @@ export const botCreate = async (req, res) => {
     tags: req.body.tags.split(","),
     fileUrl: `${audioFileResult.Location}?versionId=${audioFileResult.VersionId}`,
     imageFileUrl: `${imageFileResult.Location}?versionId=${imageFileResult.VersionId}`,
-    createdAt: new Date().toISOString(),
+    createdAt: randomDate(new Date(2021, 11, 15), new Date()).toISOString(),
   });
 
   try {
