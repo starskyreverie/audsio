@@ -4,6 +4,7 @@ import { BiChevronRight, BiChevronLeft } from "react-icons/bi";
 export const PaginationContainer = styled.div`
   margin-top: 30px;
 `;
+
 export const PaginationUl = styled.ul`
   display: flex;
   background-color: hsla(0, 0%, 100%, 0.05);
@@ -12,6 +13,12 @@ export const PaginationUl = styled.ul`
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 20px;
+  justify-content: center;
+  text-align: center;
+`;
+export const PaginationDiv = styled.div`
+  margin-top: 10px;
+  display: flex;
   justify-content: center;
   text-align: center;
 `;

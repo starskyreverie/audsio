@@ -5,10 +5,23 @@ import Post from "../models/Post.js";
 import { uploadAudioToS3, uploadImageToS3 } from "./s3.js";
 import User from "../models/User.js";
 
+function fisherYates(myArray) {
+  var i = myArray.length;
+  if (i == 0) return false;
+  while (--i) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tempi = myArray[i];
+    var tempj = myArray[j];
+    myArray[i] = tempj;
+    myArray[j] = tempi;
+  }
+}
+
 export const getPosts = async (req, res) => {
   // get all posts from the database and return them
   try {
     const Posts = await Post.find();
+    fisherYates(Posts);
     res.status(200).json(Posts);
   } catch (e) {
     res.status(404).json(e);
@@ -359,6 +372,7 @@ export const getLikedPosts = async (req, res) => {
   try {
     const likedPosts = user.likedPosts;
     const posts = await Post.find({ _id: { $in: likedPosts } });
+    fisherYates(posts);
     res.status(200).json(posts);
   } catch {
     res.status(404).json(e);
@@ -381,6 +395,7 @@ export const getPostsByCreator = async (req, res) => {
   try {
     const user = await User.findOne({ username: username });
     const posts = await Post.find({ _id: { $in: user.posts } });
+    fisherYates(posts);
     res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });

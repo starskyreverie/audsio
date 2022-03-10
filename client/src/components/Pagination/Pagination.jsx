@@ -7,6 +7,7 @@ import {
   PaginationLiWithoutHover,
   StyledLeftChevron,
   StyledRightChevron,
+  PaginationDiv,
 } from "./Pagination.elements.js";
 
 const Pagination = ({
@@ -139,6 +140,9 @@ const Pagination = ({
             <StyledRightChevron />
           </PaginationLi>
         </PaginationUl>
+        <PaginationDiv>
+          Found {pageNumbers.length} pages with {totalPosts} posts
+        </PaginationDiv>
       </PaginationContainer>
     )
   );
