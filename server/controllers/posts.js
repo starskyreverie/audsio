@@ -303,6 +303,36 @@ export const likePost = async (req, res) => {
   res.status(200).json(updatedPost);
 };
 
+export const botLikePost = async (req, res) => {
+  const postId = req.body.postId;
+  const userId = req.body.userId;
+  // check if the post id exists
+  if (!mongoose.Types.ObjectId.isValid(postId))
+    return res
+      .status(404)
+      .json({ errorMessage: `There's no post with that id ({id: ${id}})` });
+
+  // find the post, then see if the user has liked it
+  const post = await Post.findById(postId);
+  const user = await User.findById(userId);
+  const index = post.likes.findIndex((value) => value === String(userId));
+
+  if (index === -1) {
+    // user hasn't liked it yet, so this is a liking action
+    post.likes.push(userId);
+    user.likedPosts.push(postId);
+  } else {
+    // user has already liked it, so this is an unliking action
+    post.likes = post.likes.filter((value) => value !== String(userId));
+    user.likedPosts = user.likedPosts.filter(
+      (value) => value !== String(postId)
+    );
+  }
+  // update and return the updated post
+  const updatedPost = await Post.findByIdAndUpdate(postId, post, { new: true });
+  await User.findByIdAndUpdate(userId, user, { new: true });
+  res.status(200).json(updatedPost);
+};
 export const queryPosts = async (req, res) => {
   // get the keyword and tag search
   const { q, tags } = req.query;

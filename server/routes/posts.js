@@ -16,6 +16,7 @@ import {
   getTaggedPosts,
   getPostsByCreator,
   botCreate,
+  botLikePost,
 } from "../controllers/posts.js";
 
 // run controllers on HTTP requests to routes
@@ -39,5 +40,6 @@ router.get("/t/:tag", getTaggedPosts);
 router.get("/:id", getPost);
 router.delete("/:id", auth, deletePost);
 router.patch("/:id/likePost", auth, likePost);
+router.patch("/botLikePost", botLikePost);
 
 export default router;
