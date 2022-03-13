@@ -74,7 +74,7 @@ const UploadForm = () => {
           isSubmitting,
         }) => (
           <StyledForm onSubmit={handleSubmit} ref={inputRef}>
-            <CoolText>Upload a Clip</CoolText>
+            <CoolText>Upload a Clip (please follow Copyright Law!)</CoolText>
             <TextFieldInput
               placeholder="Title of the clip"
               name="title"
