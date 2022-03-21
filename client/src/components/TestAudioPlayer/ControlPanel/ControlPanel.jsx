@@ -1,13 +1,27 @@
 import React, { useState } from "react";
-import { RepeatIcon } from "./ControlPanel.elements.js";
+import { RepeatIcon, DownloadIcon } from "./ControlPanel.elements.js";
 import "./control-panel.css";
+import axios from "axios";
+import fileDownload from "js-file-download";
 
 const ControlPanel = ({
   duration,
   currentTime,
   isRepeating,
   setIsRepeating,
+  fileUrl,
+  title,
 }) => {
+  const handleDownload = (url, filename) => {
+    axios
+      .get(url, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        fileDownload(res.data, filename);
+      });
+  };
+
   const secondsToHms = (seconds) => {
     if (!seconds) return "00:00";
 
@@ -45,6 +59,11 @@ const ControlPanel = ({
         color={isRepeating ? "#fd4d4d" : "#d1d2d2"}
         onClick={() => {
           setIsRepeating(!isRepeating);
+        }}
+      />
+      <DownloadIcon
+        onClick={() => {
+          handleDownload(fileUrl, title);
         }}
       />
     </>

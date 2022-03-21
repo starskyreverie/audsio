@@ -4,7 +4,7 @@ import Button from "./ControlPanel/Button.jsx";
 import ControlPanel from "./ControlPanel/ControlPanel.jsx";
 import { AudioContainer } from "../Posts/Post/Post.elements.js";
 
-const TestAudioPlayer = ({ fileUrl }) => {
+const TestAudioPlayer = ({ fileUrl, title }) => {
   const [percentage, setPercentage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -115,6 +115,8 @@ const TestAudioPlayer = ({ fileUrl }) => {
         isRepeating={isRepeating}
         setIsRepeating={setIsRepeating}
         onKeyPress={handleKeyPress}
+        fileUrl={fileUrl}
+        title={title}
       />
     </>
   );

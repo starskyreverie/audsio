@@ -89,7 +89,7 @@ const Post = ({ post }) => {
         )}
         {!isTabletOrMobile ? (
           <FlexContainer>
-            <TestAudioPlayer fileUrl={post.fileUrl} />
+            <TestAudioPlayer fileUrl={post.fileUrl} title={post.title} />
           </FlexContainer>
         ) : (
           <></>

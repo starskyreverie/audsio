@@ -78,7 +78,7 @@ export const ImageFlexContainer = styled.div`
 
 export const TagFlexContainer = styled.div`
   display: flex;
-  width: 95%;
+  width: 75%;
   flex-wrap: wrap;
   align-items: center;
   vertical-align: center;
