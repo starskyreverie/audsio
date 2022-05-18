@@ -12,7 +12,7 @@ const useQuery = () => {
 };
 
 const PostsByCreatorSection = () => {
-  const { username } = useParams();
+  const [username, setUsername] = useState();
   const query = useQuery();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -35,9 +35,14 @@ const PostsByCreatorSection = () => {
   };
 
   useEffect(() => {
+    const real_username = window.location.href.substring(
+      window.location.href.indexOf("/u/") + 3
+    );
+    setUsername(real_username);
+    console.log(window.location.href);
     setLoading(true);
     const fetchData = async () => {
-      await dispatch(getPostsByCreator(username));
+      await dispatch(getPostsByCreator(real_username));
       setLoading(false);
     };
     fetchData();
