@@ -8,7 +8,7 @@ import {
   HeaderTextContainer,
 } from "../ProfilePage/Profile.elements.js";
 
-import { useParams, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RedSmallButton } from "../../globalStyles.js";
@@ -17,10 +17,16 @@ import { logout, getUser } from "../../store/actions/auth.js";
 import { PostsByCreatorSection } from "../../components";
 import { Box, CircularProgress } from "@chakra-ui/react";
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 const Profile = () => {
   const localUser = JSON.parse(localStorage.getItem("user"));
-  const { username } = useParams();
+  const query = useQuery();
+  const [username, setUsername] = useState(query.get("name"));
   const dispatch = useDispatch();
+  const location = useLocation();
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
@@ -46,7 +52,7 @@ const Profile = () => {
       setUserDataLoading(false);
     };
     fetchData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

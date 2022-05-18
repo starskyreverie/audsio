@@ -66,7 +66,7 @@ const Post = ({ post }) => {
           </TitleLink>
           <BottomDiv>
             Posted {moment(post.createdAt).fromNow()} by&nbsp;
-            <CreatorLink to={`/u/${post.creator_username}`}>
+            <CreatorLink to={`/u?name=${post.creator_username}`}>
               {post.creator_username}
             </CreatorLink>
           </BottomDiv>

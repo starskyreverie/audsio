@@ -67,7 +67,7 @@ const App = () => {
             )
           }
         />
-        <Route path="/u/:username" component={Profile} />
+        <Route path="/u" component={Profile} />
         <Route path="/t/:tag" component={TagSearch} />
         <Route component={Home} />
       </Switch>

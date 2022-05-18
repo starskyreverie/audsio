@@ -12,11 +12,11 @@ const useQuery = () => {
 };
 
 const PostsByCreatorSection = () => {
-  const [username, setUsername] = useState();
   const query = useQuery();
   const location = useLocation();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const [username, setUsername] = useState(query.get("name"));
   const [currentPage, setCurrentPage] = useState(
     parseInt(query.get("pg")) || 1
   );
@@ -35,18 +35,14 @@ const PostsByCreatorSection = () => {
   };
 
   useEffect(() => {
-    const real_username = window.location.href.substring(
-      window.location.href.indexOf("/u/") + 3
-    );
-    setUsername(real_username);
-    console.log(window.location.href);
     setLoading(true);
     const fetchData = async () => {
-      await dispatch(getPostsByCreator(real_username));
+      console.log(username);
+      await dispatch(getPostsByCreator(username));
       setLoading(false);
     };
     fetchData();
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

@@ -20,6 +20,7 @@ const authReducer = (state = { authData: null }, action) => {
     case GET_USER:
       return {
         ...state,
+
         authData: action.payload,
         loading: false,
         errors: null,
