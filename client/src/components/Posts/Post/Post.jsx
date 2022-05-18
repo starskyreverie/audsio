@@ -49,7 +49,7 @@ const Post = ({ post }) => {
             height={isTabletOrMobile ? "30px" : "50px"}
             width={isTabletOrMobile ? "30px" : "50px"}
             onClick={() => {
-              history.push(`/p/${post._id}`);
+              history.push(`/p?postId=${post._id}`);
             }}
             alt="file cover"
           />
@@ -57,7 +57,7 @@ const Post = ({ post }) => {
         <FlexContainer>
           <TitleLink
             onClick={() => {
-              history.push(`/p/${post._id}`);
+              history.push(`/p?postId=${post._id}`);
             }}
             smallFont={post.title.length > 32}
             verySmallFont={isSmallPhone && post.title.length > 23}
@@ -78,7 +78,7 @@ const Post = ({ post }) => {
                 tag.length > 0 && (
                   <TagLabel
                     key={index}
-                    onClick={() => history.push(`/t/${tag}`)}
+                    onClick={() => history.push(`/t?tag=${tag}`)}
                   >
                     #{tag}
                   </TagLabel>

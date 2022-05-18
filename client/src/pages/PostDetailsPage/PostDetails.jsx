@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../store/actions/posts.js";
 import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router";
 import {
   CoolText,
   CoolTextContainer,
@@ -33,9 +34,14 @@ const getMatchingPostId = (state, id) => {
   return bob;
 };
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
 const PostDetails = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 580px)" });
-  const { id } = useParams();
+  const query = useQuery();
+  const [id, setId] = useState(query.get("postId"));
   const dispatch = useDispatch();
   const [userDataLoading, setUserDataLoading] = useState(false);
   const [error, setError] = useState(false);

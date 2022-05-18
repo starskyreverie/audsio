@@ -12,9 +12,9 @@ const useQuery = () => {
 };
 
 const TagSearchSection = () => {
-  const { tag } = useParams();
   const history = useHistory();
   const query = useQuery();
+  const [tag, setTag] = useState(query.get("tag"));
   const location = useLocation();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);

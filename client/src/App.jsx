@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/" exact component={() => <Redirect to="/home" />} />
         <Route exact path="/home" component={Home} />
         <Route path="/search" exact component={Home} />
-        <Route path="/p/:id" exact component={PostDetails} />
+        <Route path="/p" exact component={PostDetails} />
         <Route
           path="/login"
           exact
@@ -67,8 +67,8 @@ const App = () => {
             )
           }
         />
-        <Route path="/u" component={Profile} />
-        <Route path="/t/:tag" component={TagSearch} />
+        <Route exact path="/u" component={Profile} />
+        <Route exact path="/t" component={TagSearch} />
         <Route component={Home} />
       </Switch>
       <Footer />
