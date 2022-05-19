@@ -165,7 +165,7 @@ const HeaderBar = () => {
                       </NavBtnLink>
                     )}
                   </NavItemBtn>
-                  <CreatorLink to={`/u/${user.result.username}`}>
+                  <CreatorLink to={`/u?name=${user.result.username}`}>
                     {user.result.username}
                   </CreatorLink>
                 </>

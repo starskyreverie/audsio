@@ -63,26 +63,22 @@ const Profile = () => {
       ) : (
         <>
           <ProfileContainer>
-            {userDataLoading ? (
-              <Box mt={30}>
-                <CircularProgress isIndeterminate color="#fd4d4d" />
-              </Box>
-            ) : (
-              <HeaderTextContainer>
-                <HeaderText>{user?.username}'s posts</HeaderText>{" "}
-                {localUser &&
-                  localUser.result.username === username &&
-                  (!loading ? (
-                    <RedSmallButton onClick={() => handleLogout()}>
-                      Logout
-                    </RedSmallButton>
-                  ) : (
-                    <Box mt={60}>
-                      <CircularProgress isIndeterminate color="#fd4d4d" />
-                    </Box>
-                  ))}
-              </HeaderTextContainer>
-            )}
+            <HeaderTextContainer>
+              <HeaderText>{user?.username}'s posts</HeaderText>{" "}
+            </HeaderTextContainer>
+            {localUser &&
+              localUser.result.username === username &&
+              (!loading ? (
+                <div>
+                  <RedSmallButton onClick={() => handleLogout()}>
+                    Logout
+                  </RedSmallButton>
+                </div>
+              ) : (
+                <Box mt={60}>
+                  <CircularProgress isIndeterminate color="#fd4d4d" />
+                </Box>
+              ))}
           </ProfileContainer>
           <PostsByCreatorSection />
         </>
