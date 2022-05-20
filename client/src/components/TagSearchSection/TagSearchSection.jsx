@@ -34,7 +34,7 @@ const TagSearchSection = () => {
   };
 
   const searchTag = async () => {
-    window.history.replaceState(null, "eriv.xyz", `/t/${tagSearch}`);
+    window.history.replaceState(null, "Audsio", `/t/${tagSearch}`);
     if (tagSearch.trim()) {
       setLoading(true);
       await dispatch(getTaggedPosts(tagSearch));

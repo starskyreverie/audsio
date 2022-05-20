@@ -39,7 +39,7 @@ const LoginForm = () => {
     >
       {({ values, handleChange, handleSubmit, isSubmitting }) => (
         <StyledForm onSubmit={handleSubmit}>
-          <CoolText>Login to your eriv account</CoolText>
+          <CoolText>Login to your Audsio account</CoolText>
           <TextFieldInput
             placeholder="Username or email"
             name="usernameOrEmail"
@@ -62,7 +62,7 @@ const LoginForm = () => {
             </Box>
           )}
           <RegisterLinkContainer>
-            <RegisterLink to="/register">Create an eriv account</RegisterLink>
+            <RegisterLink to="/register">Create an Audsio account</RegisterLink>
           </RegisterLinkContainer>
         </StyledForm>
       )}

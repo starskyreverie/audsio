@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ErivLogo from "../../images/eriv_logo.svg";
+import AudsioLogo from "../../images/audsio_logo.svg";
 
 export const FooterContainer = styled.footer`
   text-align: center;
@@ -15,7 +15,7 @@ export const FooterContainer = styled.footer`
 `;
 
 export const FooterIcon = styled.img.attrs({
-  src: `${ErivLogo}`,
+  src: `${AudsioLogo}`,
 })`
   height: 16px;
   width: 16px;

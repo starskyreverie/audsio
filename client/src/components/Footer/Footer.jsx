@@ -11,9 +11,9 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterIcon />
-      <FooterText>eriv</FooterText>
+      <FooterText>Audsio</FooterText>
       <FooterSeparator>·</FooterSeparator>
-      <VersionLabel>v3.2.4</VersionLabel>
+      <VersionLabel>v3.3.0</VersionLabel>
     </FooterContainer>
   );
 };

@@ -1,14 +1,14 @@
 {
-  "short_name": "eriv",
-  "name": "eriv.xyz",
+  "short_name": "Audsio",
+  "name": "Audsio",
   "icons": [
     {
-      "src": "eriv_logo.png",
+      "src": "audsio_logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     },
     {
-      "src": "eriv_logo.svg",
+      "src": "audsio_logo.svg",
       "type": "image/svg"
     }
   ],

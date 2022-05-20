@@ -1,31 +1,30 @@
+# audsio
 
-          
-# eriv
 A place to share and find audio clips, written in JavaScript.
 
 ## Contributing
 
-DM me 
+DM me
 
 ## Building
 
-Pushes to GitHub automatically deploy the frontend to Netlify and the backend to Heroku. 
+Pushes to GitHub automatically deploy the frontend to Netlify and the backend to Heroku.
 
-### `eriv/client`
+### `audsio/client`
 
-The Ract frontend hosted on Netlify at [eriv.xyz](https://www.eriv.xyz).
+The Ract frontend hosted on Netlify at [audsio.com](https://www.audsio.com).
 
 To run: `npm start`
 
-### `eriv/server`
+### `audsio/server`
 
-The Node.js backend hosted on Heroku at [api.eriv.xyz](https://api.eriv.xyz).
+The Node.js backend hosted on Heroku at [api.audsio.com](https://audsio.herokuapp.com/).
 
 Make sure to to create a `.env` file using [.env.example](server/.env.example) as a template.
 
 ## Technologies
 
-### `eriv/client`
+### `audsio/client`
 
 - React
 - Redux (using redux-thunk middleware)
@@ -34,11 +33,11 @@ Make sure to to create a `.env` file using [.env.example](server/.env.example) a
 - Styled components
 - JWT authentication
 
-### `eriv/server`
+### `audsio/server`
 
 - Node.js (using Express.js)
 - AWS S3 buckets
-- Multer 
+- Multer
 - Bcrypt
 - JWT authentication
 

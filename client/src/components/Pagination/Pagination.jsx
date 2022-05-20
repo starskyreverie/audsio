@@ -33,7 +33,7 @@ const Pagination = ({
     if (keywordSearch || tagSearch) {
       window.history.replaceState(
         null,
-        "eriv",
+        "Audsio",
         `/search?q=${keywordSearch}&tags=${tagSearch
           .trim()
           .split(" ")
@@ -43,32 +43,28 @@ const Pagination = ({
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/liked"
-          : "https://www.eriv.xyz/liked"
+          : "https://www.audsio.com/liked"
       )
     ) {
-      window.history.replaceState(null, "eriv.xyz", `/liked?pg=${page}`);
+      window.history.replaceState(null, "Audsio", `/liked?pg=${page}`);
     } else if (
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/t"
-          : "https://www.eriv.xyz/t"
+          : "https://www.audsio.com/t"
       )
     ) {
-      window.history.replaceState(null, "eriv.xyz", `/t/${tag}?pg=${page}`);
+      window.history.replaceState(null, "Audsio", `/t/${tag}?pg=${page}`);
     } else if (
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/u"
-          : "https://www.eriv.xyz/u"
+          : "https://www.audsio.com/u"
       )
     ) {
-      window.history.replaceState(
-        null,
-        "eriv.xyz",
-        `/u/${username}?pg=${page}`
-      );
+      window.history.replaceState(null, "Audsio", `/u/${username}?pg=${page}`);
     } else {
-      window.history.replaceState(null, "eriv.xyz", `/home?pg=${page}`);
+      window.history.replaceState(null, "Audsio", `/home?pg=${page}`);
     }
   };
 

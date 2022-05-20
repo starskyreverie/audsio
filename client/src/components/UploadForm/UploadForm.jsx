@@ -61,7 +61,7 @@ const UploadForm = () => {
           if (data.errorMessage) {
             setError(data.errorMessage);
           } else if (data) {
-            history.push(`/p/${data._id}`);
+            history.push(`/p?postId=${data._id}`);
           }
           setSubmitting(false);
         }}

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Container } from "../../globalStyles";
 import { Link } from "react-router-dom";
-import ErivLogo from "../../images/eriv_logo.svg";
+import AudsioLogo from "../../images/audsio_logo.svg";
 
 export const Header = styled.header`
   height: 80px;
@@ -35,7 +35,7 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderIcon = styled.img.attrs({
-  src: `${ErivLogo}`,
+  src: `${AudsioLogo}`,
 })`
   height: 50px;
   width: 50px;

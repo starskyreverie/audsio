@@ -58,7 +58,7 @@ const Profile = () => {
     <>
       {error ? (
         <CoolTextContainer>
-          <CoolText>Sorry, nobody on eriv goes by that name.</CoolText>
+          <CoolText>Sorry, nobody on Audsio goes by that name.</CoolText>
         </CoolTextContainer>
       ) : (
         <>

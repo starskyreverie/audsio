@@ -41,7 +41,7 @@ const RegisterForm = () => {
     >
       {({ values, handleChange, handleSubmit, isSubmitting }) => (
         <StyledForm onSubmit={handleSubmit}>
-          <CoolText>Create an eriv account</CoolText>
+          <CoolText>Create an Audsio account</CoolText>
           <TextFieldInput
             placeholder="Username"
             name="username"
@@ -77,7 +77,9 @@ const RegisterForm = () => {
             </Box>
           )}
           <RegisterLinkContainer>
-            <RegisterLink to="/login">Login to your eriv account</RegisterLink>
+            <RegisterLink to="/login">
+              Login to your Audsio account
+            </RegisterLink>
           </RegisterLinkContainer>
         </StyledForm>
       )}
