@@ -74,21 +74,24 @@ const UploadForm = () => {
           isSubmitting,
         }) => (
           <StyledForm onSubmit={handleSubmit} ref={inputRef}>
-            <CoolText>Upload a Clip (please follow Copyright Law!)</CoolText>
+            <CoolText>
+              Upload a Clip (DO NOT post anything not licensed to you under copy
+              right law)
+            </CoolText>
             <TextFieldInput
-              placeholder="Title of the clip"
+              placeholder="Title of the clip (include artist preferrably too)"
               name="title"
               value={values.title}
               onChange={handleChange}
             />
             <TextFieldArea
-              placeholder="A short description of the clip"
+              placeholder="A short description of the clip (optional)"
               name="message"
               value={values.message}
               onChange={handleChange}
             />
             <TextFieldInput
-              placeholder="Tags separated by space"
+              placeholder="Tags separated by space (optional)"
               name="tags"
               value={values.tags}
               onChange={(e) => {
