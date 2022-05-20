@@ -4,11 +4,11 @@ A place to share and find audio clips, written in JavaScript.
 
 ## Contributing
 
-DM me
+DM on discord, reverie#8117
 
 ## Building
 
-Pushes to GitHub automatically deploy the frontend to Netlify and the backend to Heroku.
+Pushes to GitHub automatically deploy the frontend to Vercel and the backend to Heroku.
 
 ### `audsio/client`
 
@@ -18,7 +18,7 @@ To run: `npm start`
 
 ### `audsio/server`
 
-The Node.js backend hosted on Heroku at [api.audsio.com](https://audsio.herokuapp.com/).
+The Node.js backend hosted on Heroku at [audsio.herokuapp.com](https://audsio.herokuapp.com/).
 
 Make sure to to create a `.env` file using [.env.example](server/.env.example) as a template.
 
@@ -40,7 +40,8 @@ Make sure to to create a `.env` file using [.env.example](server/.env.example) a
 - Multer
 - Bcrypt
 - JWT authentication
+- MongoDB connection
 
-## New Features
+## New Features Coming Up
 
 Considering it's already a PWA, I'll probably port this to android using cordova or react-native soon :)
