@@ -1,6 +1,6 @@
 # audsio
 
-A place to share and find audio clips, written in JavaScript.
+A place to find and share audio files - written in JavaScript.
 
 ## Contributing
 
@@ -44,4 +44,4 @@ Make sure to to create a `.env` file using [.env.example](server/.env.example) a
 
 ## New Features Coming Up
 
-Considering it's already a PWA, I'll probably port this to android using cordova or react-native soon :)
+Upcoming: sort posts by date/likes, backend pagination, about page, donation link, cordova port to iOS and Android
