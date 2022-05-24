@@ -54,7 +54,7 @@ const Pagination = ({
           : "https://www.audsio.com/t"
       )
     ) {
-      window.history.replaceState(null, "Audsio", `/t/${tag}?pg=${page}`);
+      window.history.replaceState(null, "Audsio", `/t?tag=${tag}&pg=${page}`);
     } else if (
       window.location.href.startsWith(
         process.env.NODE_ENV === "development"
@@ -62,7 +62,11 @@ const Pagination = ({
           : "https://www.audsio.com/u"
       )
     ) {
-      window.history.replaceState(null, "Audsio", `/u/${username}?pg=${page}`);
+      window.history.replaceState(
+        null,
+        "Audsio",
+        `/u?name=${username}&pg=${page}`
+      );
     } else {
       window.history.replaceState(null, "Audsio", `/home?pg=${page}`);
     }
