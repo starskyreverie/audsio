@@ -19,6 +19,7 @@ import {
   TagSearch,
   NotFound,
   LikedPosts,
+  About,
 } from "./pages";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
       <Header />
       <Switch>
         <Route path="/" exact component={() => <Redirect to="/home" />} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/home" component={Home} />
         <Route path="/search" exact component={Home} />
         <Route path="/p" exact component={PostDetails} />

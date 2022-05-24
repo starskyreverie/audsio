@@ -51,7 +51,7 @@ const Post = ({ post }) => {
             onClick={() => {
               history.push(`/p?postId=${post._id}`);
             }}
-            alt="file cover"
+            alt="Image Cover"
           />
         </ImageFlexContainer>
         <FlexContainer>

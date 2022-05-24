@@ -5,6 +5,8 @@ import {
   VersionLabel,
   FooterText,
   FooterSeparator,
+  FooterLink,
+  FooterReactLink,
 } from "./Footer.elements.js";
 
 const Footer = () => {
@@ -13,7 +15,17 @@ const Footer = () => {
       <FooterIcon />
       <FooterText>Audsio</FooterText>
       <FooterSeparator>·</FooterSeparator>
-      <VersionLabel>v3.3.0</VersionLabel>
+      <FooterReactLink to="about">About</FooterReactLink>
+      <FooterSeparator>·</FooterSeparator>
+      <FooterLink
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.patreon.com/audsio"
+      >
+        Donate
+      </FooterLink>
+      <FooterSeparator>·</FooterSeparator>
+      <VersionLabel>v3.3.2</VersionLabel>
     </FooterContainer>
   );
 };

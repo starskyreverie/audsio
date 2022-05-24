@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import AudsioLogo from "../../images/audsio_logo.svg";
+import { Link } from "react-router-dom";
 
 export const FooterContainer = styled.footer`
   text-align: center;
@@ -42,6 +43,31 @@ export const FooterText = styled.label`
   z-index: 1000;
 `;
 
+export const FooterLink = styled.a`
+  padding: 0.5em 0.5em;
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.8);
+  display: block;
+  border-radius: 16px;
+  font-size: 12px;
+  z-index: 1000;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const FooterReactLink = styled(Link)`
+  padding: 0.5em 0.5em;
+  text-decoration: none;
+  color: hsla(0, 0%, 100%, 0.8);
+  display: block;
+  border-radius: 16px;
+  font-size: 12px;
+  z-index: 1000;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 export const FooterSeparator = styled.label`
   color: hsla(0, 0%, 100%, 0.8);
   display: block;
