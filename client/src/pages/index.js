@@ -7,4 +7,3 @@ export { default as NotFound } from "./NotFoundPage/NotFound.jsx";
 export { default as TagSearch } from "./TagSearchPage/TagSearch.jsx";
 export { default as Profile } from "./ProfilePage/Profile.jsx";
 export { default as LikedPosts } from "./LikedPostsPage/LikedPosts.jsx";
-export { default as About } from "./AboutPage/About.jsx";

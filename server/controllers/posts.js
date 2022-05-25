@@ -21,8 +21,6 @@ export const getPosts = async (req, res) => {
   // get all posts from the database and return them
   const { limit, currentPage } = req.query;
   try {
-    console.log(limit);
-    console.log(currentPage);
     const Posts = await Post.find()
       .skip(parseInt((currentPage - 1) * 5))
       .limit(parseInt(limit));
@@ -97,10 +95,7 @@ export const botCreate = async (req, res) => {
     );
   }
   const hasTagWithMoreThanXChars = (x) => {
-    console.log(req.body.tags);
-    console.log(req.body.tags.split(","));
     for (const tag of req.body.tags.split(",")) {
-      console.log(tag);
       if (tag.length > x) {
         return true;
       }
@@ -124,7 +119,6 @@ export const botCreate = async (req, res) => {
 
   // upload to S3 and store the URL from result.Location
   const audioFileResult = await uploadAudioToS3(audioFile);
-  console.log(audioFileResult);
   const imageFileResult = await uploadImageToS3(imageFile);
   const newPost = new Post({
     title: req.body.title,
@@ -145,7 +139,6 @@ export const botCreate = async (req, res) => {
     await User.findByIdAndUpdate(req.body.userId, user, { new: true });
     res.status(201).json(newPost);
   } catch (e) {
-    console.log(e);
     res.status(500).json(e);
   }
 };
@@ -207,10 +200,7 @@ export const createPost = async (req, res) => {
   }
 
   const hasTagWithMoreThanXChars = (x) => {
-    console.log(req.body.tags);
-    console.log(req.body.tags.split(","));
     for (const tag of req.body.tags.split(",")) {
-      console.log(tag);
       if (tag.length > x) {
         return true;
       }
@@ -234,7 +224,6 @@ export const createPost = async (req, res) => {
 
   // upload to S3 and store the URL from result.Location
   const audioFileResult = await uploadAudioToS3(audioFile);
-  console.log(audioFileResult);
   const imageFileResult = await uploadImageToS3(imageFile);
   const newPost = new Post({
     title: req.body.title,
@@ -255,7 +244,6 @@ export const createPost = async (req, res) => {
     await User.findByIdAndUpdate(req.userId, user, { new: true });
     res.status(201).json(newPost);
   } catch (e) {
-    console.log(e);
     res.status(500).json(e);
   }
 };

@@ -74,7 +74,10 @@ const UploadForm = () => {
           isSubmitting,
         }) => (
           <StyledForm onSubmit={handleSubmit} ref={inputRef}>
-            <CoolText>Upload a Clip (please follow copyright law)</CoolText>
+            <CoolText>
+              Upload a Clip (please follow copyright law, or your post will be
+              taken down)
+            </CoolText>
             <TextFieldInput
               placeholder="Title of the clip (include artist preferrably too)"
               name="title"
@@ -102,7 +105,6 @@ const UploadForm = () => {
               accept="audio/*"
               onChange={(e) => {
                 setFieldValue("file", e.target.files[0]);
-                console.log(e.target.files[0]);
                 setFilename(e.target.files[0].name);
               }}
             />
@@ -120,7 +122,6 @@ const UploadForm = () => {
               accept="image/*"
               onChange={(e) => {
                 setFieldValue("imageFile", e.target.files[0]);
-                console.log(e.target.files[0]);
                 setImageFilename(e.target.files[0].name);
                 const reader = new FileReader();
                 reader.addEventListener("load", () => setUpImg(reader.result));
@@ -139,11 +140,9 @@ const UploadForm = () => {
                   src={upImg}
                   crop={crop}
                   onChange={(c) => {
-                    console.log(c);
                     setCrop(c);
                   }}
                   onComplete={async (c) => {
-                    console.log(inputRef.current.clientWidth);
                     const blob = await cropImage(
                       upImg,
                       values.imageFile,
@@ -171,7 +170,7 @@ const UploadForm = () => {
       </Formik>
     );
   }
-  return <div>login dumbass</div>;
+  return <div>Please Login</div>;
 };
 
 export default UploadForm;

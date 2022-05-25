@@ -29,7 +29,6 @@ const LoginForm = () => {
       }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        console.log(values);
         const errors = await dispatch(login(values, history));
         if (errors) {
           setError(errors);

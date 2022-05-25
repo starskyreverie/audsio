@@ -15,7 +15,7 @@ const Footer = () => {
       <FooterIcon />
       <FooterText>Audsio</FooterText>
       <FooterSeparator>·</FooterSeparator>
-      <FooterReactLink to="about">About</FooterReactLink>
+      <FooterLink href="mailto:admin@audsio.com">Contact</FooterLink>
       <FooterSeparator>·</FooterSeparator>
       <FooterLink
         target="_blank"

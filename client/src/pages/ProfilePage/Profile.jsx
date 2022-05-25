@@ -47,7 +47,6 @@ const Profile = () => {
       const data = await dispatch(getUser(username));
       if (data) {
         setError(data);
-        console.log(data);
       }
       setUserDataLoading(false);
     };

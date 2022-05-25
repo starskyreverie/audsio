@@ -37,7 +37,6 @@ const SearchSection = () => {
     setLoading(true);
     const fetchData = async () => {
       if (searchQuery || tagQuery) {
-        console.log(searchQuery);
         await dispatch(
           queryPosts(
             {
@@ -57,9 +56,7 @@ const SearchSection = () => {
     fetchData();
   }, [location, currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    console.log(`Current page: ${currentPage}`);
-  }, [currentPage]);
+  useEffect(() => {}, [currentPage]);
 
   const searchPosts = async () => {
     if (keywordSearch.trim() || tagSearch) {

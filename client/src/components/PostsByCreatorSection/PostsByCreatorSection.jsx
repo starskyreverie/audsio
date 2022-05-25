@@ -35,7 +35,6 @@ const PostsByCreatorSection = () => {
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
-      console.log(username);
       await dispatch(getPostsByCreator(username, 5, currentPage));
       setLoading(false);
     };

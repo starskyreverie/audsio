@@ -26,8 +26,6 @@ const cropImage = async (imageUrl, file, crop, w) => {
     scaleY = image.naturalHeight / image.height,
     ctx = canvas.getContext("2d");
 
-  console.log(w);
-
   const scalingFactor = image.width / w;
 
   canvas.width = crop.width * scalingFactor;
@@ -45,9 +43,6 @@ const cropImage = async (imageUrl, file, crop, w) => {
     crop.height * scalingFactor
   );
 
-  console.log(canvas.toDataURL());
-  console.log(canvas.height);
-  console.log(canvas.height);
   return await getBlobFromCanvas(canvas, file);
 };
 

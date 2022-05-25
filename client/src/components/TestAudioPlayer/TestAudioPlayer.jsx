@@ -74,10 +74,6 @@ const TestAudioPlayer = ({ fileUrl, title }) => {
     setCurrentTime(time.toFixed(2));
   };
 
-  const handleKeyPress = (e) => {
-    console.log("e");
-  };
-
   return (
     <>
       <AudioContainer>
@@ -86,13 +82,8 @@ const TestAudioPlayer = ({ fileUrl, title }) => {
           isPlaying={isPlaying}
           forwardByFive={forwardByFive}
           backwardByFive={backwardByFive}
-          onKeyPress={handleKeyPress}
         />
-        <Slider
-          percentage={percentage}
-          onChange={onChange}
-          onKeyPress={handleKeyPress}
-        />
+        <Slider percentage={percentage} onChange={onChange} />
         <audio
           ref={audioRef}
           onTimeUpdate={getCurrDuration}
@@ -104,7 +95,6 @@ const TestAudioPlayer = ({ fileUrl, title }) => {
             setIsPlaying(false);
           }}
           loop={isRepeating}
-          onKeyPress={handleKeyPress}
         ></audio>
       </AudioContainer>
       <ControlPanel
@@ -114,7 +104,6 @@ const TestAudioPlayer = ({ fileUrl, title }) => {
         currentTime={currentTime}
         isRepeating={isRepeating}
         setIsRepeating={setIsRepeating}
-        onKeyPress={handleKeyPress}
         fileUrl={fileUrl}
         title={title}
       />

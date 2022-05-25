@@ -31,7 +31,6 @@ const RegisterForm = () => {
       }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        console.log(values);
         const errors = await dispatch(signUp(values, history));
         if (errors) {
           setError(errors);
