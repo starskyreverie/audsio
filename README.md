@@ -12,7 +12,7 @@ Pushes to GitHub automatically deploy the frontend to Vercel and the backend to 
 
 ### `audsio/client`
 
-The Ract frontend hosted on Netlify at [audsio.com](https://www.audsio.com).
+The React frontend hosted on Vercel at [audsio.com](https://www.audsio.com).
 
 To run: `npm start`
 
