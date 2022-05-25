@@ -20,7 +20,7 @@ const Footer = () => {
       <FooterLink
         target="_blank"
         rel="noopener noreferrer"
-        href="https://www.patreon.com/audsio"
+        href="https://www.buymeacoffee.com/audsio"
       >
         Donate
       </FooterLink>

@@ -13,9 +13,9 @@ import {
 
 import * as api from "../api/index.js";
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (numToGet, currentPage) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.fetchPosts(numToGet, currentPage);
 
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
@@ -74,36 +74,43 @@ export const deletePost = (id) => async (dispatch) => {
   }
 };
 
-export const queryPosts = (query) => async (dispatch) => {
-  try {
-    const { data } = await api.queryPosts(query);
-    dispatch({ type: QUERY_POSTS, payload: data });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const queryPosts =
+  (query, numToGet, currentPage) => async (dispatch) => {
+    try {
+      const { data } = await api.queryPosts(query, numToGet, currentPage);
+      dispatch({ type: QUERY_POSTS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-export const getLikedPosts = () => async (dispatch) => {
+export const getLikedPosts = (numToGet, currentPage) => async (dispatch) => {
   try {
-    const { data } = await api.fetchLikedPosts();
+    const { data } = await api.fetchLikedPosts(numToGet, currentPage);
     dispatch({ type: FETCH_LIKED_POSTS, payload: data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getTaggedPosts = (tag) => async (dispatch) => {
-  try {
-    const { data } = await api.fetchTaggedPosts(tag);
-    dispatch({ type: FETCH_TAGGED_POSTS, payload: data });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const getTaggedPosts =
+  (tag, numToGet, currentPage) => async (dispatch) => {
+    try {
+      const { data } = await api.fetchTaggedPosts(tag, numToGet, currentPage);
+      dispatch({ type: FETCH_TAGGED_POSTS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-export const getPostsByCreator = (creatorUsername) => async (dispatch) => {
-  try {
-    const { data } = await api.fetchPostsByCreator(creatorUsername);
-    dispatch({ type: FETCH_POSTS_BY_CREATOR, payload: data });
-  } catch (error) {}
-};
+export const getPostsByCreator =
+  (creatorUsername, numToGet, currentPage) => async (dispatch) => {
+    try {
+      const { data } = await api.fetchPostsByCreator(
+        creatorUsername,
+        numToGet,
+        currentPage
+      );
+      dispatch({ type: FETCH_POSTS_BY_CREATOR, payload: data });
+    } catch (error) {}
+  };

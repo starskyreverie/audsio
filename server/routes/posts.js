@@ -24,7 +24,7 @@ import {
 const upload = multer();
 const router = express.Router();
 
-router.get("/", getPosts);
+router.get("/all", getPosts);
 router.get("/search", queryPosts);
 router.post(
   "/",
@@ -35,8 +35,8 @@ router.post(
 router.post("/botCreate", upload.array("files"), botCreate);
 
 router.get("/liked", auth, getLikedPosts);
-router.get("/byCreator/:username", getPostsByCreator);
-router.get("/t/:tag", getTaggedPosts);
+router.get("/byCreator", getPostsByCreator);
+router.get("/t", getTaggedPosts);
 router.get("/:id", getPost);
 router.delete("/:id", auth, deletePost);
 router.patch("/:id/likePost", auth, likePost);

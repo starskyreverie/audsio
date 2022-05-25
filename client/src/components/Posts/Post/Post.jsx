@@ -24,7 +24,7 @@ import {
 } from "./Post.elements.js";
 import Posts from "../Posts.jsx";
 
-const Post = ({ post }) => {
+const Post = ({ post, setTag }) => {
   const history = useHistory();
   const shouldTagsShow = useMediaQuery({ query: "(max-width: 1300px)" });
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 960px)" });
@@ -78,7 +78,12 @@ const Post = ({ post }) => {
                 tag.length > 0 && (
                   <TagLabel
                     key={index}
-                    onClick={() => history.push(`/t?tag=${tag}`)}
+                    onClick={() => {
+                      history.push(`/t?tag=${tag}`);
+                      if (setTag != null) {
+                        setTag(tag);
+                      }
+                    }}
                   >
                     #{tag}
                   </TagLabel>

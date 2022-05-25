@@ -18,15 +18,22 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchPost = (id) => API.get(`/posts/${id}`);
-export const fetchPosts = (page) => API.get(`/posts`);
-export const fetchLikedPosts = () => API.get(`/posts/liked`);
-export const fetchTaggedPosts = (tag) => API.get(`/posts/t/${tag}`);
-export const fetchPostsByCreator = (creatorUsername) =>
-  API.get(`/posts/byCreator/${creatorUsername}`);
-
-export const queryPosts = (query) =>
+export const fetchPosts = (numToGet, currentPage) =>
+  API.get(`/posts/all?limit=${numToGet}&currentPage=${currentPage}`);
+export const fetchLikedPosts = (numToGet, currentPage) =>
+  API.get(`/posts/liked?limit=${numToGet}&currentPage=${currentPage}`);
+export const fetchTaggedPosts = (tag, numToGet, currentPage) =>
+  API.get(`/posts/t?tag=${tag}&limit=${numToGet}&currentPage=${currentPage}`);
+export const fetchPostsByCreator = (creatorUsername, numToGet, currentPage) =>
   API.get(
-    `/posts/search?q=${query.keywordQuery || '""'}&tags=${query.tagQuery}`
+    `/posts/byCreator?name=${creatorUsername}&limit=${numToGet}&currentPage=${currentPage}`
+  );
+
+export const queryPosts = (query, numToGet, currentPage) =>
+  API.get(
+    `/posts/search?q=${query.keywordQuery || '""'}&tags=${
+      query.tagQuery
+    }&limit=${numToGet}&currentPage=${currentPage}`
   );
 export const createPost = (newPost) => {
   const formData = new FormData();

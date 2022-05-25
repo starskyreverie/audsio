@@ -19,10 +19,18 @@ function fisherYates(myArray) {
 
 export const getPosts = async (req, res) => {
   // get all posts from the database and return them
+  const { limit, currentPage } = req.query;
   try {
-    const Posts = await Post.find();
+    console.log(limit);
+    console.log(currentPage);
+    const Posts = await Post.find()
+      .skip(parseInt((currentPage - 1) * 5))
+      .limit(parseInt(limit));
     fisherYates(Posts);
-    res.status(200).json(Posts);
+
+    const numPosts = await Post.countDocuments();
+
+    res.status(200).json({ posts: Posts, numPosts: numPosts });
   } catch (e) {
     res.status(404).json(e);
   }
@@ -335,7 +343,7 @@ export const botLikePost = async (req, res) => {
 };
 export const queryPosts = async (req, res) => {
   // get the keyword and tag search
-  const { q, tags } = req.query;
+  const { q, tags, limit, currentPage } = req.query;
 
   try {
     // filter posts based on whether the title/message contain the keyword or if any of the tags are present
@@ -361,7 +369,7 @@ export const queryPosts = async (req, res) => {
     };
 
     const fuse = new Fuse(posts, options);
-    const filteredPosts = fuse
+    let filteredPosts = fuse
       .search({
         $or: [
           { title: q },
@@ -371,6 +379,7 @@ export const queryPosts = async (req, res) => {
         ],
       })
       .map((filteredPosts) => filteredPosts.item);
+    const numPosts = Object.keys(filteredPosts).length;
 
     /*if (tags) {
       posts = await Post.find({
@@ -386,7 +395,12 @@ export const queryPosts = async (req, res) => {
       });
     } */
 
-    res.status(200).json(filteredPosts);
+    filteredPosts = filteredPosts.slice(
+      (parseInt(currentPage) - 1) * 5,
+      (parseInt(currentPage) - 1) * 5 + parseInt(limit)
+    );
+
+    res.status(200).json({ posts: filteredPosts, numPosts: numPosts });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }
@@ -398,35 +412,44 @@ export const getLikedPosts = async (req, res) => {
       errorMessage: "You must login to view this page.",
     });
   }
+
+  const { limit, currentPage } = req.query;
+
   const user = await User.findById(req.userId);
   try {
     const likedPosts = user.likedPosts;
-    const posts = await Post.find({ _id: { $in: likedPosts } });
-    fisherYates(posts);
-    res.status(200).json(posts);
+    const posts = await Post.find({ _id: { $in: likedPosts } })
+      .skip((parseInt(currentPage) - 1) * 5)
+      .limit(parseInt(limit));
+    res.status(200).json({ posts: posts, numPosts: likedPosts.length });
   } catch {
     res.status(404).json(e);
   }
 };
 
 export const getTaggedPosts = async (req, res) => {
-  const { tag } = req.params;
+  const { tag, limit, currentPage } = req.query;
   const regex = new RegExp(tag, "i");
   try {
-    const posts = await Post.find({ tags: regex });
-    res.status(200).json(posts);
+    const posts = await Post.find({ tags: regex })
+      .skip((parseInt(currentPage) - 1) * 5)
+      .limit(parseInt(limit));
+    const numPosts = await Post.countDocuments({ tags: regex });
+    res.status(200).json({ posts: posts, numPosts: numPosts });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }
 };
 
 export const getPostsByCreator = async (req, res) => {
-  const { username } = req.params;
+  const { name, limit, currentPage } = req.query;
   try {
-    const user = await User.findOne({ username: username });
-    const posts = await Post.find({ _id: { $in: user.posts } });
-    fisherYates(posts);
-    res.status(200).json(posts);
+    const user = await User.findOne({ username: name });
+    const posts = await Post.find({ _id: { $in: user.posts } })
+      .skip((parseInt(currentPage) - 1) * 5)
+      .limit(parseInt(limit));
+    const numPosts = await Post.countDocuments({ _id: { $in: user.posts } });
+    res.status(200).json({ posts: posts, numPosts: numPosts });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
   }

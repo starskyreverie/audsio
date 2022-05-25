@@ -15,6 +15,8 @@ const posts = (posts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
       return action.payload;
+    case FETCH_BY_ID:
+      return { posts: [action.payload] };
     case LIKE:
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post

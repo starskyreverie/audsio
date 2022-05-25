@@ -16,7 +16,8 @@ const SearchSection = () => {
   const query = useQuery();
   const location = useLocation();
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts);
+  const numPosts = useSelector((state) => state.posts.numPosts);
   const [currentPage, setCurrentPage] = useState(
     parseInt(query.get("pg")) || 1
   );
@@ -28,10 +29,6 @@ const SearchSection = () => {
   const searchQuery = query.get("q");
   const tagQuery = query.get("tags");
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -42,19 +39,27 @@ const SearchSection = () => {
       if (searchQuery || tagQuery) {
         console.log(searchQuery);
         await dispatch(
-          queryPosts({
-            keywordQuery: query.get("q"),
-            tagQuery: query.get("tags"),
-          })
+          queryPosts(
+            {
+              keywordQuery: query.get("q"),
+              tagQuery: query.get("tags"),
+            },
+            5,
+            currentPage
+          )
         );
         setLoading(false);
       } else {
-        await dispatch(getPosts());
+        await dispatch(getPosts(5, currentPage));
         setLoading(false);
       }
     };
     fetchData();
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location, currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    console.log(`Current page: ${currentPage}`);
+  }, [currentPage]);
 
   const searchPosts = async () => {
     if (keywordSearch.trim() || tagSearch) {
@@ -99,12 +104,13 @@ const SearchSection = () => {
           onKeyPress={handleKeyPress}
         />
         <RedSmallButton onClick={searchPosts}>Search</RedSmallButton>
-        <Posts posts={currentPosts} loading={loading} />
+        <Posts posts={posts} loading={loading} numPosts={numPosts} />
         <Pagination
           postsPerPage={postsPerPage}
-          totalPosts={posts.length}
+          totalPosts={numPosts}
           paginate={paginate}
           currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           loading={loading}
           keywordSearch={searchQuery}
           tagSearch={tagQuery}

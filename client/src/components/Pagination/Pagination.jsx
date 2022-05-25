@@ -15,6 +15,7 @@ const Pagination = ({
   totalPosts,
   paginate,
   currentPage,
+  setCurrentPage,
   loading,
   keywordSearch,
   tagSearch,
@@ -78,6 +79,7 @@ const Pagination = ({
       paginate(currentPage);
     } else if (!loading) {
       paginate(1);
+      setCurrentPage(1);
       if (!tag) {
         replacePageUrl(1);
       }
@@ -85,65 +87,71 @@ const Pagination = ({
     if (!window.location.href.includes("pg")) {
       paginate(1);
       setTimesRight(0);
+      setCurrentPage(1);
     }
   }, [pageNumbers, window.location.href]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     totalPosts !== 0 && (
-      <PaginationContainer>
-        <PaginationUl>
-          <PaginationLi
-            onClick={() => {
-              if (currentPage !== 1) {
-                setTimesRight(Math.floor((currentPage - 2) / 5));
-                paginate(currentPage - 1);
-                replacePageUrl(currentPage - 1);
-              }
-            }}
-          >
-            <StyledLeftChevron />
-          </PaginationLi>
-          {timesRight > 0 && (
-            <PaginationLiWithoutHover>...</PaginationLiWithoutHover>
-          )}
-          {pageNumbers.map(
-            (number, index) =>
-              index < 5 &&
-              number + 5 * timesRight < pageNumbers.length + 1 && (
-                <PaginationLi
-                  key={number + 5 * timesRight}
-                  onClick={() => {
-                    setTimesRight(Math.floor(currentPage / 5));
-                    paginate(number + 5 * timesRight);
-                    replacePageUrl(number + 5 * timesRight);
-                  }}
-                  active={
-                    currentPage === number + 5 * timesRight ? "true" : "false"
-                  }
-                >
-                  {number + 5 * timesRight}
-                </PaginationLi>
-              )
-          )}
-          {5 * (timesRight + 1) < pageNumbers[pageNumbers.length - 1] && (
-            <PaginationLiWithoutHover>...</PaginationLiWithoutHover>
-          )}
-          <PaginationLi
-            onClick={() => {
-              if (currentPage !== pageNumbers[pageNumbers.length - 1]) {
-                setTimesRight(Math.floor(currentPage / 5));
-                paginate(currentPage + 1);
-                replacePageUrl(currentPage + 1);
-              }
-            }}
-          >
-            <StyledRightChevron />
-          </PaginationLi>
-        </PaginationUl>
+      <>
+        <PaginationContainer>
+          <PaginationUl>
+            <PaginationLi
+              onClick={() => {
+                if (currentPage !== 1) {
+                  setTimesRight(Math.floor((currentPage - 2) / 5));
+                  paginate(currentPage - 1);
+                  replacePageUrl(currentPage - 1);
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+            >
+              <StyledLeftChevron />
+            </PaginationLi>
+            {timesRight > 0 && (
+              <PaginationLiWithoutHover>...</PaginationLiWithoutHover>
+            )}
+            {pageNumbers.map(
+              (number, index) =>
+                index < 5 &&
+                number + 5 * timesRight < pageNumbers.length + 1 && (
+                  <PaginationLi
+                    key={number + 5 * timesRight}
+                    onClick={() => {
+                      setTimesRight(Math.floor(currentPage / 5));
+                      paginate(number + 5 * timesRight);
+                      replacePageUrl(number + 5 * timesRight);
+                      setCurrentPage(number + 5 * timesRight);
+                    }}
+                    active={
+                      currentPage === number + 5 * timesRight ? "true" : "false"
+                    }
+                  >
+                    {number + 5 * timesRight}
+                  </PaginationLi>
+                )
+            )}
+            {5 * (timesRight + 1) < pageNumbers[pageNumbers.length - 1] && (
+              <PaginationLiWithoutHover>...</PaginationLiWithoutHover>
+            )}
+            <PaginationLi
+              onClick={() => {
+                if (currentPage !== pageNumbers[pageNumbers.length - 1]) {
+                  setTimesRight(Math.floor(currentPage / 5));
+                  paginate(currentPage + 1);
+                  setCurrentPage(currentPage + 1);
+                  replacePageUrl(currentPage + 1);
+                }
+              }}
+            >
+              <StyledRightChevron />
+            </PaginationLi>
+          </PaginationUl>
+        </PaginationContainer>
         <PaginationDiv>
-          Found {pageNumbers.length} pages with {totalPosts} posts
+          {totalPosts} {totalPosts == 1 ? "post" : "posts"} found
         </PaginationDiv>
-      </PaginationContainer>
+      </>
     )
   );
 };

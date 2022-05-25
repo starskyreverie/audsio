@@ -15,7 +15,9 @@ const PostsByCreatorSection = () => {
   const query = useQuery();
   const location = useLocation();
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts);
+
+  const numPosts = useSelector((state) => state.posts.numPosts);
   const [username, setUsername] = useState(query.get("name"));
   const [currentPage, setCurrentPage] = useState(
     parseInt(query.get("pg")) || 1
@@ -26,10 +28,6 @@ const PostsByCreatorSection = () => {
   const searchQuery = query.get("q");
   const tagQuery = query.get("tags");
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -38,21 +36,22 @@ const PostsByCreatorSection = () => {
     setLoading(true);
     const fetchData = async () => {
       console.log(username);
-      await dispatch(getPostsByCreator(username));
+      await dispatch(getPostsByCreator(username, 5, currentPage));
       setLoading(false);
     };
     fetchData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <SearchContainer>
-        <Posts posts={currentPosts} loading={loading} />
+        <Posts posts={posts} loading={loading} numPosts={numPosts} />
         <Pagination
           postsPerPage={postsPerPage}
-          totalPosts={posts.length}
+          totalPosts={numPosts}
           paginate={paginate}
           currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           loading={loading}
           username={username}
         />

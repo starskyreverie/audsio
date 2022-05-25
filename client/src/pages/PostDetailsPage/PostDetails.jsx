@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../store/actions/posts.js";
+import { getPosts, fetchPost } from "../../store/actions/posts.js";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router";
 import {
@@ -24,14 +24,10 @@ import {
 import { StyledImage } from "../../components/Posts/Post/Post.elements.js";
 
 const getMatchingPostId = (state, id) => {
-  let bob;
-  state.forEach((post) => {
-    if (post._id === id) {
-      bob = post;
-    }
-  });
-
-  return bob;
+  if (state && state[0]._id === id) {
+    return state[0];
+  }
+  return null;
 };
 
 const useQuery = () => {
@@ -45,12 +41,12 @@ const PostDetails = () => {
   const dispatch = useDispatch();
   const [userDataLoading, setUserDataLoading] = useState(false);
   const [error, setError] = useState(false);
-  const post = useSelector((state) => state.posts);
+  const post = useSelector((state) => state.posts.posts);
 
   useEffect(() => {
     setUserDataLoading(true);
     const fetchData = async () => {
-      const data = await dispatch(getPosts(id));
+      const data = await dispatch(fetchPost(id));
       if (data) {
         setError(true);
       }

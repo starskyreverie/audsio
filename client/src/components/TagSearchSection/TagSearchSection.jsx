@@ -17,17 +17,14 @@ const TagSearchSection = () => {
   const [tag, setTag] = useState(query.get("tag"));
   const location = useLocation();
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts);
+  const numPosts = useSelector((state) => state.posts.numPosts);
   const [currentPage, setCurrentPage] = useState(
     parseInt(query.get("pg")) || 1
   );
   const [postsPerPage] = useState(5);
   const [tagSearch, setTagSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -37,7 +34,7 @@ const TagSearchSection = () => {
     window.history.replaceState(null, "Audsio", `/t?tag=${tagSearch}`);
     if (tagSearch.trim()) {
       setLoading(true);
-      await dispatch(getTaggedPosts(tagSearch));
+      await dispatch(getTaggedPosts(tagSearch, 5));
       setLoading(false);
     }
   };
@@ -45,12 +42,12 @@ const TagSearchSection = () => {
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
-      await dispatch(getTaggedPosts(tag));
+      await dispatch(getTaggedPosts(tag, 5, currentPage));
       setTagSearch(tag);
       setLoading(false);
     };
     fetchData();
-  }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentPage, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -68,12 +65,18 @@ const TagSearchSection = () => {
           onKeyPress={handleKeyPress}
         />
         <RedSmallButton onClick={searchTag}>Search</RedSmallButton>
-        <Posts posts={currentPosts} loading={loading} />
+        <Posts
+          posts={posts}
+          loading={loading}
+          numPosts={numPosts}
+          setTag={setTag}
+        />
         <Pagination
           postsPerPage={postsPerPage}
-          totalPosts={posts.length}
+          totalPosts={numPosts}
           paginate={paginate}
           currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
           loading={loading}
           tag={tagSearch}
         />
