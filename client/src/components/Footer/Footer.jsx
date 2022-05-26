@@ -12,7 +12,7 @@ import {
 const Footer = () => {
   return (
     <FooterContainer>
-      <FooterIcon />
+      <FooterIcon alt="Audsio Logo" />
       <FooterText>Audsio</FooterText>
       <FooterSeparator>·</FooterSeparator>
       <FooterLink href="mailto:admin@audsio.com">Contact</FooterLink>

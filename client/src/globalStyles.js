@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     @font-face {
       font-family: "Lato";
       src: url(${Lato}) format('truetype');
+      font-display: swap;
     }
 }
 `;

@@ -61,6 +61,7 @@ const HeaderBar = () => {
               onClick={() => {
                 history.push("/home");
               }}
+              alt="Audsio Logo"
             >
               <HeaderIcon />
             </HeaderLogo>
