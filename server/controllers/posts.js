@@ -17,16 +17,18 @@ function fisherYates(myArray) {
   }
 }
 
+function randomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export const getPosts = async (req, res) => {
   // get all posts from the database and return them
   const { limit, currentPage } = req.query;
   try {
-    const Posts = await Post.find()
-      .skip(parseInt((currentPage - 1) * 5))
-      .limit(parseInt(limit));
-    fisherYates(Posts);
-
     const numPosts = await Post.countDocuments();
+    const rand = randomInteger(0, numPosts - 5);
+    const Posts = await Post.find().skip(rand).limit(parseInt(limit));
+    fisherYates(Posts);
 
     res.status(200).json({ posts: Posts, numPosts: numPosts });
   } catch (e) {
