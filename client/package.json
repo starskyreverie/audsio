@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "worbox generateSW && react-scripts build",
+    "build": "workbox generateSW && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
