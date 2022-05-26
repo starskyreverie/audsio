@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Container } from "../../globalStyles";
 import { Link } from "react-router-dom";
-import AudsioLogo from "../../images/audsio_logo.svg";
+import AudsioLogo from "../../images/audsio_logo.png";
 
 export const Header = styled.header`
   height: 80px;
