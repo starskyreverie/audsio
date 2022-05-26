@@ -61,9 +61,8 @@ const HeaderBar = () => {
               onClick={() => {
                 history.push("/home");
               }}
-              alt="Audsio Logo"
             >
-              <HeaderIcon />
+              <HeaderIcon alt="Audsio Logo" />
             </HeaderLogo>
             <MobileIcon onClick={handleClick}>
               {isClicked ? <FaTimes /> : <FaBars />}

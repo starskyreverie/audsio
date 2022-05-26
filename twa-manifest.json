@@ -1,0 +1,39 @@
+{
+  "packageId": "com.audsio.www.twa",
+  "host": "www.audsio.com",
+  "name": "Audsio",
+  "launcherName": "Audsio",
+  "display": "standalone",
+  "themeColor": "#FD4D4D",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#1C1F22",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://www.audsio.com/audsio_logo.png",
+  "maskableIconUrl": "https://www.audsio.com/audsio_logo.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\Users\\n43me\\OneDrive\\Desktop\\projects\\audsio_\\android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://www.audsio.com/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "orientation": "portrait-primary",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1"
+}

@@ -1,0 +1,1 @@
+{"short_name":"Audsio","name":"Audsio","icons":[{"src":"audsio_logo.png","sizes":"512x512 32x32 24x24 16x16","type":"image/png","purpose":"maskable"},{"src":"audsio_logo.svg","type":"image/svg"}],"start_url":"/","display":"standalone","theme_color":"#fd4d4d","background_color":"#1c1f22"}
