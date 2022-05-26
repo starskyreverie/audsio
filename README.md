@@ -1,4 +1,4 @@
-# audsio
+![Audsio Logo](store_icon.png) # audsio
 
 A place to find and share audio files - written in JavaScript.
 
