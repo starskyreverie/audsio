@@ -1,25 +1,5 @@
-
-A place to find and share audio files - written in JavaScript.
-
-## Contributing
-
-DM on discord, reverie#8117
-
-## Building
-
-Pushes to GitHub automatically deploy the frontend to Vercel and the backend to Heroku.
-
-### `audsio/client`
-
-The React frontend hosted on Vercel at [audsio.com](https://www.audsio.com).
-
-To run: `npm start`
-
-### `audsio/server`
-
-The Node.js backend hosted on Heroku at [audsio.herokuapp.com](https://audsio.herokuapp.com/).
-
-Make sure to to create a `.env` file using [.env.example](server/.env.example) as a template.
+# Audsio
+A place to find and share audio files, written using the MERN stack.
 
 ## Technologies
 
@@ -41,6 +21,32 @@ Make sure to to create a `.env` file using [.env.example](server/.env.example) a
 - JWT authentication
 - MongoDB connection
 
-## New Features Coming Up
 
-Upcoming: sort posts by date/likes, backend pagination, about page, donation link, cordova port to iOS and Android
+## Building
+
+Pushes to GitHub automatically deploy the frontend to Vercel and the backend to Heroku.
+
+### `audsio/client`
+
+The React frontend hosted on Vercel at [audsio.com](https://www.audsio.com).
+
+To run: `npm start`
+
+### `audsio/server`
+
+The Node.js backend hosted on Heroku at [audsio.herokuapp.com](https://audsio.herokuapp.com/).
+
+Make sure to to create a `.env` file using [.env.example](server/.env.example) as a template.
+
+### `audsio/app`
+
+The PWA created with Bubblewrap.
+
+## Contributing
+
+Either create an issue or PR and we can talk from there.
+
+
+
+
+
