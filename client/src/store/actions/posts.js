@@ -40,11 +40,7 @@ export const createPost = (post) => async (dispatch) => {
 
     return data;
   } catch (error) {
-    if (error.response) {
-      return error.response.data;
-    } else {
-      console.log(error);
-    }
+    console.log(error);
   }
 };
 
