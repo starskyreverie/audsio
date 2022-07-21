@@ -42,12 +42,6 @@ Make sure to to create a `.env` file using [.env.example](server/.env.example) a
 
 The PWA created with Bubblewrap.
 
-## Contributing
+## Future Work
 
-Either create an issue or PR and we can talk from there :) 
-Mostly done with this currently though, but planning on adding an Alexa Skill for it sometime in the future
-
-
-
-
-
+I'm mostly done with this project and all I'm really planning to do in the future with Audsio is add an Alexa Skill that allows you to record and upload audio to Audsio. If that sounds interesting to you feel free to create an issue or PR or contact me somehow :)
