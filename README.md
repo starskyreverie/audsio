@@ -44,7 +44,8 @@ The PWA created with Bubblewrap.
 
 ## Contributing
 
-Either create an issue or PR and we can talk from there.
+Either create an issue or PR and we can talk from there :) 
+Mostly done with this currently though, but planning on adding an Alexa Skill for it sometime in the future
 
 
 
