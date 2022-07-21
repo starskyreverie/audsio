@@ -44,4 +44,4 @@ The PWA created with Bubblewrap.
 
 ## Future Work
 
-I'm mostly done with this project and all I'm really planning to do in the future with Audsio is add an Alexa Skill that allows you to record and upload audio to Audsio. If that sounds interesting to you feel free to create an issue or PR or contact me somehow :)
+I'm mostly done with this project and all I'm really planning to do in the future is add an Alexa Skill that allows you to record and upload audio to Audsio. If that sounds interesting to you feel free to create an issue or PR or contact me somehow :)
