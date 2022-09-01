@@ -24,7 +24,7 @@ A place to find and share audio files, written using the MERN stack.
 
 ## Building
 
-Pushes to GitHub automatically deploy the frontend to Vercel and the backend to Heroku.
+Pushes to GitHub automatically deploy the frontend to Vercel and the backend to Render.
 
 ### `audsio/client`
 
@@ -34,7 +34,7 @@ To run: `npm start`
 
 ### `audsio/server`
 
-The Node.js backend hosted on Heroku at [audsio.herokuapp.com](https://audsio.herokuapp.com/).
+The Node.js backend hosted on Render at [https://audsio-server.onrender.com/](https://audsio-server.onrender.com/).
 
 Make sure to to create a `.env` file using [.env.example](server/.env.example) as a template.
 
