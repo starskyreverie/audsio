@@ -20,9 +20,9 @@ const Footer = () => {
       <FooterLink
         target="_blank"
         rel="noopener noreferrer"
-        href="https://www.buymeacoffee.com/audsio"
+        href="https://askorbit.ai"
       >
-        Donate
+        Check out Orbit
       </FooterLink>
       <FooterSeparator>·</FooterSeparator>
       <VersionLabel>v3.3.2</VersionLabel>
